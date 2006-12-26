@@ -1,13 +1,15 @@
 Metadata-Version: 1.0
 Name: BitVector
-Version: 1.1.1
+Version: 1.2
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: http://RVL4.ecn.purdue.edu/dist/BitVector-1.1.1.html
+Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.2.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation
-Download-URL: http://RVL4.ecn.purdue.edu/dist/?action=AttachFile&do=get&target=BitVector-1.1.1.tar.gz
+Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.2.tar.gz?download
 Description: This class presents a pure-Python memory efficient packed representation for bit arrays.
+        
+        Changes introduced in version 1.2: (1) one more constructor mode: a bit vector can now be constructed directly from a bitstring; (2) rich comparison operators overloaded; (3) minimal length bit vectors constructed from int values; (4) methods provided for extending a bit vector from the left and from the right; (5) a unittest based testing framework incorporated in the package; (6) additional debugging in code and in package setup.
         
         Changes introduced in version 1.1.1: (1) peek feature incorporated in block reads from disk files; (2) it is now possible to construct zero-sized bit vectors.
         
@@ -25,6 +27,13 @@ Description: This class presents a pure-Python memory efficient packed represent
         
         __iter__
         
+        __int__
+        
+        __add__
+        
+        __eq__, __ne__, __lt__, __le__, __gt__, __ge__
+        
+        
         '|'  for bitwise or
         
         '&'  for bitwise and
@@ -39,11 +48,17 @@ Description: This class presents a pure-Python memory efficient packed represent
         
         '+'  for concatenation
         
+        intValue(), __int__  for returning the integer value
+        
         divide_into_two
         
         permute
         
         unpermute
+        
+        pad_from_left
+        
+        pad_from_right
         
         read_bits_from_file
         
