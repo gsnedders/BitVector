@@ -8,10 +8,10 @@ print bv1                                   # no output
 
 # Construct a bit vector of size 1
 bv2 = BitVector.BitVector( size = 2 )
-print bv2                                   # 0
+print bv2                                   # 00
 
-# Join two bit vectors:
-print bv1 + bv2                             # 0
+# Joining two bit vectors:
+print bv1 + bv2                             # 00
 
 # Construct a bit vector with a tuple of bits:
 bv = BitVector.BitVector( bitlist = (1, 0, 0, 1) )
@@ -23,7 +23,7 @@ print bv                                    # 1101
 
 # Construct a bit vector from an integer
 bv = BitVector.BitVector( intVal = 5678 )
-print bv                                    # 0001011000101110
+print bv                                    # 1011000101110
 bv = BitVector.BitVector( intVal = 0 )
 print bv                                    # 0
 bv = BitVector.BitVector( intVal = 2 )
@@ -33,7 +33,7 @@ print bv                                    # 11
 bv = BitVector.BitVector( intVal = 123456 )
 print bv                                    # 11110001001000000
 print bv.intValue()                         # 123456
-print int( bv )
+print int( bv )                             # 123456
 
 # Construct a bit vector directly from a file-like object:
 import StringIO
@@ -50,12 +50,21 @@ bv = BitVector.BitVector( bitstring = '' )
 print bv                                    # nothing
 
 # Get the integer value of a bit vector:
-print bv.intValue()                         # 51
+print bv.intValue()                         # 0
 
 # Test array-like indexing for a bit vector:
 bv = BitVector.BitVector( bitstring = '110001' )
 print bv[0], bv[1], bv[2], bv[3], bv[4], bv[5]       # 1 1 0 0 0 1
 print bv[-1], bv[-2], bv[-3], bv[-4], bv[-5], bv[-6] # 1 0 0 0 1 1
+
+# Test setting bit values with positive and negative
+# accessors:
+bv = BitVector.BitVector( bitstring = '1111' )
+print bv                                    # 1111
+bv[0]=0;bv[1]=0;bv[2]=0;bv[3]=0        
+print bv                                    # 0000
+bv[-1]=1;bv[-2]=1;bv[-4]=1
+print bv                                    # 1011
 
 # Check equality and inequality operators:
 bv1 = BitVector.BitVector( bitstring = '00110011' )
@@ -66,7 +75,7 @@ print bv1 < bv2                             # False
 print bv1 <= bv2                            # True
 bv3 = BitVector.BitVector( intVal = 5678 )
 print bv3.intValue()                        # 5678
-print bv3                                   # 0010110000101110
+print bv3                                   # 10110000101110
 print bv1 == bv3                            # False
 print bv3 > bv1                             # True
 print bv3 >= bv1                            # True
@@ -75,38 +84,41 @@ print bv3 >= bv1                            # True
 # Create a string representation of a bit vector:
 fp_write = StringIO.StringIO()
 bv.write_bits_to_fileobject( fp_write )
-print fp_write.getvalue()                   # 111100001111 
-
-# Show array like access for getting and setting:
-print bv2[2]                                # 0
-bv2[2] = 1
-print bv2                                   # 1111
-bv2[2] = 0
+print fp_write.getvalue()                   # 1011 
 
 # Experiments with bit-wise logical operations:
 bv3 = bv1 | bv2                              
-print bv3                                   # 1101
+print bv3                                   # 00110011
 bv3 = bv1 & bv2
-print bv3                                   # 1001    
+print bv3                                   # 00110011
 bv3 = bv1 + bv2
-print bv3                                   # 10011101
+print bv3                                   # 0011001100110011
 bv4 = BitVector.BitVector( size = 3 )
 print bv4                                   # 000
 bv5 = bv3 + bv4
-print bv5                                   # 10011101000
+print bv5                                   # 0011001100110011000
 bv6 = ~bv5
-print bv6                                   # 01100010111
+print bv6                                   # 1100110011001100111
 bv7 = bv5 & bv6
-print bv7                                   # 00000000000
+print bv7                                   # 0000000000000000000
 bv7 = bv5 | bv6
-print bv7                                   # 11111111111
+print bv7                                   # 1111111111111111111
+
+# Try logical operations on bit vectors of different sizes:
+print BitVector.BitVector( intVal = 6 ) ^ BitVector.BitVector( intVal = 13 )   # 1011
+print BitVector.BitVector( intVal = 6 ) & BitVector.BitVector( intVal = 13 )   # 0100
+print BitVector.BitVector( intVal = 6 ) | BitVector.BitVector( intVal = 13 )   # 1111
+
+print BitVector.BitVector( intVal = 1 ) ^ BitVector.BitVector( intVal = 13 )   # 1100
+print BitVector.BitVector( intVal = 1 ) & BitVector.BitVector( intVal = 13 )   # 0001
+print BitVector.BitVector( intVal = 1 ) | BitVector.BitVector( intVal = 13 )   # 1101
 
 # Try setbit and getsize:
 bv7[7] = 0
-print bv7                                   # 11111110111
-print len( bv7 )                            # 11
+print bv7                                   # 1111111011111111111
+print len( bv7 )                            # 19
 bv8 = (bv5 & bv6) ^ bv7
-print bv8                                   # 11111110111
+print bv8                                   # 1111111011111111111
 
 # Construct a bit vector from a LIST of bits:
 bv = BitVector.BitVector( bitlist= [0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1] )
@@ -158,7 +170,7 @@ bv1 = bv.read_bits_from_file(64)
 print bv1           
 FILEOUT = open( 'testinput5.txt', 'w' )
 bv1.write_to_file( FILEOUT )
-FILEOUT.close
+FILEOUT.close()
 
 # Experiment in 64-bit permutation and unpermutation:
 # The permutation array was generated separately by the
@@ -200,7 +212,7 @@ print bv4                             # 00100100000011010
 for item in bv4:
     print item,                       # 0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 1 0
 print
-    
+
 # Demonstrate padding a bit vector from left
 bv = BitVector.BitVector( bitstring = '101010' )
 bv.pad_from_left( 4 )
@@ -208,3 +220,23 @@ print bv                              # 0000101010
 # Demonstrate padding a bit vector from right
 bv.pad_from_right( 4 )
 print bv                              # 00001010100000
+
+# Test the syntax 'if bit_vector_1 in bit_vector_2' syntax:
+try:
+    bv1 = BitVector.BitVector( bitstring = '0011001100' )
+    bv2 = BitVector.BitVector( bitstring = '110011' )
+    if bv2 in bv1:
+        print "%s is in %s" % (bv2, bv1)
+    else:
+        print "%s is not in %s" % (bv2, bv1)
+except ValueError, arg:
+    print "Error Message: " + str(arg)
+
+# Test the size modifer when a bit vector is initialized
+# with the intVal method:
+bv = BitVector.BitVector( intVal = 45, size = 16 )
+print bv                              # 0000000000101101
+bv = BitVector.BitVector( intVal = 0, size = 8 )    
+print bv                              # 00000000
+bv = BitVector.BitVector( intVal = 1, size = 8 )    
+print bv                              # 00000001
