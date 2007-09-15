@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-__version__ = '1.3'
+__version__ = '1.3.1'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2006-Dec-26'
-__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.3.html'
-__copyright__ = "(C) 2006 Avinash Kak. GNU GPL 2."
+__date__    = '2007-September-14'
+__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.3.1.html'
+__copyright__ = "(C) 2007 Avinash Kak. GNU GPL 2."
 
 __doc__ = '''
 
@@ -19,17 +19,26 @@ __doc__ = '''
 
     CHANGE LOG:
 
+       Version 1.3.1:
+
+           Removed the inconsistency in the internal representation
+           of bit vectors produced by logical bitwise operations
+           vis-a-vis the bit vectors created by the constructor.
+           Previously, the logical bitwise operations resulted in bit 
+           vectors that had their bits packed into lists of ints, 
+           as opposed to arrays of unsigned shorts. 
+
        Version 1.3:
 
-           (a) One more constructor mode included: When initializing a
-           new bit vector with an integer value, you can now also
-           specify a size for the bit vector.  The constructor zero-pads
-           the bit vector from the left with zeros. (b) The BitVector
-           class now supports 'if x in y' syntax to test if the bit
-           pattern 'x' is contained in the bit pattern 'y'. (c) Improved
-           syntax to conform to well-established Python idioms. (d) What
-           used to be a comment before the beginning of each method
-           definition is now a docstring.
+           (a) One more constructor mode included: When initializing
+           a new bit vector with an integer value, you can now also
+           specify a size for the bit vector.  The constructor 
+           zero-pads the bit vector from the left with zeros. (b) The 
+           BitVector class now supports 'if x in y' syntax to test if 
+           the bit pattern 'x' is contained in the bit pattern 'y'. 
+           (c) Improved syntax to conform to well-established Python 
+           idioms. (d) What used to be a comment before the beginning 
+           of each method definition is now a docstring.
 
        Version 1.2:
 
@@ -111,7 +120,7 @@ __doc__ = '''
         (1) You can construct a bit vector directly from either a tuple
             or a list of bits, as in
 
-               bv =  BitVector( bitlist = [1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1] )   
+               bv =  BitVector( bitlist = [1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1] ) 
  
         (2) You can construct a bit vector from an integer by
 
@@ -482,7 +491,18 @@ __doc__ = '''
         the new constructor mode (that allows a bit vector of a given
         size to be constructed from an integer value) are also owing to
         Kurt's suggestions.
-   
+
+        With regard to the changes incorporated in Version 1.3.1, I
+        would like to thank Michael Haggerty for noticing that the
+        bitwise logical operators resulted in bit vectors that had their
+        bits packed into lists of ints, as opposed to arrays of 
+        unsigned shorts.  This inconsistency in representation has been 
+        removed in version 1.3.1.  Michael has also suggested that 
+        since BitVector is mutable, I should be overloading __iand__(), 
+        __ior__(), etc., for in-place modifications of bit vectors.  
+        Michael certainly makes a good point. But I am afraid that this 
+        change will break the code for the existing users of the 
+        BitVector class. 
 
 
     ABOUT THE AUTHOR:
@@ -494,7 +514,7 @@ __doc__ = '''
         two large object-oriented languages, C++ and Java.  It is
         being used as a text in a number of educational programs
         around the world.  This book has also been translated into
-        Chinese.  For further information, please visit
+        Chinese.  Further information on the book is available at
         www.programming-with-objects.com
         
 
@@ -533,7 +553,7 @@ __doc__ = '''
         bv = BitVector.BitVector( fp = fp_read )
         print bv                                    # 111100001111 
 
-        # Experiments with bit-wise logical operations:
+        # Experiments with bitwise logical operations:
         bv3 = bv1 | bv2                              
         bv3 = bv1 & bv2
         bv3 = bv1 ^ bv2
@@ -777,8 +797,9 @@ class BitVector( object ):                                           #(A1)
             bv1 = self                                               #(E6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(E7)
         res = BitVector( size = bv1.size )                           #(E8)
-        res.vector = map(operator.__xor__, bv1.vector, bv2.vector)   #(E9) 
-        return res                                                  #(E10)
+        lpb = map(operator.__xor__, bv1.vector, bv2.vector)          #(E9) 
+        res.vector = array.array( 'H', lpb )                        #(E10)
+        return res                                                  #(E11)
 
 
     def __and__(self, other):                                        #(F1)
@@ -795,8 +816,9 @@ class BitVector( object ):                                           #(A1)
             bv1 = self                                               #(F6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(F7)
         res = BitVector( size = bv1.size )                           #(F8)
-        res.vector = map(operator.__and__, bv1.vector, bv2.vector)   #(F9)
-        return res                                                  #(F10)
+        lpb = map(operator.__and__, bv1.vector, bv2.vector)          #(F9) 
+        res.vector = array.array( 'H', lpb )                        #(F10)
+        return res                                                  #(F11)
 
 
     def __or__(self, other):                                         #(G1)
@@ -814,8 +836,9 @@ class BitVector( object ):                                           #(A1)
             bv1 = self                                               #(G6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(G7)
         res = BitVector( size = bv1.size )                           #(G8)
-        res.vector = map( operator.__or__, bv1.vector, bv2.vector)   #(G9)
-        return res                                                  #(G10)
+        lpb = map(operator.__or__, bv1.vector, bv2.vector)           #(G9) 
+        res.vector = array.array( 'H', lpb )                        #(G10)
+        return res                                                  #(G11)
 
 
     def __invert__(self):                                            #(H1)
@@ -825,8 +848,11 @@ class BitVector( object ):                                           #(A1)
         bit vector.
         '''
         res = BitVector( size = self.size )                          #(H2)
-        res.vector = map( operator.__inv__, self.vector )            #(H3)
-        return res                                                   #(H4)
+        lpb = map( operator.__inv__, self.vector )                   #(H3) 
+        res.vector = array.array( 'H' )                              #(H3)
+        for i in range(len(lpb)):                                    #(H4)
+            res.vector.append( lpb[i] & 0x0000FFFF )                 #(H5)
+        return res                                                   #(H6)
 
 
     def __add__(self, other):                                        #(J1)
@@ -1306,7 +1332,7 @@ if __name__ == '__main__':
     bv.write_bits_to_fileobject( fp_write )
     print fp_write.getvalue()                   # 1011 
 
-    # Experiments with bit-wise logical operations:
+    # Experiments with bitwise logical operations:
     bv3 = bv1 | bv2                              
     print bv3                                   # 00110011
     bv3 = bv1 & bv2
@@ -1460,3 +1486,4 @@ if __name__ == '__main__':
     print bv                              # 00000000
     bv = BitVector( intVal = 1, size = 8 )    
     print bv                              # 00000001
+
