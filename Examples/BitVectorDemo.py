@@ -278,12 +278,14 @@ print bv                              # 00000001
 
 print "\nTesting slice assignment:"
 bv1 = BitVector.BitVector( size = 25 )
-print "bv1= ", bv1
+print "bv1= ", bv1                    # 0000000000000000000000000
 bv2 = BitVector.BitVector( bitstring = '1010001' )
-print "bv2= ", bv2
+print "bv2= ", bv2                    # 1010001  
 bv1[6:9]  = bv2[0:3]
-print "bv1= ", bv1
+print "bv1= ", bv1                    # 0000001010000000000000000
 
 print "\nTesting reset function:"
 bv1.reset( 1 )
-print "bv1= ", bv1
+print "bv1= ", bv1                    # 1111111111111111111111111
+print bv1[3:9].reset(0)               # 000000
+print bv1[:].reset(0)                 # 0000000000000000000000000
