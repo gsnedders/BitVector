@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '1.4.1'
+__version__ = '1.5'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2008-May-14'
-__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.1.html'
+__date__    = '2008-June-16'
+__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.html'
 __copyright__ = "(C) 2008 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -19,6 +19,23 @@ __doc__ = '''
 
     CHANGE LOG:
 
+
+       Version 1.5:
+
+           This version should prove to be much more efficient
+           for long bit vectors.  Efficiency in BitVector 
+           construction when only its size is specified was 
+           achieved by eliminating calls to _setbit().  
+           The application of logical operators to two
+           BitVectors of equal length was also made efficient 
+           by eliminating calls to the padding function.
+           Another feature of this version is the count_bits()
+           method that returns the total number of bits set
+           in a BitVector instance.  Yet another feature of
+           this version is the setValue() method that alters
+           the bit pattern associated with a previously 
+           constructed BitVector.
+       
        Version 1.4.1:
 
            The reset() method now returns 'self' to allow for
@@ -176,7 +193,8 @@ __doc__ = '''
               write_bits_to_fileobject
               reset
               slice assignment
-
+              count_bits
+              setValue
 
 
 
@@ -452,7 +470,6 @@ __doc__ = '''
                          out as 0000110100001010 ('\\r\\n'), which is the
                          linebreak on Windows machine.
 
-
        17)  You can also write a bit vector directly to a stream
             object, as illustrated by
 
@@ -479,10 +496,23 @@ __doc__ = '''
             possible by the override definition for the special
             __contains__() method.
 
+       20)  You can count the number of bits set in a BitVector 
+            instance by
+
+              bv = BitVector( bitstring = '100111' )
+              print bv.count_bits()                     # 4
+
+       21)  You can change the bit pattern associated with a
+            previously constructed BitVector instance:
+
+              bv = BitVector( intVal = 7, size =16 )
+              print bv                              # 0000000000000111
+              bv.setValue( intVal = 45 )
+              print bv                              # 101101
+              
 
 
     HOW THE BIT VECTORS ARE STORED:
-
    
         The bits of a bit array are stored in 16-bit unsigned ints.
         After resolving the argument with which the constructor is
@@ -551,7 +581,7 @@ __doc__ = '''
         shortest possible bit vector the the intVal with zeros from the
         left.
         
-        Lines (A62) through (A66) are for constructing a bit vector with
+        Lines (A62) through (A68) are for constructing a bit vector with
         just the size information, as in
 
               bv = BitVector( size = 61 )
@@ -559,12 +589,12 @@ __doc__ = '''
         This returns a bit vector that will hold exactly 61 bits, all
         initialized to the zero value.
 
-        Lines (A67) through (A71) are for constructing a bit vector from
+        Lines (A69) through (A73) are for constructing a bit vector from
         a bitstring, as in
 
               bv = BitVector( bitstring = '00110011111' )
 
-        Finally, lines (A72) through (A75) are for constructing a bit
+        Finally, lines (A74) through (A77) are for constructing a bit
         vector from a list or a tuple of the individual bits:
           
               bv = BitVector( bitlist = (1, 0, 1, 1, 0, 0, 1) )
@@ -641,6 +671,26 @@ __doc__ = '''
         value of license variable in setup.py.  This discrepancy 
         was brought to my attention by David Eyk.  Thanks David!
 
+        Version 1.5 has benefited greatly by the suggestions made
+        by Ryan Cox.  By examining the BitVector execution with
+        cProfile, Ryan observed that my implementation was making
+        unnecessary method calls to _setbit() when just the size
+        option is used for constructing a BitVector instance.
+        Since Python allocates cleaned up memory, it is unnecessary 
+        to set the individual bits of a vector if it is known in 
+        advance that they are all zero. Ryan made a similar observation 
+        for the logical operations applied to two BitVector instances 
+        of equal length.  He noticed that I was making unnecessary 
+        calls to _resize_pad_from_left() for the case of equal 
+        arguments to logical operations.  Ryan also recommended that 
+        I include a method that returns the total number of bits 
+        set in a BitVector instance.  The new method count_bits() does 
+        exactly that. Thanks Ryan for all your suggestions.
+        Version 1.5 also includes the method setValue() that allows 
+        the internally stored bit pattern associated with a previously
+        constructed BitVector to be changed.  A need for this method
+        was expressed by Aleix Conchillo.  Thanks Aleix.
+        
 
 
     ABOUT THE AUTHOR:
@@ -875,25 +925,27 @@ class BitVector( object ):                                           #(A1)
                      you cannot give values to any other
                      constructor args''')
             self.size = size                                        #(A65)
-            bitlist = tuple( [0] * size )                           #(A66)
-        elif bitstring or bitstring == '':                          #(A67)
-            if filename or fp or size or intVal or bitlist:         #(A68)
-                raise ValueError(                                   #(A69)
+            two_byte_ints_needed = (size + 15) // 16                #(A66)
+            self.vector = array.array('H', [0]*two_byte_ints_needed)#(A67)
+            return                                                  #(A68)
+        elif bitstring or bitstring == '':                          #(A69)
+            if filename or fp or size or intVal or bitlist:         #(A70)
+                raise ValueError(                                   #(A71)
                   '''When a bitstring is specified, you cannot
                      give values to any other constructor args''')
-            bitlist =  map( int, list(bitstring) )                  #(A70)
-            self.size = len( bitlist )                              #(A71)
-        elif bitlist:                                               #(A72)
-            if filename or fp or size or intVal or bitstring:       #(A73)
-                raise ValueError(                                   #(A74)
+            bitlist =  map( int, list(bitstring) )                  #(A72)
+            self.size = len( bitlist )                              #(A73)
+        elif bitlist:                                               #(A74)
+            if filename or fp or size or intVal or bitstring:       #(A75)
+                raise ValueError(                                   #(A76)
                   '''When bits are specified, you cannot
                      give values to any other constructor args''')
-            self.size = len( bitlist )                              #(A75)
-        else:                                                       #(A76)
-            raise ValueError("wrong arg(s) for constructor")        #(A77) 
-        two_byte_ints_needed = (len(bitlist) + 15) // 16            #(A78)
-        self.vector = array.array( 'H', [0]*two_byte_ints_needed )  #(A79)
-        map( self._setbit, enumerate(bitlist), bitlist)             #(A80)
+            self.size = len( bitlist )                              #(A77)
+        else:                                                       #(A78)
+            raise ValueError("wrong arg(s) for constructor")        #(A79) 
+        two_byte_ints_needed = (len(bitlist) + 15) // 16            #(A80)
+        self.vector = array.array( 'H', [0]*two_byte_ints_needed )  #(A81)
+        map( self._setbit, enumerate(bitlist), bitlist)             #(A82)
 
 
     def _setbit( self, posn, val ):                                  #(B1)
@@ -926,18 +978,21 @@ class BitVector( object ):                                           #(A1)
         the method is invoked with the argument bit vector.
         Return the result as a new bit vector.  If the two
         bit vectors are not of the same size, pad the shorter
-        one with zero's from the left.
+        one with zeros from the left.
         '''
         if self.size < other.size:                                   #(E2)
             bv1 = self._resize_pad_from_left(other.size - self.size) #(E3)
             bv2 = other                                              #(E4)
-        else:                                                        #(E5)
+        elif self.size > other.size:                                 #(E5)
             bv1 = self                                               #(E6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(E7)
-        res = BitVector( size = bv1.size )                           #(E8)
-        lpb = map(operator.__xor__, bv1.vector, bv2.vector)          #(E9) 
-        res.vector = array.array( 'H', lpb )                        #(E10)
-        return res                                                  #(E11)
+        else:                                                        #(E8)
+            bv1 = self                                               #(E9)
+            bv2 = other                                             #(E10)
+        res = BitVector( size = bv1.size )                          #(E11)
+        lpb = map(operator.__xor__, bv1.vector, bv2.vector)         #(E12) 
+        res.vector = array.array( 'H', lpb )                        #(E13)
+        return res                                                  #(E14)
 
 
     def __and__(self, other):                                        #(F1)
@@ -945,18 +1000,21 @@ class BitVector( object ):                                           #(A1)
         Take a bitwise 'and' of the bit vector on which the method is
         invoked with the argument bit vector.  Return the result as a
         new bit vector.  If the two bit vectors are not of the same
-        size, pad the shorter one with zero's from the left.
+        size, pad the shorter one with zeros from the left.
         '''      
         if self.size < other.size:                                   #(F2)
             bv1 = self._resize_pad_from_left(other.size - self.size) #(F3)
             bv2 = other                                              #(F4)
-        else:                                                        #(F5)
+        elif self.size > other.size:                                 #(F5)
             bv1 = self                                               #(F6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(F7)
-        res = BitVector( size = bv1.size )                           #(F8)
-        lpb = map(operator.__and__, bv1.vector, bv2.vector)          #(F9) 
-        res.vector = array.array( 'H', lpb )                        #(F10)
-        return res                                                  #(F11)
+        else:                                                        #(F8)
+            bv1 = self                                               #(F9)
+            bv2 = other                                             #(F10)
+        res = BitVector( size = bv1.size )                          #(F11)
+        lpb = map(operator.__and__, bv1.vector, bv2.vector)         #(F12) 
+        res.vector = array.array( 'H', lpb )                        #(F13)
+        return res                                                  #(F14)
 
 
     def __or__(self, other):                                         #(G1)
@@ -970,13 +1028,16 @@ class BitVector( object ):                                           #(A1)
         if self.size < other.size:                                   #(G2)
             bv1 = self._resize_pad_from_left(other.size - self.size) #(G3)
             bv2 = other                                              #(G4)
-        else:                                                        #(G5)
+        elif self.size > other.size:                                 #(G5)
             bv1 = self                                               #(G6)
             bv2 = other._resize_pad_from_left(self.size - other.size)#(G7)
-        res = BitVector( size = bv1.size )                           #(G8)
-        lpb = map(operator.__or__, bv1.vector, bv2.vector)           #(G9) 
-        res.vector = array.array( 'H', lpb )                        #(G10)
-        return res                                                  #(G11)
+        else:                                                        #(G8)
+            bv1 = self                                               #(G9)
+            bv2 = other                                             #(G10)
+        res = BitVector( size = bv1.size )                          #(G11)
+        lpb = map(operator.__or__, bv1.vector, bv2.vector)          #(G12) 
+        res.vector = array.array( 'H', lpb )                        #(G13)
+        return res                                                  #(G14)
 
 
     def __invert__(self):                                            #(H1)
@@ -1397,7 +1458,21 @@ class BitVector( object ):                                           #(A1)
         bitlist = [val for i in range( self.size )]                  #(j4)
         map( self._setbit, enumerate(bitlist), bitlist )             #(j5)
         return self                                                  #(j6)
-        
+
+    def count_bits( self ):                                          #(k1)
+        '''
+        Return the number of bits set in a BitVector instance.
+        '''
+        return reduce( lambda x, y: int(x)+int(y), self )            #(k2)
+
+    def setValue(self, *args, **kwargs ):                            #(m1)
+        '''
+        Changes the bit pattern associated with a previously
+        constructed BitVector instance.  The allowable modes
+        for chaning the internally stored bit patten are the
+        same as for the constructor.
+        '''
+        self.__init__( *args, **kwargs )                             #(m2)
 
 #-----------------------  BitVectorIterator Class -----------------------
 
@@ -1645,10 +1720,8 @@ if __name__ == '__main__':
                           51, 19, 7, 5, 34, 27, 16, 46] )    
     print "Unpurmute the bit vector:"
     print bv3
-
     print
     print
-
 
     print "\nTry circular shifts to the left and to the right for the following bit vector:"
     print bv3
@@ -1711,3 +1784,23 @@ if __name__ == '__main__':
     print "bv1= ", bv1                    # 1111111111111111111111111
     print bv1[3:9].reset(0)               # 000000
     print bv1[:].reset(0)                 # 0000000000000000000000000
+
+    print "\nTesting count_bit():"
+    bv = BitVector( intVal = 45, size = 16 )
+    y = bv.count_bits()
+    print y
+    bv = BitVector( bitstring = '100111' )
+    print bv.count_bits()
+    bv = BitVector( bitstring = '00111000' )
+    print bv.count_bits()
+    bv = BitVector( bitstring = '001' )
+    print bv.count_bits()
+    bv = BitVector( bitstring = '00000000000000' )
+    print bv.count_bits()
+
+    print "\nTest setValue idea:"
+    bv = BitVector( intVal = 7, size =16 )
+    print bv                              # 0000000000000111
+    bv.setValue( intVal = 45 )
+    print bv                              # 101101
+
