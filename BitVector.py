@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '1.5'
+__version__ = '1.5.1'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2008-June-16'
-__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.html'
+__date__    = '2008-September-4'
+__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.1.html'
 __copyright__ = "(C) 2008 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -19,6 +19,11 @@ __doc__ = '''
 
     CHANGE LOG:
 
+
+       Version 1.5.1:
+
+           Removed a bug from the implementation of the right
+           circular shift operator.
 
        Version 1.5:
 
@@ -691,6 +696,9 @@ __doc__ = '''
         constructed BitVector to be changed.  A need for this method
         was expressed by Aleix Conchillo.  Thanks Aleix.
         
+        Version 1.5.1 is a quick release to fix a bug in the 
+        right circular shift operator.  This bug was discovered
+        by Jasper Spaans.  Thanks very much Jasper.
 
 
     ABOUT THE AUTHOR:
@@ -1258,7 +1266,8 @@ class BitVector( object ):                                           #(A1)
         bitstring_rightmost_bit = self[self.size - 1]                #(Y3)
         right_most_bits = map( operator.__and__,
                                self.vector, [0x8000]*size )          #(Y4)
-        map( operator.__and__, self.vector, [~0x8000]*size )         #(Y5)
+        self.vector = \
+             map( operator.__and__, self.vector, [~0x8000]*size )    #(Y5)
         right_most_bits.insert(0, bitstring_rightmost_bit)           #(Y6)
         right_most_bits.pop()                                        #(Y7)
         self.vector = map(operator.__lshift__, self.vector, [1]*size)#(Y8)
@@ -1473,6 +1482,7 @@ class BitVector( object ):                                           #(A1)
         same as for the constructor.
         '''
         self.__init__( *args, **kwargs )                             #(m2)
+
 
 #-----------------------  BitVectorIterator Class -----------------------
 

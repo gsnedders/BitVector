@@ -1,14 +1,15 @@
 Metadata-Version: 1.0
 Name: BitVector
-Version: 1.5
+Version: 1.5.1
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.html
+Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.1.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.tar.gz?download
+Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.1.tar.gz?download
 Description: This class presents a pure-Python memory efficient packed representation for bit arrays.
         
+        Version 1.5.1 removes a crucial bug in the right circular shift operator.
         
         Version 1.5 should prove to be much more efficient for long bit vectors.
         Efficiency in BitVector construction when only its size is specified was
@@ -19,11 +20,6 @@ Description: This class presents a pure-Python memory efficient packed represent
         set in a BitVector instance.  Yet another feature of this version is the
         setValue() method that alters the bit pattern associated with a
         previously constructed BitVector.
-        
-        In version 1.4.1, the reset() method now returns 'self' to allow for
-        cascaded inovocation with the slicing operator.  This version also
-        removes the discrepancy between the value of the  __copyright__ variable
-        in the module and the value of license variable in setup.py.
         
         The class supports the following operators/methods:
         
