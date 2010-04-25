@@ -230,13 +230,15 @@ print
 
 print "\nTry circular shifts to the left and to the right for the following bit vector:"
 print bv3
+         #0100000100100000011010000111010101101110011001110111001001111001
 print "\nCircular shift to the left by 7 positions:"
 bv3 << 7
 print bv3
+         #1001000000110100001110101011011100110011101110010011110010100000
 print "\nCircular shift to the right by 7 positions:"
 bv3 >> 7
 print bv3
-
+         #0100000100100000011010000111010101101110011001110111001001111001
 print "Test len() on the above bit vector:"
 print len( bv3 )                      # 64
 
@@ -309,4 +311,57 @@ print bv                              # 0000000000000111
 bv.setValue( intVal = 45 )
 print bv                              # 101101
 
+print "\nTesting count_bits_sparse():"
+bv = BitVector.BitVector( size = 2000000 )
+bv[345234] = 1
+bv[233]=1
+bv[243]=1
+bv[18]=1
+bv[785] =1
+print "The number of bits set: ", bv.count_bits_sparse()
+
+print "\nTesting Jaccard similarity and distance and Hamming distance:"
+bv1 = BitVector.BitVector( bitstring = '11111111' )
+bv2 = BitVector.BitVector( bitstring = '00101011' )
+print "Jaccard similarity: ", bv1.jaccard_similarity( bv2 )
+print "Jaccard distance: ", bv1.jaccard_distance( bv2 )
+print "Jaccard distance: ", bv1.hamming_distance( bv2 )
+
+print "\nTesting next_set_bit():"
+bv = BitVector.BitVector( bitstring = '00000000000001' )
+print bv.next_set_bit( 5 )
+
+print "\nTesting rank_of_bit_set_at_index():"
+bv = BitVector.BitVector( bitstring = '01010101011100' )
+print bv.rank_of_bit_set_at_index( 10 )
+
+print "\nTesting isPowerOf2():"
+bv = BitVector.BitVector( bitstring = '10000000001110' )
+print "int value: ", int( bv )
+print bv.isPowerOf2()
+print "\nTesting isPowerOf2_sparse():"   
+print bv.isPowerOf2_sparse()
+
+print "\nTesting reverse():"
+bv = BitVector.BitVector( bitstring = '0001100000000000001' )
+print "original bv: ", bv
+print "reversed bv: ", bv.reverse()
+
+print "\nTesting Greatest Common Divisor (gcd):"
+bv1 = BitVector.BitVector( bitstring = '01100110' )
+print "first arg bv: ", bv1, "   of int value: ", int(bv1)
+bv2 = BitVector.BitVector( bitstring = '011' ) 
+print "second arg bv: ", bv2, "   of int value: ", int(bv2)
+bv = bv1.gcd( bv2 )
+print "gcd is: ", bv, "   of int value: ", int(bv)
+
+print "\nTesting multiplicative_inverse:"
+bv_modulus = BitVector.BitVector( intVal = 32 )
+print "modulus is bv: ", bv_modulus, "   of int value: ", int(bv_modulus)
+bv = BitVector.BitVector( intVal = 17 ) 
+print "bv: ", bv, "   of int value: ", int(bv)
+bv = bv.multiplicative_inverse( bv_modulus )
+if bv is not None:
+    print "MI is: ", bv, "   of int value: ", int(bv)
+else: print "No multiplicative inverse in this case"
 
