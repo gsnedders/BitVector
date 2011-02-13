@@ -365,3 +365,81 @@ if bv is not None:
     print "MI is: ", bv, "   of int value: ", int(bv)
 else: print "No multiplicative inverse in this case"
 
+
+print "\nTesting multiplicative_inverse:"
+bv_modulus = BitVector.BitVector( intVal = 32 )
+print "modulus is bv: ", bv_modulus, "   of int value: ", int(bv_modulus)
+bv = BitVector.BitVector( intVal = 17 ) 
+print "bv: ", bv, "   of int value: ", int(bv)
+bv = bv.multiplicative_inverse( bv_modulus )
+if bv is not None:
+    print "MI is: ", bv, "   of int value: ", int(bv)
+else: print "No multiplicative inverse in this case"
+
+#  Added in Version 2.1: 
+
+print "\nTest multiplication in GF(2):"
+a = BitVector.BitVector( bitstring='0110001' )
+b = BitVector.BitVector( bitstring='0110' )
+c = a.gf_multiply(b)
+print "Product of a=", a, " b=", b, " is ", c
+
+
+print "\nTest division in GF(2^n):"
+mod = BitVector.BitVector( bitstring='100011011' )          # AES modulus
+n = 8
+a = BitVector.BitVector( bitstring='11100010110001' )
+quotient, remainder = a.gf_divide(mod, n)
+print "Dividing a=", a, " by mod=", mod, " in GF(2^8) returns the quotient ", quotient, " and the remainder ", remainder
+
+
+print "\nTest modular multiplication in GF(2^n):"
+modulus = BitVector.BitVector( bitstring='100011011' )     # AES modulus
+n = 8
+a = BitVector.BitVector( bitstring='0110001' )
+b = BitVector.BitVector( bitstring='0110' )
+c = a.gf_multiply_modular(b, modulus, n)
+print "Modular product of a=", a, " b=", b, " in GF(2^8) is ", c
+
+
+print "\nTest multiplicative inverses in GF(2^3) with " + \
+                               "modulus polynomial = x^3 + x + 1:"
+print "Find multiplicative inverse of a single bit array"
+modulus = BitVector.BitVector( bitstring='100011011' )     # AES modulus
+n = 8
+a = BitVector.BitVector( bitstring='00110011' )
+mi = a.gf_MI(modulus,n)
+print "Multiplicative inverse of ", a, " in GF(2^8) is", mi
+
+print "\nIn the following three rows shown, the first row shows the " +\
+      "\nbinary code words, the second the multiplicative inverses," +\
+      "\nand the third the product of a binary word with its" +\
+      "\nmultiplicative inverse:\n"
+mod = BitVector.BitVector( bitstring = '1011' )
+n = 3
+bitarrays = [BitVector.BitVector(intVal=x, size=n) for x in range(1,2**3)]
+mi_list = [x.gf_MI(mod,n) for x in bitarrays]
+mi_str_list = [str(x.gf_MI(mod,n)) for x in bitarrays]
+print "bit arrays in GF(2^3): ", [str(x) for x in bitarrays]
+print "multiplicati_inverses: ", mi_str_list
+products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
+                    for i in range(len(bitarrays)) ]
+print "bit_array * multi_inv: ", products
+
+print   
+print "\nMultiplicative inverses in GF(2^8) with "  + \
+                      "modulus polynomial x^8 + x^4 + x^3 + x + 1:"
+print "\n(This may take a few seconds)\n"
+mod = BitVector.BitVector( bitstring = '100011011' )
+n = 8
+bitarrays = [BitVector.BitVector(intVal=x, size=n) for x in range(1,2**8)]
+mi_list = [x.gf_MI(mod,n) for x in bitarrays]
+mi_str_list = [str(x.gf_MI(mod,n)) for x in bitarrays]
+print "\nMultiplicative Inverses:\n\n", mi_str_list
+
+products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
+                        for i in range(len(bitarrays)) ]
+print "\nShown below is the product of each binary code word " +\
+                     "in GF(2^3) and its multiplicative inverse:\n\n"
+print products
+
