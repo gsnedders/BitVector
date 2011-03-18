@@ -1,6 +1,6 @@
 
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html><head><title>BitVector-2.1.html</title>
+<html><head><title>BitVector-2.2.html</title>
 </head><body bgcolor="#f0f0f8">
 <tt>
 
@@ -11,41 +11,53 @@
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
 <tr bgcolor="#7799ee">
 <td valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BitVector</strong></big></big> (version 2.1, 2011-February-13)</font></td
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BitVector</strong></big></big> (version 2.2, 2011-March-18)</font></td
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial">
-
 <!--
-<a href=".">index</a><br><a href="file:/home/kak/BitVector/BitVector-2.1/BitVector.py">/home/kak/BitVector/BitVector-2.1/BitVector.py</a>
+<a href=".">index</a><br><a href="file:/home/kak/BitVector/BitVector-2.2/BitVector.py">/home/kak/BitVector/BitVector-2.2/BitVector.py</a>
 -->
-
-</font></td></tr></table>
+</font></td></tr>
+</table>
     <p><tt><a href="#BitVector">BitVector</a>.py<br>
 &nbsp;<br>
-Version:&nbsp;2.1<br>
+Version:&nbsp;2.2<br>
 &nbsp;<br>
 Author:&nbsp;Avinash&nbsp;Kak&nbsp;(kak@purdue.edu)<br>
 &nbsp;<br>
-Date:&nbsp;2011-February-13<br>
+Date:&nbsp;2011-March-18<br>
 
 &nbsp;<br>
 &nbsp;<br>
-<b>Download Version 2.1</b>
+<b>Download Version 2.2</b>
 &nbsp;  
-<A HREF="http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.1.tar.gz?download">gztar</A> 
+<A HREF="http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.2.tar.gz?download">gztar</A> 
 &nbsp;             
-<A HREF="http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.1.tar.bz2?download">bztar</A> 
+<A HREF="http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.2.tar.bz2?download">bztar</A> 
 </b>
 </A>
 <pre>
 </pre> 
-<A HREF="BitVector-2.1_CodeOnly.html">View version 2.1 code in browser</A> 
+<A HREF="BitVector-2.2_CodeOnly.html">View version 2.2 code in browser</A> 
 <pre> 
 </pre>           
 
 &nbsp;<br>
 <font size=+2 color="red">CHANGE&nbsp;LOG:<br>
 </font>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;Version&nbsp;2.2:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fixed&nbsp;a&nbsp;couple&nbsp;of&nbsp;bugs,&nbsp;the&nbsp;most&nbsp;important&nbsp;being&nbsp;in&nbsp;the&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;initialization&nbsp;code&nbsp;for&nbsp;the&nbsp;cases&nbsp;when&nbsp;the&nbsp;user-specified<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;for&nbsp;size&nbsp;conflicts&nbsp;with&nbsp;the&nbsp;user-specified&nbsp;int&nbsp;value&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;vector.&nbsp;&nbsp;Version&nbsp;2.2&nbsp;also&nbsp;includes&nbsp;a&nbsp;new&nbsp;method&nbsp;runs()&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;strings&nbsp;of&nbsp;the&nbsp;consecutive&nbsp;runs&nbsp;of&nbsp;1's&nbsp;and&nbsp;0's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;bit&nbsp;vector.&nbsp;&nbsp;The&nbsp;implementation&nbsp;of&nbsp;the&nbsp;circular&nbsp;shift<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;operators&nbsp;has&nbsp;also&nbsp;been&nbsp;improved&nbsp;in&nbsp;Version&nbsp;2.2.&nbsp;This&nbsp;version<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allows&nbsp;for&nbsp;a&nbsp;chained&nbsp;invocation&nbsp;of&nbsp;these&nbsp;operators.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Additionally,&nbsp;the&nbsp;circular&nbsp;shift&nbsp;operators&nbsp;now&nbsp;exhibit&nbsp;expected<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;behavior&nbsp;if&nbsp;the&nbsp;user-specified&nbsp;shift&nbsp;value&nbsp;is&nbsp;negative.<br>
+&nbsp;<br>
 &nbsp;&nbsp;&nbsp;Version&nbsp;2.1:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Includes&nbsp;enhanced&nbsp;support&nbsp;for&nbsp;folks&nbsp;who&nbsp;use&nbsp;this&nbsp;class&nbsp;for<br>
@@ -212,12 +224,9 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;<br>
 <font size=+2 color="red">INTRODUCTION:<br>
 </font>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;The&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;for&nbsp;a&nbsp;memory-efficient&nbsp;packed&nbsp;representation&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;bit&nbsp;arrays&nbsp;and&nbsp;for&nbsp;logical&nbsp;operations&nbsp;on&nbsp;such&nbsp;arrays.&nbsp;&nbsp;The&nbsp;core&nbsp;idea<br>
-&nbsp;&nbsp;&nbsp;used&nbsp;in&nbsp;this&nbsp;Python&nbsp;script&nbsp;for&nbsp;bin&nbsp;packing&nbsp;is&nbsp;based&nbsp;on&nbsp;an&nbsp;internet<br>
-&nbsp;&nbsp;&nbsp;posting&nbsp;by&nbsp;Josiah&nbsp;Carlson&nbsp;to&nbsp;the&nbsp;Pyrex&nbsp;mailing&nbsp;list.<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;Operations&nbsp;supported&nbsp;on&nbsp;bit&nbsp;vectors:<br>
+&nbsp;&nbsp;&nbsp;The&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;is&nbsp;for&nbsp;a&nbsp;memory-efficient&nbsp;packed&nbsp;representation<br>
+&nbsp;&nbsp;&nbsp;of&nbsp;bit&nbsp;arrays&nbsp;and&nbsp;for&nbsp;logical&nbsp;operations&nbsp;on&nbsp;such&nbsp;arrays.&nbsp;The<br>
+&nbsp;&nbsp;&nbsp;operations&nbsp;supported&nbsp;on&nbsp;bit&nbsp;vectors&nbsp;are:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__getitem__<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__setitem__<br>
@@ -229,14 +238,13 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__int__<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__add__<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__eq__,&nbsp;__ne__,&nbsp;__lt__,&nbsp;__le__,&nbsp;__gt__,&nbsp;__ge__<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;bitwise&nbsp;or<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;bitwise&nbsp;and&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;bitwise&nbsp;xor<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;bitwise&nbsp;inversion<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;circular&nbsp;rotation&nbsp;to&nbsp;the&nbsp;left<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;circular&nbsp;rotation&nbsp;to&nbsp;the&nbsp;right<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;concatenation<br>
-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__or__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__and__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__xor__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__invert__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__lshift__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__rshift__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__add__<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count_bits&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count_bit_sparse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faster&nbsp;for&nbsp;sparse&nbsp;bit&nbsp;vectors&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deep_copy<br>
@@ -263,6 +271,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read_bits_from_fileobject<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reset<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reverse<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runs<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift_left&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;non-circular&nbsp;left&nbsp;shift<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift_right&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;non-circular&nbsp;right&nbsp;shift<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slice&nbsp;assignment<br>
@@ -346,17 +355,17 @@ Date:&nbsp;2011-February-13<br>
 <font size=+2 color="red">DISPLAYING&nbsp;BIT&nbsp;VECTORS:<br>
 </font>&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;1)&nbsp;Since&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;implements&nbsp;the&nbsp;__str__&nbsp;method,&nbsp;a&nbsp;bit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;can&nbsp;be&nbsp;displayed&nbsp;on&nbsp;a&nbsp;terminal&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(1)&nbsp;Since&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;implements&nbsp;the&nbsp;__str__&nbsp;method,&nbsp;a&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;can&nbsp;be&nbsp;displayed&nbsp;on&nbsp;a&nbsp;terminal&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bitvec<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basically,&nbsp;you&nbsp;can&nbsp;always&nbsp;obtain&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;vector&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basically,&nbsp;you&nbsp;can&nbsp;always&nbsp;obtain&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;vector&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str(&nbsp;bitvec&nbsp;)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;integer&nbsp;value&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;integer&nbsp;value&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int(&nbsp;bitvec&nbsp;)<br>
 &nbsp;<br>
@@ -364,24 +373,26 @@ Date:&nbsp;2011-February-13<br>
 <font size=+2 color="red">ACCESSING&nbsp;AND&nbsp;SETTING&nbsp;INDIVIDUAL&nbsp;BITS&nbsp;AND&nbsp;SLICES:<br>
 </font>&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;2)&nbsp;Any&nbsp;single&nbsp;bit&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;bv&nbsp;can&nbsp;be&nbsp;set&nbsp;to&nbsp;1&nbsp;or&nbsp;0&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(2)&nbsp;Any&nbsp;single&nbsp;bit&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;bv&nbsp;can&nbsp;be&nbsp;set&nbsp;to&nbsp;1&nbsp;or&nbsp;0&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv[M]&nbsp;=&nbsp;1_or_0<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv[M]<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;accessing&nbsp;(and&nbsp;setting)&nbsp;the&nbsp;bit&nbsp;at&nbsp;the&nbsp;position&nbsp;that&nbsp;is<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexed&nbsp;M.&nbsp;&nbsp;You&nbsp;can&nbsp;retrieve&nbsp;the&nbsp;bit&nbsp;at&nbsp;position&nbsp;M&nbsp;by&nbsp;bv[M].<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;that&nbsp;the&nbsp;index&nbsp;0&nbsp;corresponds&nbsp;to&nbsp;the&nbsp;first&nbsp;bit&nbsp;at&nbsp;the&nbsp;left<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;a&nbsp;bit&nbsp;pattern.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;accessing&nbsp;(and&nbsp;setting)&nbsp;the&nbsp;bit&nbsp;at&nbsp;the&nbsp;position&nbsp;that&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexed&nbsp;M.&nbsp;&nbsp;You&nbsp;can&nbsp;retrieve&nbsp;the&nbsp;bit&nbsp;at&nbsp;position&nbsp;M&nbsp;by&nbsp;bv[M].<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;that&nbsp;the&nbsp;index&nbsp;0&nbsp;corresponds&nbsp;to&nbsp;the&nbsp;first&nbsp;bit&nbsp;at&nbsp;the&nbsp;left<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end&nbsp;of&nbsp;a&nbsp;bit&nbsp;pattern.&nbsp;&nbsp;This&nbsp;is&nbsp;made&nbsp;possible&nbsp;by&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;implementation&nbsp;of&nbsp;the&nbsp;__getitem__&nbsp;and&nbsp;__setitem__&nbsp;methods.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;3)&nbsp;A&nbsp;slice&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;obtained&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(3)&nbsp;A&nbsp;slice&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;obtained&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv[i:j]<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;a&nbsp;bit&nbsp;vector&nbsp;constructed&nbsp;from&nbsp;the&nbsp;bits&nbsp;at&nbsp;index&nbsp;positions<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;i&nbsp;through&nbsp;j-1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;i&nbsp;through&nbsp;j-1.&nbsp;&nbsp;This&nbsp;is&nbsp;made&nbsp;possible&nbsp;by&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;implementation&nbsp;of&nbsp;the&nbsp;__getslice__&nbsp;method.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;4)&nbsp;You&nbsp;can&nbsp;also&nbsp;carry&nbsp;out&nbsp;slice&nbsp;assignment:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(4)&nbsp;You&nbsp;can&nbsp;also&nbsp;carry&nbsp;out&nbsp;slice&nbsp;assignment:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;size&nbsp;=&nbsp;25&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv2&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'1010001'&nbsp;)<br>
@@ -389,31 +400,35 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv3&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'101'&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1[0:3]&nbsp;&nbsp;=&nbsp;bv3<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;first&nbsp;slice&nbsp;assignment&nbsp;will&nbsp;set&nbsp;the&nbsp;6th,&nbsp;7th,&nbsp;and&nbsp;the&nbsp;8th<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;of&nbsp;the&nbsp;bit&nbsp;vector&nbsp;bv1&nbsp;according&nbsp;to&nbsp;the&nbsp;first&nbsp;three&nbsp;bits&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv2.&nbsp;&nbsp;The&nbsp;second&nbsp;slice&nbsp;assignment&nbsp;will&nbsp;set&nbsp;the&nbsp;first&nbsp;three&nbsp;bits<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;bv1&nbsp;according&nbsp;to&nbsp;the&nbsp;three&nbsp;bits&nbsp;in&nbsp;bv3.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;first&nbsp;slice&nbsp;assignment&nbsp;will&nbsp;set&nbsp;the&nbsp;6th,&nbsp;7th,&nbsp;and&nbsp;the&nbsp;8th<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;of&nbsp;the&nbsp;bit&nbsp;vector&nbsp;bv1&nbsp;according&nbsp;to&nbsp;the&nbsp;first&nbsp;three&nbsp;bits&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv2.&nbsp;&nbsp;The&nbsp;second&nbsp;slice&nbsp;assignment&nbsp;will&nbsp;set&nbsp;the&nbsp;first&nbsp;three&nbsp;bits<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;bv1&nbsp;according&nbsp;to&nbsp;the&nbsp;three&nbsp;bits&nbsp;in&nbsp;bv3.&nbsp;&nbsp;This&nbsp;is&nbsp;made<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;possible&nbsp;by&nbsp;the&nbsp;slice&nbsp;setting&nbsp;code&nbsp;in&nbsp;the&nbsp;__setitem__&nbsp;method.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;5)&nbsp;You&nbsp;can&nbsp;iterate&nbsp;over&nbsp;a&nbsp;bit&nbsp;vector,&nbsp;as&nbsp;illustrated&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(5)&nbsp;You&nbsp;can&nbsp;iterate&nbsp;over&nbsp;a&nbsp;bit&nbsp;vector,&nbsp;as&nbsp;illustrated&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;bit&nbsp;in&nbsp;bitvec:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bit,&nbsp;&nbsp;&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;made&nbsp;possible&nbsp;by&nbsp;the&nbsp;override&nbsp;definition&nbsp;for&nbsp;the&nbsp;special<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__iter__()&nbsp;method.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;made&nbsp;possible&nbsp;by&nbsp;the&nbsp;override&nbsp;definition&nbsp;for&nbsp;the&nbsp;special<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__iter__()&nbsp;method.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;6)&nbsp;Negative&nbsp;subscripts&nbsp;for&nbsp;array-like&nbsp;indexing&nbsp;are&nbsp;supported.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Therefore,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(6)&nbsp;Negative&nbsp;subscripts&nbsp;for&nbsp;array-like&nbsp;indexing&nbsp;are&nbsp;supported.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Therefore,<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec[&nbsp;-i&nbsp;]<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;legal&nbsp;assuming&nbsp;that&nbsp;the&nbsp;index&nbsp;range&nbsp;is&nbsp;not&nbsp;violated.&nbsp;&nbsp;A<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;negative&nbsp;index&nbsp;carries&nbsp;the&nbsp;usual&nbsp;Python&nbsp;interpretation:&nbsp;The&nbsp;last<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;is&nbsp;indexed&nbsp;-1&nbsp;and&nbsp;the&nbsp;first&nbsp;element<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-(n+1)&nbsp;if&nbsp;n&nbsp;is&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;bits&nbsp;in&nbsp;the&nbsp;bit&nbsp;vector.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;legal&nbsp;assuming&nbsp;that&nbsp;the&nbsp;index&nbsp;range&nbsp;is&nbsp;not&nbsp;violated.&nbsp;&nbsp;A<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;negative&nbsp;index&nbsp;carries&nbsp;the&nbsp;usual&nbsp;Python&nbsp;interpretation:&nbsp;The<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last&nbsp;element&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;is&nbsp;indexed&nbsp;-1&nbsp;and&nbsp;the&nbsp;first<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element&nbsp;-(n+1)&nbsp;if&nbsp;n&nbsp;is&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;bits&nbsp;in&nbsp;the&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector.&nbsp;&nbsp;Negative&nbsp;subscripts&nbsp;are&nbsp;made&nbsp;possible&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;special-casing&nbsp;such&nbsp;access&nbsp;in&nbsp;the&nbsp;implementation&nbsp;of&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__getitem__&nbsp;method&nbsp;(actually&nbsp;it&nbsp;is&nbsp;the&nbsp;_getbit&nbsp;method).<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;7)&nbsp;You&nbsp;can&nbsp;reset&nbsp;a&nbsp;previously&nbsp;constructed&nbsp;bit&nbsp;vector&nbsp;to&nbsp;either&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all-zeros&nbsp;state&nbsp;or&nbsp;the&nbsp;all-ones&nbsp;state&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(7)&nbsp;You&nbsp;can&nbsp;reset&nbsp;a&nbsp;previously&nbsp;constructed&nbsp;bit&nbsp;vector&nbsp;to&nbsp;either&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all-zeros&nbsp;state&nbsp;or&nbsp;the&nbsp;all-ones&nbsp;state&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;size&nbsp;=&nbsp;25&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
@@ -423,26 +438,29 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1.reset(&nbsp;0&nbsp;)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;first&nbsp;call&nbsp;to&nbsp;reset()&nbsp;will&nbsp;set&nbsp;all&nbsp;the&nbsp;bits&nbsp;of&nbsp;bv1&nbsp;to&nbsp;1's<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;the&nbsp;second&nbsp;call&nbsp;all&nbsp;the&nbsp;bits&nbsp;to&nbsp;0's.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;first&nbsp;call&nbsp;to&nbsp;reset()&nbsp;will&nbsp;set&nbsp;all&nbsp;the&nbsp;bits&nbsp;of&nbsp;bv1&nbsp;to&nbsp;1's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;the&nbsp;second&nbsp;call&nbsp;all&nbsp;the&nbsp;bits&nbsp;to&nbsp;0's.<br>
 &nbsp;<br>
 &nbsp;<br>
 <font size=+2 color="red">LOGICAL&nbsp;OPERATIONS&nbsp;ON&nbsp;BIT&nbsp;VECTORS:<br>
 </font>&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;8)&nbsp;Given&nbsp;two&nbsp;bit&nbsp;vectors&nbsp;bv1&nbsp;and&nbsp;bv2,&nbsp;you&nbsp;can&nbsp;perform&nbsp;bitwise<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical&nbsp;operations&nbsp;on&nbsp;them&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(8)&nbsp;Given&nbsp;two&nbsp;bit&nbsp;vectors&nbsp;bv1&nbsp;and&nbsp;bv2,&nbsp;you&nbsp;can&nbsp;perform&nbsp;bitwise<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logical&nbsp;operations&nbsp;on&nbsp;them&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_bv&nbsp;&nbsp;=&nbsp;&nbsp;bv1&nbsp;^&nbsp;bv2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;for&nbsp;bitwise&nbsp;XOR<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_bv&nbsp;&nbsp;=&nbsp;&nbsp;bv1&nbsp;&amp;&nbsp;bv2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;for&nbsp;bitwise&nbsp;AND<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_bv&nbsp;&nbsp;=&nbsp;&nbsp;bv1&nbsp;|&nbsp;bv2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;for&nbsp;bitwise&nbsp;OR<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result_bv&nbsp;&nbsp;=&nbsp;&nbsp;~bv1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;for&nbsp;bitwise&nbsp;negation<br>
 &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;These&nbsp;are&nbsp;made&nbsp;possible&nbsp;by&nbsp;implementing&nbsp;the&nbsp;__xor__,&nbsp;__and__,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__or__,&nbsp;and&nbsp;__invert__&nbsp;methods,&nbsp;respectively.<br>
+&nbsp;<br>
 &nbsp;<br>
 <font size=+2 color="red">COMPARING&nbsp;BIT&nbsp;VECTORS:<br>
 </font>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;9)&nbsp;Given&nbsp;two&nbsp;bit&nbsp;vectors&nbsp;bv1&nbsp;and&nbsp;bv2,&nbsp;you&nbsp;can&nbsp;carry&nbsp;out&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;following&nbsp;comparisons&nbsp;that&nbsp;return&nbsp;Boolean&nbsp;values:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(9)&nbsp;Given&nbsp;two&nbsp;bit&nbsp;vectors&nbsp;bv1&nbsp;and&nbsp;bv2,&nbsp;you&nbsp;can&nbsp;carry&nbsp;out&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;following&nbsp;comparisons&nbsp;that&nbsp;return&nbsp;Boolean&nbsp;values:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;==&nbsp;&nbsp;bv2<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;!=&nbsp;&nbsp;bv2<br>
@@ -451,85 +469,90 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;&gt;&nbsp;&nbsp;&nbsp;bv2<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;&gt;=&nbsp;&nbsp;bv2<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;equalities&nbsp;and&nbsp;inequalities&nbsp;are&nbsp;determined&nbsp;by&nbsp;the&nbsp;integer<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values&nbsp;associated&nbsp;with&nbsp;the&nbsp;bit&nbsp;vectors.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;equalities&nbsp;and&nbsp;inequalities&nbsp;are&nbsp;determined&nbsp;by&nbsp;the&nbsp;integer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values&nbsp;associated&nbsp;with&nbsp;the&nbsp;bit&nbsp;vectors.&nbsp;&nbsp;These&nbsp;operator<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overloadings&nbsp;are&nbsp;made&nbsp;possible&nbsp;by&nbsp;providing&nbsp;implementation&nbsp;code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;__eq__,&nbsp;__ne__,&nbsp;__lt__,&nbsp;__le__,&nbsp;__gt__,&nbsp;and&nbsp;__ge__,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;respectively.<br>
 &nbsp;<br>
 &nbsp;<br>
 <font size=+2 color="red">OTHER&nbsp;SUPPORTED&nbsp;OPERATIONS:<br>
 </font>&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;10)&nbsp;You&nbsp;can&nbsp;permute&nbsp;and&nbsp;unpermute&nbsp;bit&nbsp;vectors:<br>
+&nbsp;&nbsp;&nbsp;(10)&nbsp;You&nbsp;can&nbsp;permute&nbsp;and&nbsp;unpermute&nbsp;bit&nbsp;vectors:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv_permuted&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;bv.permute(&nbsp;permutation_list&nbsp;)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv_unpermuted&nbsp;=&nbsp;&nbsp;bv.unpermute(&nbsp;permutation_list&nbsp;)<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;11)&nbsp;Left&nbsp;and&nbsp;right&nbsp;circular&nbsp;rotations&nbsp;can&nbsp;be&nbsp;carried&nbsp;out&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(11)&nbsp;Left&nbsp;and&nbsp;right&nbsp;circular&nbsp;rotations&nbsp;can&nbsp;be&nbsp;carried&nbsp;out&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec&nbsp;&nbsp;&lt;&lt;&nbsp;N&nbsp;<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec&nbsp;&nbsp;&gt;&gt;&nbsp;N<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;circular&nbsp;rotations&nbsp;to&nbsp;the&nbsp;left&nbsp;and&nbsp;to&nbsp;the&nbsp;right&nbsp;by&nbsp;N&nbsp;bit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;positions.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;circular&nbsp;rotations&nbsp;to&nbsp;the&nbsp;left&nbsp;and&nbsp;to&nbsp;the&nbsp;right&nbsp;by&nbsp;N&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;positions.&nbsp;&nbsp;These&nbsp;operator&nbsp;overloadings&nbsp;are&nbsp;made&nbsp;possible&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;implementing&nbsp;the&nbsp;__lshift__&nbsp;and&nbsp;__rshift__&nbsp;methods,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;respectively.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;12)&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;shift&nbsp;a&nbsp;bitvector&nbsp;non-circularly:<br>
+&nbsp;&nbsp;&nbsp;(12)&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;shift&nbsp;a&nbsp;bitvector&nbsp;non-circularly:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'10010000'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.shift_left(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;10000000<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.shift_right(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;00010000<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Obviously,&nbsp;for&nbsp;a&nbsp;sufficient&nbsp;large&nbsp;left&nbsp;or&nbsp;right&nbsp;non-circular&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift,&nbsp;you&nbsp;will&nbsp;end&nbsp;up&nbsp;with&nbsp;a&nbsp;bitvector&nbsp;that&nbsp;is&nbsp;all&nbsp;zeros.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Obviously,&nbsp;for&nbsp;a&nbsp;sufficient&nbsp;large&nbsp;left&nbsp;or&nbsp;right&nbsp;non-circular<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shift,&nbsp;you&nbsp;will&nbsp;end&nbsp;up&nbsp;with&nbsp;a&nbsp;bitvector&nbsp;that&nbsp;is&nbsp;all&nbsp;zeros.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;13)&nbsp;A&nbsp;bit&nbsp;vector&nbsp;containing&nbsp;an&nbsp;even&nbsp;number&nbsp;of&nbsp;bits&nbsp;can&nbsp;be&nbsp;divided<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;two&nbsp;equal&nbsp;parts&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(13)&nbsp;A&nbsp;bit&nbsp;vector&nbsp;containing&nbsp;an&nbsp;even&nbsp;number&nbsp;of&nbsp;bits&nbsp;can&nbsp;be&nbsp;divided<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;two&nbsp;equal&nbsp;parts&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[left_half,&nbsp;right_half]&nbsp;=&nbsp;bitvec.divide_into_two()<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;left_half&nbsp;and&nbsp;right_half&nbsp;hold&nbsp;references&nbsp;to&nbsp;the&nbsp;two<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returned&nbsp;bit&nbsp;vectors.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;left_half&nbsp;and&nbsp;right_half&nbsp;hold&nbsp;references&nbsp;to&nbsp;the&nbsp;two<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returned&nbsp;bit&nbsp;vectors.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;14)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;integer&nbsp;value&nbsp;of&nbsp;a&nbsp;bit&nbsp;array&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(14)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;integer&nbsp;value&nbsp;of&nbsp;a&nbsp;bit&nbsp;array&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.intValue()<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int(&nbsp;bitvec&nbsp;)<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;15)&nbsp;You&nbsp;can&nbsp;convert&nbsp;a&nbsp;bit&nbsp;vector&nbsp;into&nbsp;its&nbsp;string&nbsp;representation&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(15)&nbsp;You&nbsp;can&nbsp;convert&nbsp;a&nbsp;bit&nbsp;vector&nbsp;into&nbsp;its&nbsp;string&nbsp;representation&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str(&nbsp;bitvec&nbsp;)<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;16)&nbsp;Because&nbsp;__add__&nbsp;is&nbsp;supplied,&nbsp;you&nbsp;can&nbsp;always&nbsp;join&nbsp;two&nbsp;bit&nbsp;vectors<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(16)&nbsp;Because&nbsp;__add__&nbsp;is&nbsp;supplied,&nbsp;you&nbsp;can&nbsp;always&nbsp;join&nbsp;two&nbsp;bit&nbsp;vectors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec3&nbsp;&nbsp;=&nbsp;&nbsp;bitvec1&nbsp;&nbsp;+&nbsp;&nbsp;bitvec2<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec3&nbsp;is&nbsp;a&nbsp;new&nbsp;bit&nbsp;vector&nbsp;that&nbsp;contains&nbsp;all&nbsp;the&nbsp;bits&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec1&nbsp;followed&nbsp;by&nbsp;all&nbsp;the&nbsp;bits&nbsp;of&nbsp;bitvec2.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec3&nbsp;is&nbsp;a&nbsp;new&nbsp;bit&nbsp;vector&nbsp;that&nbsp;contains&nbsp;all&nbsp;the&nbsp;bits&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec1&nbsp;followed&nbsp;by&nbsp;all&nbsp;the&nbsp;bits&nbsp;of&nbsp;bitvec2.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;17)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;length&nbsp;of&nbsp;a&nbsp;bitvector&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(17)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;length&nbsp;of&nbsp;a&nbsp;bitvector&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;len&nbsp;=&nbsp;bitvec.length()<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;18)&nbsp;You&nbsp;can&nbsp;make&nbsp;a&nbsp;deep&nbsp;copy&nbsp;of&nbsp;a&nbsp;bitvector&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(18)&nbsp;You&nbsp;can&nbsp;make&nbsp;a&nbsp;deep&nbsp;copy&nbsp;of&nbsp;a&nbsp;bitvector&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec_copy&nbsp;=&nbsp;&nbsp;bitvec.deep_copy()<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;19)&nbsp;You&nbsp;can&nbsp;write&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;to&nbsp;a&nbsp;file,&nbsp;as&nbsp;illustrated&nbsp;by<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;following&nbsp;example&nbsp;that&nbsp;reads&nbsp;one&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a&nbsp;file&nbsp;and<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;writes&nbsp;it&nbsp;to&nbsp;another&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;(19)&nbsp;You&nbsp;can&nbsp;write&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;to&nbsp;a&nbsp;file,&nbsp;as&nbsp;illustrated<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;the&nbsp;following&nbsp;example&nbsp;that&nbsp;reads&nbsp;one&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;then&nbsp;writes&nbsp;it&nbsp;to&nbsp;another&nbsp;file<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;filename&nbsp;=&nbsp;'input.txt'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;=&nbsp;bv.read_bits_from_file(64)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
@@ -555,35 +578,35 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linebreak&nbsp;on&nbsp;Windows&nbsp;machines.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;20)&nbsp;You&nbsp;can&nbsp;also&nbsp;write&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;to&nbsp;a&nbsp;stream&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;as<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;illustrated&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(20)&nbsp;You&nbsp;can&nbsp;also&nbsp;write&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;to&nbsp;a&nbsp;stream&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;illustrated&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fp_write&nbsp;=&nbsp;StringIO.StringIO()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.write_bits_to_fileobject(&nbsp;fp_write&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;fp_write.getvalue()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;111100001111&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;21)&nbsp;You&nbsp;can&nbsp;pad&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;the&nbsp;left&nbsp;or&nbsp;from&nbsp;the&nbsp;right&nbsp;with&nbsp;a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;designated&nbsp;number&nbsp;of&nbsp;zeros<br>
+&nbsp;&nbsp;&nbsp;(21)&nbsp;You&nbsp;can&nbsp;pad&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;the&nbsp;left&nbsp;or&nbsp;from&nbsp;the&nbsp;right&nbsp;with&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;designated&nbsp;number&nbsp;of&nbsp;zeros<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.pad_from_left(&nbsp;n&nbsp;)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bitvec.pad_from_right(&nbsp;n&nbsp;)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;the&nbsp;first&nbsp;case,&nbsp;the&nbsp;new&nbsp;bit&nbsp;vector&nbsp;will&nbsp;be&nbsp;the&nbsp;same&nbsp;as&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old&nbsp;bit&nbsp;vector&nbsp;except&nbsp;for&nbsp;the&nbsp;additional&nbsp;n&nbsp;zeros&nbsp;on&nbsp;the&nbsp;left.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;same&nbsp;thing&nbsp;happens&nbsp;in&nbsp;the&nbsp;second&nbsp;case&nbsp;except&nbsp;that&nbsp;now&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;additional&nbsp;n&nbsp;zeros&nbsp;will&nbsp;be&nbsp;on&nbsp;the&nbsp;right.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;the&nbsp;first&nbsp;case,&nbsp;the&nbsp;new&nbsp;bit&nbsp;vector&nbsp;will&nbsp;be&nbsp;the&nbsp;same&nbsp;as&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;old&nbsp;bit&nbsp;vector&nbsp;except&nbsp;for&nbsp;the&nbsp;additional&nbsp;n&nbsp;zeros&nbsp;on&nbsp;the&nbsp;left.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;same&nbsp;thing&nbsp;happens&nbsp;in&nbsp;the&nbsp;second&nbsp;case&nbsp;except&nbsp;that&nbsp;now&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;additional&nbsp;n&nbsp;zeros&nbsp;will&nbsp;be&nbsp;on&nbsp;the&nbsp;right.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;22)&nbsp;You&nbsp;can&nbsp;test&nbsp;if&nbsp;a&nbsp;bit&nbsp;vector&nbsp;x&nbsp;is&nbsp;contained&nbsp;in&nbsp;another&nbsp;bit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;y&nbsp;by&nbsp;using&nbsp;the&nbsp;syntax&nbsp;'if&nbsp;x&nbsp;in&nbsp;y'.&nbsp;&nbsp;This&nbsp;is&nbsp;made&nbsp;possible<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;the&nbsp;override&nbsp;definition&nbsp;for&nbsp;the&nbsp;special&nbsp;__contains__()<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method.<br>
+&nbsp;&nbsp;&nbsp;(22)&nbsp;You&nbsp;can&nbsp;test&nbsp;if&nbsp;a&nbsp;bit&nbsp;vector&nbsp;x&nbsp;is&nbsp;contained&nbsp;in&nbsp;another&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;y&nbsp;by&nbsp;using&nbsp;the&nbsp;syntax&nbsp;'if&nbsp;x&nbsp;in&nbsp;y'.&nbsp;&nbsp;This&nbsp;is&nbsp;made<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;possible&nbsp;by&nbsp;the&nbsp;override&nbsp;definition&nbsp;for&nbsp;the&nbsp;special<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__contains__&nbsp;method.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;23)&nbsp;You&nbsp;can&nbsp;change&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;associated&nbsp;with&nbsp;a&nbsp;previously<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance:<br>
+&nbsp;&nbsp;&nbsp;(23)&nbsp;You&nbsp;can&nbsp;change&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;associated&nbsp;with&nbsp;a&nbsp;previously<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;intVal&nbsp;=&nbsp;7,&nbsp;size&nbsp;=16&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;0000000000000111<br>
@@ -591,15 +614,15 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;101101<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;24)&nbsp;You&nbsp;can&nbsp;count&nbsp;the&nbsp;number&nbsp;of&nbsp;bits&nbsp;set&nbsp;in&nbsp;a&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;(24)&nbsp;You&nbsp;can&nbsp;count&nbsp;the&nbsp;number&nbsp;of&nbsp;bits&nbsp;set&nbsp;in&nbsp;a&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'100111'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.count_bits()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;4<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;25)&nbsp;For&nbsp;folks&nbsp;who&nbsp;use&nbsp;bit&nbsp;vectors&nbsp;with&nbsp;millions&nbsp;of&nbsp;bits&nbsp;in&nbsp;them&nbsp;but<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;only&nbsp;a&nbsp;few&nbsp;bits&nbsp;set,&nbsp;your&nbsp;bit&nbsp;counting&nbsp;will&nbsp;go&nbsp;much,&nbsp;much<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faster&nbsp;if&nbsp;you&nbsp;call&nbsp;count_bits_sparse()&nbsp;instead&nbsp;of&nbsp;count_bits():<br>
+&nbsp;&nbsp;&nbsp;(25)&nbsp;For&nbsp;folks&nbsp;who&nbsp;use&nbsp;bit&nbsp;vectors&nbsp;with&nbsp;millions&nbsp;of&nbsp;bits&nbsp;in&nbsp;them&nbsp;but<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;only&nbsp;a&nbsp;few&nbsp;bits&nbsp;set,&nbsp;your&nbsp;bit&nbsp;counting&nbsp;will&nbsp;go&nbsp;much,&nbsp;much<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faster&nbsp;if&nbsp;you&nbsp;call&nbsp;count_bits_sparse()&nbsp;instead&nbsp;of&nbsp;count_bits():<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;a&nbsp;<a href="#BitVector">BitVector</a>&nbsp;with&nbsp;2&nbsp;million&nbsp;bits:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;size&nbsp;=&nbsp;2000000&nbsp;)<br>
@@ -611,10 +634,10 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.count_bits_sparse()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;26)&nbsp;You&nbsp;can&nbsp;calculate&nbsp;the&nbsp;similarity&nbsp;and&nbsp;the&nbsp;distance&nbsp;between&nbsp;two<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;vectors&nbsp;using&nbsp;the&nbsp;Jaccard&nbsp;similarity&nbsp;coefficient&nbsp;and&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jaccard&nbsp;distance.&nbsp;&nbsp;Also,&nbsp;you&nbsp;can&nbsp;calculate&nbsp;the&nbsp;Hamming&nbsp;distance<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;between&nbsp;two&nbsp;bit&nbsp;vectors:<br>
+&nbsp;&nbsp;&nbsp;(26)&nbsp;You&nbsp;can&nbsp;calculate&nbsp;the&nbsp;similarity&nbsp;and&nbsp;the&nbsp;distance&nbsp;between&nbsp;two<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;vectors&nbsp;using&nbsp;the&nbsp;Jaccard&nbsp;similarity&nbsp;coefficient&nbsp;and&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jaccard&nbsp;distance.&nbsp;&nbsp;Also,&nbsp;you&nbsp;can&nbsp;calculate&nbsp;the&nbsp;Hamming&nbsp;distance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;between&nbsp;two&nbsp;bit&nbsp;vectors:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'11111111'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv2&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'00101011'&nbsp;)<br>
@@ -623,43 +646,43 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv1.hamming_distance(&nbsp;bv2&nbsp;)<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;27)&nbsp;Starting&nbsp;from&nbsp;a&nbsp;given&nbsp;bit&nbsp;position,&nbsp;you&nbsp;can&nbsp;find&nbsp;the&nbsp;position<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;of&nbsp;the&nbsp;next&nbsp;set&nbsp;bit:<br>
+&nbsp;&nbsp;&nbsp;(27)&nbsp;Starting&nbsp;from&nbsp;a&nbsp;given&nbsp;bit&nbsp;position,&nbsp;you&nbsp;can&nbsp;find&nbsp;the&nbsp;position<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;of&nbsp;the&nbsp;next&nbsp;set&nbsp;bit:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'00000000000001'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.next_set_bit(&nbsp;5&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;13<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;since&nbsp;the&nbsp;position&nbsp;index&nbsp;of&nbsp;the&nbsp;SET&nbsp;bit&nbsp;after&nbsp;the&nbsp;bit&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whose&nbsp;position&nbsp;index&nbsp;5&nbsp;is&nbsp;13.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;since&nbsp;the&nbsp;position&nbsp;index&nbsp;of&nbsp;the&nbsp;SET&nbsp;bit&nbsp;after&nbsp;the&nbsp;bit&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whose&nbsp;position&nbsp;index&nbsp;5&nbsp;is&nbsp;13.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;28)&nbsp;You&nbsp;can&nbsp;measure&nbsp;the&nbsp;"rank"&nbsp;of&nbsp;a&nbsp;bit&nbsp;that&nbsp;is&nbsp;set&nbsp;at&nbsp;a&nbsp;given<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position.&nbsp;&nbsp;Rank&nbsp;is&nbsp;the&nbsp;number&nbsp;of&nbsp;bits&nbsp;that&nbsp;are&nbsp;set&nbsp;up&nbsp;to&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;of&nbsp;the&nbsp;bit&nbsp;you&nbsp;are&nbsp;interested&nbsp;in.<br>
+&nbsp;&nbsp;&nbsp;(28)&nbsp;You&nbsp;can&nbsp;measure&nbsp;the&nbsp;"rank"&nbsp;of&nbsp;a&nbsp;bit&nbsp;that&nbsp;is&nbsp;set&nbsp;at&nbsp;a&nbsp;given<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position.&nbsp;&nbsp;Rank&nbsp;is&nbsp;the&nbsp;number&nbsp;of&nbsp;bits&nbsp;that&nbsp;are&nbsp;set&nbsp;up&nbsp;to&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;of&nbsp;the&nbsp;bit&nbsp;you&nbsp;are&nbsp;interested&nbsp;in.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'01010101011100'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.rank_of_bit_set_at_index(&nbsp;10&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;6<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;29)&nbsp;You&nbsp;can&nbsp;test&nbsp;whether&nbsp;the&nbsp;integer&nbsp;value&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;is&nbsp;a<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;power&nbsp;of&nbsp;two.&nbsp;&nbsp;The&nbsp;sparse&nbsp;version&nbsp;of&nbsp;this&nbsp;method&nbsp;will&nbsp;work&nbsp;much<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faster&nbsp;for&nbsp;very&nbsp;long&nbsp;bit&nbsp;vectors.&nbsp;&nbsp;However,&nbsp;the&nbsp;regular&nbsp;version<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may&nbsp;work&nbsp;faster&nbsp;for&nbsp;small&nbsp;bit&nbsp;vectors.<br>
+&nbsp;&nbsp;&nbsp;(29)&nbsp;You&nbsp;can&nbsp;test&nbsp;whether&nbsp;the&nbsp;integer&nbsp;value&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;is&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;power&nbsp;of&nbsp;two.&nbsp;&nbsp;The&nbsp;sparse&nbsp;version&nbsp;of&nbsp;this&nbsp;method&nbsp;will&nbsp;work&nbsp;much<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;faster&nbsp;for&nbsp;very&nbsp;long&nbsp;bit&nbsp;vectors.&nbsp;&nbsp;However,&nbsp;the&nbsp;regular&nbsp;version<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may&nbsp;work&nbsp;faster&nbsp;for&nbsp;small&nbsp;bit&nbsp;vectors.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'10000000001110'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.isPowerOf2()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.isPowerOf2_sparse()<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;30)&nbsp;Given&nbsp;a&nbsp;bit&nbsp;vector,&nbsp;you&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;with&nbsp;all&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;reversed,&nbsp;in&nbsp;the&nbsp;sense&nbsp;that&nbsp;what&nbsp;was&nbsp;left&nbsp;to&nbsp;right&nbsp;before<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;now&nbsp;becomes&nbsp;right&nbsp;to&nbsp;left.<br>
+&nbsp;&nbsp;&nbsp;(30)&nbsp;Given&nbsp;a&nbsp;bit&nbsp;vector,&nbsp;you&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;with&nbsp;all&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bits&nbsp;reversed,&nbsp;in&nbsp;the&nbsp;sense&nbsp;that&nbsp;what&nbsp;was&nbsp;left&nbsp;to&nbsp;right&nbsp;before<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;now&nbsp;becomes&nbsp;right&nbsp;to&nbsp;left.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'0001100000000000001'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.reverse()<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;31)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;greatest&nbsp;common&nbsp;divisor&nbsp;of&nbsp;two&nbsp;bit&nbsp;vectors:<br>
+&nbsp;&nbsp;&nbsp;(31)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;greatest&nbsp;common&nbsp;divisor&nbsp;of&nbsp;two&nbsp;bit&nbsp;vectors:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'01100110'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv2&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'011'&nbsp;)&nbsp;<br>
@@ -667,8 +690,8 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;int(bv)<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;32)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;multiplicative&nbsp;inverse&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vis-a-vis&nbsp;a&nbsp;given&nbsp;modulus:<br>
+&nbsp;&nbsp;&nbsp;(32)&nbsp;You&nbsp;can&nbsp;find&nbsp;the&nbsp;multiplicative&nbsp;inverse&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vis-a-vis&nbsp;a&nbsp;given&nbsp;modulus:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv_modulus&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;intVal&nbsp;=&nbsp;32&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;intVal&nbsp;=&nbsp;17&nbsp;)&nbsp;<br>
@@ -677,14 +700,14 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;int(bv_result)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:&nbsp;print&nbsp;"No&nbsp;multiplicative&nbsp;inverse&nbsp;in&nbsp;this&nbsp;case"<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;multiplicative&nbsp;inverse&nbsp;is&nbsp;calculated&nbsp;using&nbsp;normal&nbsp;integer<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arithmetic.&nbsp;&nbsp;For&nbsp;multiplicative&nbsp;inverses&nbsp;in&nbsp;GF(2^n),&nbsp;use&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gf_MI()&nbsp;method&nbsp;described&nbsp;below.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;multiplicative&nbsp;inverse&nbsp;is&nbsp;calculated&nbsp;using&nbsp;normal&nbsp;integer<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arithmetic.&nbsp;&nbsp;For&nbsp;multiplicative&nbsp;inverses&nbsp;in&nbsp;GF(2^n),&nbsp;use&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gf_MI()&nbsp;method&nbsp;described&nbsp;below.<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;33)&nbsp;To&nbsp;find&nbsp;the&nbsp;multiplicative&nbsp;inverse&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;in&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF(2^n)&nbsp;with&nbsp;respect&nbsp;to&nbsp;a&nbsp;modulus&nbsp;polynomial,&nbsp;you&nbsp;can&nbsp;do<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;following:<br>
+&nbsp;&nbsp;&nbsp;(33)&nbsp;To&nbsp;find&nbsp;the&nbsp;multiplicative&nbsp;inverse&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GF(2^n)&nbsp;with&nbsp;respect&nbsp;to&nbsp;a&nbsp;modulus&nbsp;polynomial,&nbsp;you&nbsp;can&nbsp;do<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;following:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modulus&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'100011011'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;=&nbsp;8<br>
@@ -693,7 +716,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;multi_inverse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;01101100<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;34)&nbsp;If&nbsp;you&nbsp;just&nbsp;want&nbsp;to&nbsp;multiply&nbsp;two&nbsp;bit&nbsp;patterns&nbsp;in&nbsp;GF(2):<br>
+&nbsp;&nbsp;&nbsp;(34)&nbsp;If&nbsp;you&nbsp;just&nbsp;want&nbsp;to&nbsp;multiply&nbsp;two&nbsp;bit&nbsp;patterns&nbsp;in&nbsp;GF(2):<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring='0110001'&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring='0110'&nbsp;)<br>
@@ -701,8 +724,8 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;00010100110<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;35)&nbsp;On&nbsp;the&nbsp;other&nbsp;hand,&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;modular&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multiplications&nbsp;in&nbsp;GF(2^n):<br>
+&nbsp;&nbsp;&nbsp;(35)&nbsp;On&nbsp;the&nbsp;other&nbsp;hand,&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;modular&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multiplications&nbsp;in&nbsp;GF(2^n):<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modulus&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring='100011011'&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;AES&nbsp;modulus<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;=&nbsp;8<br>
@@ -711,7 +734,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&nbsp;a.gf_multiply_modular(b,&nbsp;modulus,&nbsp;n)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;10100110<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;36)&nbsp;To&nbsp;divide&nbsp;by&nbsp;a&nbsp;modulus&nbsp;bitvector&nbsp;in&nbsp;GF(2^n),&nbsp;<br>
+&nbsp;&nbsp;&nbsp;(36)&nbsp;To&nbsp;divide&nbsp;by&nbsp;a&nbsp;modulus&nbsp;bitvector&nbsp;in&nbsp;GF(2^n):<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mod&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring='100011011'&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;AES&nbsp;modulus<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n&nbsp;=&nbsp;8<br>
@@ -720,21 +743,29 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;quotient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;00000000111010<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;remainder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;10001111<br>
 &nbsp;<br>
+&nbsp;&nbsp;&nbsp;(37)&nbsp;You&nbsp;can&nbsp;extract&nbsp;from&nbsp;a&nbsp;bit&nbsp;vector&nbsp;the&nbsp;runs&nbsp;of&nbsp;1's&nbsp;and&nbsp;0's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;vector<br>
 &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitlist&nbsp;=&nbsp;(1,1,&nbsp;1,&nbsp;0,&nbsp;0,&nbsp;1)&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;bv.runs()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;['111',&nbsp;'00',&nbsp;'1']<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;<br>
 <font size=+2 color="red">HOW&nbsp;THE&nbsp;BIT&nbsp;VECTORS&nbsp;ARE&nbsp;STORED:<br>
 </font>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;bits&nbsp;of&nbsp;a&nbsp;bit&nbsp;array&nbsp;are&nbsp;stored&nbsp;in&nbsp;16-bit&nbsp;unsigned&nbsp;ints.&nbsp;&nbsp;After<br>
-&nbsp;&nbsp;&nbsp;&nbsp;resolving&nbsp;the&nbsp;argument&nbsp;with&nbsp;which&nbsp;the&nbsp;constructor&nbsp;is&nbsp;called&nbsp;(which<br>
-&nbsp;&nbsp;&nbsp;&nbsp;happens&nbsp;in&nbsp;lines&nbsp;(A2)&nbsp;through&nbsp;(A82)&nbsp;of&nbsp;the&nbsp;file&nbsp;<a href="#BitVector">BitVector</a>.py),&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;very&nbsp;first&nbsp;thing&nbsp;that&nbsp;the&nbsp;constructor&nbsp;does&nbsp;is&nbsp;to&nbsp;figure&nbsp;out&nbsp;in&nbsp;line<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(A83)&nbsp;as&nbsp;to&nbsp;how&nbsp;many&nbsp;of&nbsp;those&nbsp;2-byte&nbsp;ints&nbsp;it&nbsp;needs&nbsp;for&nbsp;the&nbsp;bits.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;if&nbsp;you&nbsp;wanted&nbsp;to&nbsp;store&nbsp;a&nbsp;64-bit&nbsp;array,&nbsp;the&nbsp;variable<br>
-&nbsp;&nbsp;&nbsp;&nbsp;'two_byte_ints_needed'&nbsp;in&nbsp;line&nbsp;(A83)&nbsp;would&nbsp;be&nbsp;set&nbsp;to&nbsp;4.&nbsp;(This&nbsp;does<br>
-&nbsp;&nbsp;&nbsp;&nbsp;not&nbsp;mean&nbsp;that&nbsp;the&nbsp;size&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;must&nbsp;be&nbsp;a&nbsp;multiple&nbsp;of&nbsp;16.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Any&nbsp;sized&nbsp;bit&nbsp;vectors&nbsp;can&nbsp;constructed&nbsp;using&nbsp;the&nbsp;required&nbsp;number&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;&nbsp;two-byte&nbsp;ints.)&nbsp;Line&nbsp;(A84)&nbsp;creates&nbsp;an&nbsp;array&nbsp;of&nbsp;2-byte&nbsp;ints&nbsp;and<br>
-&nbsp;&nbsp;&nbsp;&nbsp;initializes&nbsp;it&nbsp;with&nbsp;the&nbsp;required&nbsp;number&nbsp;of&nbsp;zeros.&nbsp;&nbsp;Lines&nbsp;(A85)&nbsp;then<br>
-&nbsp;&nbsp;&nbsp;&nbsp;shifts&nbsp;the&nbsp;bits&nbsp;into&nbsp;the&nbsp;array&nbsp;of&nbsp;two-byte&nbsp;ints.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;bits&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector&nbsp;are&nbsp;stored&nbsp;in&nbsp;16-bit&nbsp;unsigned&nbsp;ints<br>
+&nbsp;&nbsp;&nbsp;&nbsp;following&nbsp;Josiah&nbsp;Carlson's&nbsp;recommendation&nbsp;to&nbsp;that&nbsp;effect&nbsp;on&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Pyrex&nbsp;mailing&nbsp;list.&nbsp;&nbsp;After&nbsp;resolving&nbsp;the&nbsp;argument&nbsp;with&nbsp;which&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;is&nbsp;called&nbsp;(which&nbsp;happens&nbsp;in&nbsp;lines&nbsp;(A2)&nbsp;through&nbsp;(A88)&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;file&nbsp;<a href="#BitVector">BitVector</a>.py),&nbsp;the&nbsp;very&nbsp;first&nbsp;thing&nbsp;that&nbsp;the&nbsp;constructor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;does&nbsp;is&nbsp;to&nbsp;figure&nbsp;out&nbsp;in&nbsp;line&nbsp;(A89)&nbsp;as&nbsp;to&nbsp;how&nbsp;many&nbsp;of&nbsp;those&nbsp;2-byte<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ints&nbsp;it&nbsp;needs&nbsp;for&nbsp;the&nbsp;bits.&nbsp;&nbsp;For&nbsp;example,&nbsp;if&nbsp;you&nbsp;wanted&nbsp;to&nbsp;store&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;64-bit&nbsp;array,&nbsp;the&nbsp;variable&nbsp;'two_byte_ints_needed'&nbsp;in&nbsp;line&nbsp;(A89)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;would&nbsp;be&nbsp;set&nbsp;to&nbsp;4.&nbsp;(This&nbsp;does&nbsp;not&nbsp;mean&nbsp;that&nbsp;the&nbsp;size&nbsp;of&nbsp;a&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;must&nbsp;be&nbsp;a&nbsp;multiple&nbsp;of&nbsp;16.&nbsp;&nbsp;Any&nbsp;sized&nbsp;bit&nbsp;vectors&nbsp;can&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;---&nbsp;the&nbsp;constructor&nbsp;will&nbsp;choose&nbsp;the&nbsp;minimum&nbsp;number<br>
+&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;two-byte&nbsp;ints&nbsp;needed.)&nbsp;Line&nbsp;(A90)&nbsp;creates&nbsp;an&nbsp;array&nbsp;of&nbsp;2-byte&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ints&nbsp;and&nbsp;initializes&nbsp;it&nbsp;with&nbsp;the&nbsp;required&nbsp;number&nbsp;of&nbsp;zeros.&nbsp;&nbsp;Line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(A91)&nbsp;then&nbsp;shifts&nbsp;the&nbsp;bits&nbsp;into&nbsp;the&nbsp;array&nbsp;of&nbsp;two-byte&nbsp;ints.<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;As&nbsp;mentioned&nbsp;above,&nbsp;note&nbsp;that&nbsp;it&nbsp;is&nbsp;not&nbsp;necessary&nbsp;for&nbsp;the&nbsp;size&nbsp;of<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;vector&nbsp;to&nbsp;be&nbsp;a&nbsp;multiple&nbsp;of&nbsp;16&nbsp;even&nbsp;though&nbsp;we&nbsp;are&nbsp;using&nbsp;C's<br>
@@ -742,7 +773,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;class&nbsp;<a href="#BitVector">BitVector</a>&nbsp;keeps&nbsp;track&nbsp;of&nbsp;the&nbsp;actual&nbsp;number&nbsp;of&nbsp;bits&nbsp;in&nbsp;the&nbsp;bit<br>
 &nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;through&nbsp;the&nbsp;"size"&nbsp;instance&nbsp;attribute.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;With&nbsp;regard&nbsp;to&nbsp;the&nbsp;code&nbsp;in&nbsp;lines&nbsp;(A2)&nbsp;through&nbsp;(A82)&nbsp;of&nbsp;the&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;With&nbsp;regard&nbsp;to&nbsp;the&nbsp;code&nbsp;in&nbsp;lines&nbsp;(A2)&nbsp;through&nbsp;(A88)&nbsp;of&nbsp;the&nbsp;file<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#BitVector">BitVector</a>.py,&nbsp;note&nbsp;that,&nbsp;except&nbsp;for&nbsp;one&nbsp;case,&nbsp;the&nbsp;constructor&nbsp;must<br>
 &nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;called&nbsp;with&nbsp;a&nbsp;single&nbsp;keyword&nbsp;argument,&nbsp;which&nbsp;determines&nbsp;how&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;vector&nbsp;will&nbsp;be&nbsp;constructed.&nbsp;&nbsp;The&nbsp;single&nbsp;exception&nbsp;to&nbsp;this&nbsp;rule<br>
@@ -770,7 +801,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileobj&nbsp;=&nbsp;StringIO.StringIO(&nbsp;x&nbsp;)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;fp&nbsp;=&nbsp;fileobj&nbsp;)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A32)&nbsp;through&nbsp;(A64)&nbsp;are&nbsp;for&nbsp;the&nbsp;case&nbsp;when&nbsp;you&nbsp;want&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A32)&nbsp;through&nbsp;(A70)&nbsp;are&nbsp;for&nbsp;the&nbsp;case&nbsp;when&nbsp;you&nbsp;want&nbsp;to<br>
 &nbsp;&nbsp;&nbsp;&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;an&nbsp;integer,&nbsp;as&nbsp;in<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;intVal&nbsp;=&nbsp;123456&nbsp;)<br>
@@ -780,7 +811,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;with&nbsp;the&nbsp;above&nbsp;call&nbsp;will&nbsp;be&nbsp;the&nbsp;shortest&nbsp;possible&nbsp;bit<br>
 &nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;for&nbsp;the&nbsp;integer&nbsp;supplied.&nbsp;&nbsp;As&nbsp;a&nbsp;case&nbsp;in&nbsp;point,&nbsp;when&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;intVal&nbsp;is&nbsp;0,&nbsp;the&nbsp;bit&nbsp;vector&nbsp;will&nbsp;consist&nbsp;of&nbsp;a&nbsp;single&nbsp;bit&nbsp;which&nbsp;will<br>
-&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;0&nbsp;also.&nbsp;&nbsp;The&nbsp;code&nbsp;in&nbsp;lines&nbsp;(A32)&nbsp;through&nbsp;(A64)&nbsp;can&nbsp;also&nbsp;handle<br>
+&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;0&nbsp;also.&nbsp;&nbsp;The&nbsp;code&nbsp;in&nbsp;lines&nbsp;(A32)&nbsp;through&nbsp;(A70)&nbsp;can&nbsp;also&nbsp;handle<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;following&nbsp;sort&nbsp;of&nbsp;a&nbsp;call<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;intVal&nbsp;=&nbsp;46,&nbsp;size&nbsp;=&nbsp;16&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
@@ -789,7 +820,7 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;shortest&nbsp;possible&nbsp;bit&nbsp;vector&nbsp;the&nbsp;the&nbsp;intVal&nbsp;with&nbsp;zeros&nbsp;from&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;left.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A65)&nbsp;through&nbsp;(A71)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit&nbsp;vector&nbsp;with<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A71)&nbsp;through&nbsp;(A77)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit&nbsp;vector&nbsp;with<br>
 &nbsp;&nbsp;&nbsp;&nbsp;just&nbsp;the&nbsp;size&nbsp;information,&nbsp;as&nbsp;in<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;size&nbsp;=&nbsp;61&nbsp;)<br>
@@ -797,12 +828,12 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;returns&nbsp;a&nbsp;bit&nbsp;vector&nbsp;that&nbsp;will&nbsp;hold&nbsp;exactly&nbsp;61&nbsp;bits,&nbsp;all<br>
 &nbsp;&nbsp;&nbsp;&nbsp;initialized&nbsp;to&nbsp;the&nbsp;zero&nbsp;value.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A72)&nbsp;through&nbsp;(A76)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Lines&nbsp;(A78)&nbsp;through&nbsp;(A82)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bitstring,&nbsp;as&nbsp;in<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitstring&nbsp;=&nbsp;'00110011111'&nbsp;)<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Finally,&nbsp;lines&nbsp;(A77)&nbsp;through&nbsp;(A80)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Finally,&nbsp;lines&nbsp;(A83)&nbsp;through&nbsp;(A86)&nbsp;are&nbsp;for&nbsp;constructing&nbsp;a&nbsp;bit<br>
 &nbsp;&nbsp;&nbsp;&nbsp;vector&nbsp;from&nbsp;a&nbsp;list&nbsp;or&nbsp;a&nbsp;tuple&nbsp;of&nbsp;the&nbsp;individual&nbsp;bits:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(&nbsp;bitlist&nbsp;=&nbsp;(1,&nbsp;0,&nbsp;1,&nbsp;1,&nbsp;0,&nbsp;0,&nbsp;1)&nbsp;)<br>
@@ -920,7 +951,15 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;method&nbsp;that&nbsp;determines&nbsp;the&nbsp;multiplicative&nbsp;inverse&nbsp;of&nbsp;a&nbsp;bit&nbsp;vector<br>
 &nbsp;&nbsp;&nbsp;&nbsp;vis-a-vis&nbsp;a&nbsp;modulus.&nbsp;&nbsp;The&nbsp;last&nbsp;two&nbsp;methods&nbsp;should&nbsp;prove&nbsp;useful&nbsp;to<br>
 &nbsp;&nbsp;&nbsp;&nbsp;folks&nbsp;in&nbsp;cryptography.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;With&nbsp;regard&nbsp;to&nbsp;Version&nbsp;2.2,&nbsp;I&nbsp;would&nbsp;like&nbsp;to&nbsp;thank&nbsp;Ethan&nbsp;Price&nbsp;for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bringing&nbsp;to&nbsp;my&nbsp;attention&nbsp;a&nbsp;bug&nbsp;in&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;initialization&nbsp;code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;the&nbsp;case&nbsp;when&nbsp;both&nbsp;the&nbsp;int&nbsp;value&nbsp;and&nbsp;the&nbsp;size&nbsp;are&nbsp;user<br>
+&nbsp;&nbsp;&nbsp;&nbsp;specified.&nbsp;&nbsp;Ethan&nbsp;also&nbsp;discovered&nbsp;that&nbsp;the&nbsp;circular&nbsp;shift&nbsp;operators<br>
+&nbsp;&nbsp;&nbsp;&nbsp;did&nbsp;not&nbsp;respond&nbsp;to&nbsp;negative&nbsp;values&nbsp;of&nbsp;the&nbsp;shift&nbsp;value.&nbsp;&nbsp;These&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;some&nbsp;other&nbsp;shortcomings&nbsp;of&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;also&nbsp;discovered&nbsp;by<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Ethan&nbsp;have&nbsp;been&nbsp;fixed&nbsp;in&nbsp;Version&nbsp;2.2.&nbsp;&nbsp;Thanks&nbsp;Ethan!<br>
+&nbsp;<br>
 &nbsp;<br>
 <font size=+2 color="red">ABOUT&nbsp;THE&nbsp;AUTHOR:<br>
 </font>&nbsp;<br>
@@ -1009,9 +1048,11 @@ Date:&nbsp;2011-February-13<br>
 &nbsp;&nbsp;&nbsp;&nbsp;.....<br>
 &nbsp;&nbsp;&nbsp;&nbsp;.....<br>
 &nbsp;<br>
+<font size="+2" color="red">
 &nbsp;&nbsp;&nbsp;&nbsp;(For&nbsp;a&nbsp;more&nbsp;complete&nbsp;working&nbsp;example,&nbsp;see&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;example&nbsp;code&nbsp;in&nbsp;the&nbsp;BitVectorDemo.py&nbsp;file&nbsp;in&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Examples&nbsp;sub-directory.)</tt></p>
+</font>
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
@@ -1211,6 +1252,10 @@ or<br>
 <dl><dt><a name="BitVector-reverse"><strong>reverse</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;new&nbsp;bit&nbsp;vector&nbsp;by&nbsp;reversing&nbsp;the&nbsp;bits&nbsp;in&nbsp;the&nbsp;bit&nbsp;vector&nbsp;on<br>
 which&nbsp;the&nbsp;method&nbsp;is&nbsp;invoked.</tt></dd></dl>
 
+<dl><dt><a name="BitVector-runs"><strong>runs</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;consecutive&nbsp;runs&nbsp;of&nbsp;1's&nbsp;and&nbsp;0's&nbsp;in<br>
+the&nbsp;bit&nbsp;vector.&nbsp;&nbsp;Each&nbsp;run&nbsp;is&nbsp;either&nbsp;a&nbsp;string&nbsp;of&nbsp;all&nbsp;1's&nbsp;or<br>
+a&nbsp;string&nbsp;of&nbsp;all&nbsp;0's.</tt></dd></dl>
+
 <dl><dt><a name="BitVector-setValue"><strong>setValue</strong></a>(self, *args, **kwargs)</dt><dd><tt>Changes&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;associated&nbsp;with&nbsp;a&nbsp;previously&nbsp;constructed<br>
 <a href="#BitVector">BitVector</a>&nbsp;instance.&nbsp;&nbsp;The&nbsp;allowable&nbsp;modes&nbsp;for&nbsp;changing&nbsp;the&nbsp;internally<br>
 stored&nbsp;bit&nbsp;pattern&nbsp;are&nbsp;the&nbsp;same&nbsp;as&nbsp;for&nbsp;the&nbsp;constructor.</tt></dd></dl>
@@ -1279,9 +1324,9 @@ Data descriptors defined here:<br>
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>__author__</strong> = 'Avinash Kak (kak@purdue.edu)'<br>
 <strong>__copyright__</strong> = '(C) 2011 Avinash Kak. Python Software Foundation.'<br>
-<strong>__date__</strong> = '2011-February-13'<br>
-<strong>__url__</strong> = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.1.html'<br>
-<strong>__version__</strong> = '2.1'</td></tr></table><p>
+<strong>__date__</strong> = '2011-March-18'<br>
+<strong>__url__</strong> = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.2.html'<br>
+<strong>__version__</strong> = '2.2'</td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#7799ee">
 <td colspan=3 valign=bottom>&nbsp;<br>
