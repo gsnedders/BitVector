@@ -10,7 +10,7 @@ circularShiftTests = [
 
 class CircularShiftTestCase(unittest.TestCase):
     def checkCircularShifts(self):
-        print "\nTesting CircularShifts" 
+        print("\nTesting CircularShifts")
         for args, expected in circularShiftTests:
             try:
                 op = args[1]
@@ -21,9 +21,9 @@ class CircularShiftTestCase(unittest.TestCase):
                     actual = BitVector.BitVector( bitstring = str(bv) )
                     actual << args[0]
                 assert actual == BitVector.BitVector( bitstring = expected )
-            except Exception, e:
-                print e
-                print "        CIRCULAR SHIFT TEST FAILED"
+            except Exception as e:
+                print(e)
+                print("        CIRCULAR SHIFT TEST FAILED")
 
 def getTestSuites(type):
     return unittest.TestSuite([

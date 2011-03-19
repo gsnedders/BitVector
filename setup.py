@@ -5,36 +5,23 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='2.2',
+      version='3.0',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.2.html',
-      download_url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.2.tar.gz?download',
+      url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.html',
+      download_url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.tar.gz?download',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
 
-**Version 2.2** includes a couple of bug fixes and a new
-method runs() that returns a list of strings that are
-consecutive runs of 1's and 0's in the bit vector.  This
-version also allows for chained invocations of circular bit
-shift operations.
+**Version 3.0** is a Python 3.x compliant version of the
+latest incarnation of the BitVector class.  **This version
+should run with both Python 2.x and Python 3.x.**
 
-**Version 2.1** includes enhanced support for folks who use this
-class for computer security and cryptography work.  You can
-now call on the methods of the BitVector class to do Galois
-Field GF(2^n) arithmetic on bit arrays.  This should save
-the users of this class the bother of having to write their
-own routines for finding multiplicative inverses in GF(2^n)
-finite fields.
-
-**Version 2.0** provides much additional functionality that
-was requested by folks in the data mining community.
-
-The class supports the following operators/methods:
+The class is provided with the following operators/methods:
 
 -      __getitem__
 -      __setitem__

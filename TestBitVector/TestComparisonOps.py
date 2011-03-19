@@ -1,7 +1,5 @@
 import BitVector
 import unittest
-import StringIO
-
 
 bv1 = BitVector.BitVector( bitstring = '00110011' )
 bv2 = BitVector.BitVector( bitlist = [0,0,1,1,0,0,1,1] )
@@ -19,7 +17,7 @@ comparisonTests = [
 
 class ComparisonTestCases(unittest.TestCase):
     def checkComparisons(self):
-        print "\nTesting comparison operators"
+        print("\nTesting comparison operators")
         for args, expected in comparisonTests:
             try:
                 op = args[2]
@@ -38,9 +36,9 @@ class ComparisonTestCases(unittest.TestCase):
                 elif (op == '>='):
                     actual = args[0] >= args[1]
                 assert expected == actual
-            except Exception, e:
-                print e
-                print "        COMPARISON TEST FAILED"
+            except Exception as e:
+                print(e)
+                print("        COMPARISON TEST FAILED")
 
 def getTestSuites(type):
     return unittest.TestSuite([
