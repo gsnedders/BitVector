@@ -1,19 +1,23 @@
 Metadata-Version: 1.0
 Name: BitVector
-Version: 3.0
+Version: 3.1
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.1.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.tar.gz?download
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.1.tar.gz?download
 Description: 
         This class presents a pure-Python memory-efficient packed 
         representation for bit arrays.
         
+        **Version 3.1** includes a documentation error fix, a bug
+        fix in the slice assignment code, and two new methods useful
+        for security work.
+        
         **Version 3.0** is a Python 3.x compliant version of the
         latest incarnation of the BitVector class.  **This version
-        should run with both Python 2.x and Python 3.x.**
+        should work with both Python 2.x and Python 3.x.**
         
         The class is provided with the following operators/methods:
         
@@ -35,10 +39,11 @@ Description:
         -      __rshift__
         -      __add__
         -      count_bits 
-        -      count_bit_sparse       (faster for sparse bit vectors)     
+        -      count_bits_sparse      (faster for sparse bit vectors)     
         -      deep_copy
         -      divide_into_two
         -      gcd
+        -      gen_rand_bits_for_prime
         -      gf_divide              (for divisions in GF(2^n))
         -      gf_MI                  (for multiplicative inverse in GF(2^n))
         -      gf_multiply            (for multiplications in GF(2))
@@ -65,6 +70,7 @@ Description:
         -      shift_right            for non-circular right shift
         -      slice assignment
         -      setValue
+        -      test_for_primality
         -      unpermute
         -      write_to_file
         -      write_bits_to_fileobject

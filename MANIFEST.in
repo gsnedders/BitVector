@@ -3,7 +3,7 @@ include BitVector.py
 include setup.py
 include Makefile
 include README
-include BitVector-3.0.html
+include BitVector-3.1.html
 include TestBitVector/BitVector.py
 include TestBitVector/BitVector.pyc
 include TestBitVector/Test.py
