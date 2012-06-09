@@ -5,25 +5,27 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='3.1',
+      version='3.1.1',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.tar.gz?download',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.1.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.1.tar.gz?download',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
 
+**Version 3.1.1** removes the incompatibility of the module
+test code with how Python 2.7 expects its string input for
+creating memory files. **This version of the module should
+work with all recent versions of Python 2.x and with Python
+3.x.**
+
 **Version 3.1** includes a documentation error fix, a bug
 fix in the slice assignment code, and two new methods useful
 for security work.
-
-**Version 3.0** is a Python 3.x compliant version of the
-latest incarnation of the BitVector class.  **This version
-should work with both Python 2.x and Python 3.x.**
 
 The class is provided with the following operators/methods:
 
@@ -68,7 +70,6 @@ The class is provided with the following operators/methods:
 -      permute
 -      rank_of_bit_set_at_index
 -      read_bits_from_file
--      read_bits_from_fileobject
 -      reset
 -      reverse
 -      runs
