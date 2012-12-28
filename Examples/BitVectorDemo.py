@@ -66,15 +66,29 @@ print(bv)                                    # 111100001111
 
 # Construct a bit vector directly from a bit string:
 bv = BitVector.BitVector( bitstring = '00110011' )
-print("\nBit Vector constructed directly from a string:")
+print("\nBit Vector constructed directly from a bit string:")
 print(bv)                                    # 00110011
 
 bv = BitVector.BitVector( bitstring = '' )
-print("\nBit Vector constructed directly from an empty string:")
+print("\nBit Vector constructed directly from an empty bit string:")
 print(bv)                                    # nothing
 
 print("\nInteger value of the previous bit vector:")
 print(bv.intValue())                         # 0
+
+bv = BitVector.BitVector(textstring = "hello")
+print("\nBit vector constructed from the textstring 'hello':")
+print(bv)
+mytext = bv.getTextFromBitVector()
+print("Text recovered from the previous bitvector: ")
+print(mytext)
+
+bv = BitVector.BitVector(hexstring = "68656c6c6f")
+print("\nBit vector constructed from the hexstring '68656c6c6f':")
+print(bv)
+myhexstring = bv.getHexStringFromBitVector()
+print("Hex string recovered from the previous bitvector: ")
+print(myhexstring)
 
 # Test array-like indexing for a bit vector:
 bv = BitVector.BitVector( bitstring = '110001' )

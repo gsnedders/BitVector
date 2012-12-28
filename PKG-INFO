@@ -1,15 +1,18 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: BitVector
-Version: 3.1.1
+Version: 3.2
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.1.1.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.2.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.1.1.tar.gz?download
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.2.tar.gz?download
 Description: 
         This class presents a pure-Python memory-efficient packed 
         representation for bit arrays.
+        
+        **Version 3.2** includes support for constructing bit
+        vectors directly from text strings and hex strings.
         
         **Version 3.1.1** removes the incompatibility of the module
         test code with how Python 2.7 expects its string input for
@@ -46,6 +49,8 @@ Description:
         -      divide_into_two
         -      gcd
         -      gen_rand_bits_for_prime
+        -      getHexStringFromBitVector
+        -      getTextFromBitVector
         -      gf_divide              (for divisions in GF(2^n))
         -      gf_MI                  (for multiplicative inverse in GF(2^n))
         -      gf_multiply            (for multiplications in GF(2))
