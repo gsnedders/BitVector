@@ -5,17 +5,21 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='3.2',
+      version='3.3',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.2.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.2.tar.gz?download',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.tar.gz?download',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
+
+**Version 3.3** includes one more constructor mode: You can
+now construct a bit vector from the bytes data type.  This
+version also includes a couple of bug fixes.
 
 **Version 3.2** includes support for constructing bit
 vectors directly from text strings and hex strings.
@@ -25,10 +29,6 @@ test code with how Python 2.7 expects its string input for
 creating memory files. **This version of the module should
 work with all recent versions of Python 2.x and with Python
 3.x.**
-
-**Version 3.1** includes a documentation error fix, a bug
-fix in the slice assignment code, and two new methods useful
-for security work.
 
 The class is provided with the following operators/methods:
 
@@ -91,6 +91,6 @@ The class is provided with the following operators/methods:
       license='Python Software Foundation License',
       keywords='bit array, bit vector, bit string, logical operations on bit fields',
       platforms='All platforms',
-      classifiers=['Topic :: Utilities', 'Programming Language :: Python'],
+      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7' 'Programming Language :: Python :: 3.x'],
       packages=['']
 )
