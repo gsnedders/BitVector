@@ -5,17 +5,24 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='3.3',
+      version='3.3.1',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.tar.gz?download',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
+
+**Version 3.3.1** is a minor upgrade to make the syntax of
+the API method declarations more uniform.  Previously, while
+most of the method names used underscores to connect
+multiple words, some used camelcasing.  Now all use
+underscores.  For backward compatibility, the old calls will
+continue to work.
 
 **Version 3.3** includes one more constructor mode: You can
 now construct a bit vector from the bytes data type.  This
@@ -23,12 +30,6 @@ version also includes a couple of bug fixes.
 
 **Version 3.2** includes support for constructing bit
 vectors directly from text strings and hex strings.
-
-**Version 3.1.1** removes the incompatibility of the module
-test code with how Python 2.7 expects its string input for
-creating memory files. **This version of the module should
-work with all recent versions of Python 2.x and with Python
-3.x.**
 
 The class is provided with the following operators/methods:
 
@@ -55,16 +56,16 @@ The class is provided with the following operators/methods:
 -      divide_into_two
 -      gcd
 -      gen_rand_bits_for_prime
--      getHexStringFromBitVector
--      getTextFromBitVector
+-      get_hex_string_from_bitvector
+-      get_text_from_bitvector
 -      gf_divide              (for divisions in GF(2^n))
 -      gf_MI                  (for multiplicative inverse in GF(2^n))
 -      gf_multiply            (for multiplications in GF(2))
 -      gf_multiply_modular    (for multiplications in GF(2^n))
 -      hamming_distance
--      intValue               (for returning the integer value) 
--      isPowerOf2
--      isPowerOf2_sparse      (faster for sparse bit vectors)
+-      int_val                (for returning the integer value) 
+-      is_power_of_2
+-      is_power_of_2_sparse   (faster for sparse bit vectors)
 -      jaccard_distance
 -      jaccard_similarity
 -      length                 
@@ -78,10 +79,10 @@ The class is provided with the following operators/methods:
 -      reset
 -      reverse
 -      runs
--      shift_left             for non-circular left shift
--      shift_right            for non-circular right shift
+-      shift_left             (for non-circular left shift)
+-      shift_right            (for non-circular right shift)
 -      slice assignment
--      setValue
+-      set_value
 -      test_for_primality
 -      unpermute
 -      write_to_file
@@ -91,6 +92,6 @@ The class is provided with the following operators/methods:
       license='Python Software Foundation License',
       keywords='bit array, bit vector, bit string, logical operations on bit fields',
       platforms='All platforms',
-      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7' 'Programming Language :: Python :: 3.x'],
+      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7', 'Programming Language :: Python :: 3.2'],
       packages=['']
 )
