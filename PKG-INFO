@@ -1,15 +1,19 @@
 Metadata-Version: 1.1
 Name: BitVector
-Version: 3.3.1
+Version: 3.3.2
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.3.2.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.tar.gz
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.3.2.tar.gz
 Description: 
         This class presents a pure-Python memory-efficient packed 
         representation for bit arrays.
+        
+        **Version 3.3.2** has a bug fix for the case when you
+        construct a bit vector from a text string that includes
+        character escapes.
         
         **Version 3.3.1** is a minor upgrade to make the syntax of
         the API method declarations more uniform.  Previously, while
@@ -21,9 +25,6 @@ Description:
         **Version 3.3** includes one more constructor mode: You can
         now construct a bit vector from the bytes data type.  This
         version also includes a couple of bug fixes.
-        
-        **Version 3.2** includes support for constructing bit
-        vectors directly from text strings and hex strings.
         
         The class is provided with the following operators/methods:
         
