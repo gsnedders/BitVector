@@ -7,21 +7,18 @@
 from setuptools import setup, find_packages
 
 setup(name='BitVector',
-      version='3.4.3',
+      version='3.4.4',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.tar.gz',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed representation for bit arrays.
 
-**Version 3.4.3** is a quick release that fixes the problem with relative imports in the previous version.  Python3 does not like relative imports.
-
-**Version 3.4.2** fixes the previous version's problem of not exporting the module metadata.
-
+**Version 3.4.4** fixes the behavior of the module for the edge case of an empty BitVector instance.  (An empty BitVector has no bits at all.)  Previously, invoking the count_bits() and runs() methods on an empty BitVector instance produced results that were inconsistent with those from regular instances.
 
 The class is provided with the following operators/methods:
 

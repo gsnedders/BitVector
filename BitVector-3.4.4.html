@@ -1,7 +1,7 @@
 <!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html><head>
 <title>
-BitVector-3.4.3.html
+BitVector-3.4.4.html
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -9,34 +9,42 @@ BitVector-3.4.3.html
 <table width="100%" cellspacing="0" cellpadding="2" border="0" summary="heading">
 <tr bgcolor="#7799ee">
 <td valign=bottom>&nbsp;<br>
-<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BitVector</strong></big></big> (version 3.4.3, 2015-May-18)</font></td
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>BitVector</strong></big></big> (version 3.4.4, 2015-July-19)</font></td
 ><td align=right valign=bottom
 ><font color="#ffffff" face="helvetica, arial">
 </font></td></tr></table>
 <p><a href="#BitVector"><tt>BitVector</tt></a>.py<br>
 <tt>
 &nbsp;<br>
-Version:&nbsp;3.4.3<br>
+Version:&nbsp;3.4.4<br>
 &nbsp;&nbsp;&nbsp;<br>
 Author:&nbsp;Avinash&nbsp;Kak&nbsp;(kak@purdue.edu)<br>
 &nbsp;<br>
-Date:&nbsp;2015-May-18<br>
+Date:&nbsp;2015-July-19<br>
 &nbsp;<br>
 &nbsp;<br>
-<b>Download Version 3.4.3:</b>
+<b>Download Version 3.4.4:</b>
 &nbsp;  
-<A HREF="https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.tar.gz?download">gztar</A> 
+<A HREF="https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.tar.gz?download">gztar</A> 
 &nbsp;             
-<A HREF="https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.tar.bz2?download">bztar</A> 
+<A HREF="https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.tar.bz2?download">bztar</A> 
 
 <br>
 <br>
-<A HREF="BitVector-3.4.3_CodeOnly.html">View version 3.4.3 code in browser</A> 
+<A HREF="BitVector-3.4.4_CodeOnly.html">View version 3.4.4 code in browser</A> 
 <br>
 <br>
 <br>
 <font size="+2" color="red">CHANGE&nbsp;LOG:<br>
 </font>&nbsp;<br>
+&nbsp;&nbsp;Version&nbsp;3.4.4<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;version&nbsp;fixes&nbsp;the&nbsp;behavior&nbsp;of&nbsp;the&nbsp;module&nbsp;for&nbsp;the&nbsp;edge&nbsp;case&nbsp;of&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;empty&nbsp;BitVector&nbsp;instance.&nbsp;&nbsp;(An&nbsp;empty&nbsp;BitVector&nbsp;has&nbsp;no&nbsp;bits&nbsp;at&nbsp;all.)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Previously,&nbsp;invoking&nbsp;the&nbsp;count_bits()&nbsp;and&nbsp;runs()&nbsp;methods&nbsp;on&nbsp;an&nbsp;empty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BitVector&nbsp;instance&nbsp;produced&nbsp;results&nbsp;that&nbsp;were&nbsp;inconsistent&nbsp;with&nbsp;those<br>
+&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;regular&nbsp;instances.<br>
+&nbsp;<br>
 &nbsp;&nbsp;Version&nbsp;3.4.3<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;a&nbsp;quick&nbsp;release&nbsp;that&nbsp;fixes&nbsp;the&nbsp;problem&nbsp;with&nbsp;the&nbsp;relative&nbsp;imports<br>
@@ -136,7 +144,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Includes&nbsp;enhanced&nbsp;support&nbsp;for&nbsp;folks&nbsp;who&nbsp;use&nbsp;this&nbsp;class&nbsp;for&nbsp;computer<br>
 &nbsp;&nbsp;&nbsp;&nbsp;security&nbsp;and&nbsp;cryptography&nbsp;work.&nbsp;&nbsp;You&nbsp;can&nbsp;now&nbsp;call&nbsp;on&nbsp;the&nbsp;methods&nbsp;of&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;to&nbsp;do&nbsp;Galois&nbsp;Field&nbsp;GF(2^n)&nbsp;arithmetic&nbsp;on&nbsp;bit&nbsp;arrays.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BitVector&nbsp;class&nbsp;to&nbsp;do&nbsp;Galois&nbsp;Field&nbsp;GF(2^n)&nbsp;arithmetic&nbsp;on&nbsp;bit&nbsp;arrays.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;should&nbsp;save&nbsp;the&nbsp;users&nbsp;of&nbsp;this&nbsp;class&nbsp;the&nbsp;bother&nbsp;of&nbsp;having&nbsp;to&nbsp;write<br>
 &nbsp;&nbsp;&nbsp;&nbsp;their&nbsp;own&nbsp;routines&nbsp;for&nbsp;finding&nbsp;multiplicative&nbsp;inverses&nbsp;in&nbsp;GF(2^n)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;finite&nbsp;fields.<br>
@@ -148,7 +156,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 &nbsp;&nbsp;Version&nbsp;2.0:<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;address&nbsp;the&nbsp;needs&nbsp;of&nbsp;the&nbsp;folks&nbsp;who&nbsp;are&nbsp;using&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;address&nbsp;the&nbsp;needs&nbsp;of&nbsp;the&nbsp;folks&nbsp;who&nbsp;are&nbsp;using&nbsp;the&nbsp;BitVector&nbsp;class&nbsp;in<br>
 &nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;mining&nbsp;research,&nbsp;the&nbsp;new&nbsp;version&nbsp;of&nbsp;the&nbsp;class&nbsp;includes&nbsp;several<br>
 &nbsp;&nbsp;&nbsp;&nbsp;additional&nbsp;methods.&nbsp;&nbsp;Since&nbsp;the&nbsp;bitvectors&nbsp;used&nbsp;by&nbsp;these&nbsp;folks&nbsp;can&nbsp;be<br>
 &nbsp;&nbsp;&nbsp;&nbsp;extremely&nbsp;long,&nbsp;possibly&nbsp;involving&nbsp;millions&nbsp;of&nbsp;bits,&nbsp;the&nbsp;new&nbsp;version&nbsp;of<br>
@@ -173,14 +181,14 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;Version&nbsp;1.5:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;version&nbsp;should&nbsp;prove&nbsp;to&nbsp;be&nbsp;much&nbsp;more&nbsp;efficient&nbsp;for&nbsp;long<br>
-&nbsp;&nbsp;&nbsp;&nbsp;bitvectors.&nbsp;&nbsp;Efficiency&nbsp;in&nbsp;<a href="#BitVector">BitVector</a>&nbsp;construction&nbsp;when&nbsp;only&nbsp;its&nbsp;size&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bitvectors.&nbsp;&nbsp;Efficiency&nbsp;in&nbsp;BitVector&nbsp;construction&nbsp;when&nbsp;only&nbsp;its&nbsp;size&nbsp;is<br>
 &nbsp;&nbsp;&nbsp;&nbsp;specified&nbsp;was&nbsp;achieved&nbsp;by&nbsp;eliminating&nbsp;calls&nbsp;to&nbsp;_setbit().&nbsp;&nbsp;The<br>
 &nbsp;&nbsp;&nbsp;&nbsp;application&nbsp;of&nbsp;logical&nbsp;operators&nbsp;to&nbsp;two&nbsp;BitVectors&nbsp;of&nbsp;equal&nbsp;length&nbsp;was<br>
 &nbsp;&nbsp;&nbsp;&nbsp;also&nbsp;made&nbsp;efficient&nbsp;by&nbsp;eliminating&nbsp;calls&nbsp;to&nbsp;the&nbsp;padding&nbsp;function.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Another&nbsp;feature&nbsp;of&nbsp;this&nbsp;version&nbsp;is&nbsp;the&nbsp;count_bits()&nbsp;method&nbsp;that&nbsp;returns<br>
-&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;bits&nbsp;set&nbsp;in&nbsp;a&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance.&nbsp;&nbsp;Yet&nbsp;another<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;bits&nbsp;set&nbsp;in&nbsp;a&nbsp;BitVector&nbsp;instance.&nbsp;&nbsp;Yet&nbsp;another<br>
 &nbsp;&nbsp;&nbsp;&nbsp;feature&nbsp;of&nbsp;this&nbsp;version&nbsp;is&nbsp;the&nbsp;setValue()&nbsp;method&nbsp;that&nbsp;alters&nbsp;the&nbsp;bit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;pattern&nbsp;associated&nbsp;with&nbsp;a&nbsp;previously&nbsp;constructed&nbsp;<a href="#BitVector">BitVector</a>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pattern&nbsp;associated&nbsp;with&nbsp;a&nbsp;previously&nbsp;constructed&nbsp;BitVector.<br>
 &nbsp;&nbsp;&nbsp;<br>
 &nbsp;&nbsp;Version&nbsp;1.4.1:<br>
 &nbsp;<br>
@@ -193,14 +201,14 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;version&nbsp;includes&nbsp;the&nbsp;following&nbsp;two&nbsp;upgrades:&nbsp;1)&nbsp;code&nbsp;for&nbsp;slice<br>
 &nbsp;&nbsp;&nbsp;&nbsp;assignment;&nbsp;and&nbsp;2)&nbsp;A&nbsp;reset&nbsp;function&nbsp;to&nbsp;reinitialize&nbsp;a&nbsp;previously<br>
-&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;<a href="#BitVector">BitVector</a>.&nbsp;&nbsp;Additionally,&nbsp;the&nbsp;code&nbsp;was&nbsp;cleaned&nbsp;up&nbsp;with&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constructed&nbsp;BitVector.&nbsp;&nbsp;Additionally,&nbsp;the&nbsp;code&nbsp;was&nbsp;cleaned&nbsp;up&nbsp;with&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;help&nbsp;of&nbsp;pychecker.<br>
 &nbsp;<br>
 &nbsp;&nbsp;Version&nbsp;1.3.2:<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Fixed&nbsp;a&nbsp;potentially&nbsp;misleading&nbsp;documentation&nbsp;issue&nbsp;for&nbsp;the&nbsp;Windows<br>
-&nbsp;&nbsp;&nbsp;&nbsp;users&nbsp;of&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class.&nbsp;&nbsp;If&nbsp;you&nbsp;are&nbsp;writing&nbsp;an&nbsp;internally<br>
-&nbsp;&nbsp;&nbsp;&nbsp;generated&nbsp;<a href="#BitVector">BitVector</a>&nbsp;to&nbsp;a&nbsp;disk&nbsp;file,&nbsp;you&nbsp;must&nbsp;open&nbsp;the&nbsp;file&nbsp;in&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;users&nbsp;of&nbsp;the&nbsp;BitVector&nbsp;class.&nbsp;&nbsp;If&nbsp;you&nbsp;are&nbsp;writing&nbsp;an&nbsp;internally<br>
+&nbsp;&nbsp;&nbsp;&nbsp;generated&nbsp;BitVector&nbsp;to&nbsp;a&nbsp;disk&nbsp;file,&nbsp;you&nbsp;must&nbsp;open&nbsp;the&nbsp;file&nbsp;in&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;binary&nbsp;mode.&nbsp;&nbsp;If&nbsp;you&nbsp;don't,&nbsp;the&nbsp;bit&nbsp;patterns&nbsp;that&nbsp;correspond&nbsp;to&nbsp;line<br>
 &nbsp;&nbsp;&nbsp;&nbsp;breaks&nbsp;will&nbsp;be&nbsp;misinterpreted.&nbsp;&nbsp;On&nbsp;a&nbsp;Windows&nbsp;machine&nbsp;in&nbsp;the&nbsp;text&nbsp;mode,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;000001010&nbsp;('\n')&nbsp;will&nbsp;be&nbsp;written&nbsp;out&nbsp;to&nbsp;the&nbsp;disk&nbsp;as<br>
@@ -219,7 +227,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(a)&nbsp;One&nbsp;more&nbsp;constructor&nbsp;mode&nbsp;included:&nbsp;When&nbsp;initializing&nbsp;a&nbsp;new<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bitvector&nbsp;with&nbsp;an&nbsp;integer&nbsp;value,&nbsp;you&nbsp;can&nbsp;now&nbsp;also&nbsp;specify&nbsp;a&nbsp;size&nbsp;for<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;bitvector.&nbsp;&nbsp;The&nbsp;constructor&nbsp;zero-pads&nbsp;the&nbsp;bitvector&nbsp;from&nbsp;the&nbsp;left<br>
-&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;zeros.&nbsp;(b)&nbsp;The&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;now&nbsp;supports&nbsp;'if&nbsp;x&nbsp;in&nbsp;y'&nbsp;syntax&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;zeros.&nbsp;(b)&nbsp;The&nbsp;BitVector&nbsp;class&nbsp;now&nbsp;supports&nbsp;'if&nbsp;x&nbsp;in&nbsp;y'&nbsp;syntax&nbsp;to<br>
 &nbsp;&nbsp;&nbsp;&nbsp;test&nbsp;if&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;'x'&nbsp;is&nbsp;contained&nbsp;in&nbsp;the&nbsp;bit&nbsp;pattern&nbsp;'y'.&nbsp;&nbsp;(c)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Improved&nbsp;syntax&nbsp;to&nbsp;conform&nbsp;to&nbsp;well-established&nbsp;Python&nbsp;idioms.&nbsp;(d)&nbsp;What<br>
 &nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;to&nbsp;be&nbsp;a&nbsp;comment&nbsp;before&nbsp;the&nbsp;beginning&nbsp;of&nbsp;each&nbsp;method&nbsp;definition&nbsp;is<br>
@@ -243,7 +251,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;function&nbsp;that&nbsp;does&nbsp;block&nbsp;reads&nbsp;from&nbsp;a&nbsp;disk&nbsp;file&nbsp;now&nbsp;peeks&nbsp;ahead&nbsp;at<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;end&nbsp;of&nbsp;each&nbsp;block&nbsp;to&nbsp;see&nbsp;if&nbsp;there&nbsp;is&nbsp;anything&nbsp;remaining&nbsp;to&nbsp;be&nbsp;read<br>
 &nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;file.&nbsp;&nbsp;If&nbsp;nothing&nbsp;remains,&nbsp;the&nbsp;more_to_read&nbsp;attribute&nbsp;of&nbsp;the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#BitVector">BitVector</a>&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;is&nbsp;set&nbsp;to&nbsp;False.&nbsp;&nbsp;This&nbsp;simplifies&nbsp;reading&nbsp;loops.&nbsp;This<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BitVector&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;is&nbsp;set&nbsp;to&nbsp;False.&nbsp;&nbsp;This&nbsp;simplifies&nbsp;reading&nbsp;loops.&nbsp;This<br>
 &nbsp;&nbsp;&nbsp;&nbsp;version&nbsp;also&nbsp;allows&nbsp;BitVectors&nbsp;of&nbsp;size&nbsp;0&nbsp;to&nbsp;be&nbsp;constructed<br>
 &nbsp;<br>
 &nbsp;<br>
@@ -256,7 +264,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 <font size="+2" color="red">INSTALLATION:<br>
 </font>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;was&nbsp;packaged&nbsp;using&nbsp;setuptools.&nbsp;&nbsp;For&nbsp;installation,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;BitVector&nbsp;class&nbsp;was&nbsp;packaged&nbsp;using&nbsp;setuptools.&nbsp;&nbsp;For&nbsp;installation,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;execute&nbsp;the&nbsp;following&nbsp;command-line&nbsp;in&nbsp;the&nbsp;source&nbsp;directory&nbsp;(this&nbsp;is&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;directory&nbsp;that&nbsp;contains&nbsp;the&nbsp;setup.py&nbsp;file&nbsp;after&nbsp;you&nbsp;have&nbsp;downloaded&nbsp;and<br>
 &nbsp;&nbsp;&nbsp;&nbsp;uncompressed&nbsp;the&nbsp;tar&nbsp;archive):<br>
@@ -279,17 +287,17 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;do&nbsp;not&nbsp;have&nbsp;root&nbsp;access,&nbsp;you&nbsp;have&nbsp;the&nbsp;option&nbsp;of&nbsp;working&nbsp;directly<br>
 &nbsp;&nbsp;&nbsp;&nbsp;off&nbsp;the&nbsp;directory&nbsp;in&nbsp;which&nbsp;you&nbsp;downloaded&nbsp;the&nbsp;software&nbsp;by&nbsp;simply<br>
 &nbsp;&nbsp;&nbsp;&nbsp;placing&nbsp;the&nbsp;following&nbsp;statements&nbsp;at&nbsp;the&nbsp;top&nbsp;of&nbsp;your&nbsp;scripts&nbsp;that&nbsp;use<br>
-&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;BitVector&nbsp;class<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;import&nbsp;sys<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.path.append(&nbsp;"pathname_to_BitVector_directory"&nbsp;)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;uninstall&nbsp;the&nbsp;module,&nbsp;simply&nbsp;delete&nbsp;the&nbsp;source&nbsp;directory,&nbsp;locate<br>
-&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;<a href="#BitVector">BitVector</a>&nbsp;was&nbsp;installed&nbsp;with&nbsp;"locate&nbsp;<a href="#BitVector">BitVector</a>"&nbsp;and&nbsp;delete&nbsp;those<br>
+&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;BitVector&nbsp;was&nbsp;installed&nbsp;with&nbsp;"locate&nbsp;BitVector"&nbsp;and&nbsp;delete&nbsp;those<br>
 &nbsp;&nbsp;&nbsp;&nbsp;files.&nbsp;&nbsp;As&nbsp;mentioned&nbsp;above,&nbsp;the&nbsp;full&nbsp;pathname&nbsp;to&nbsp;the&nbsp;installed&nbsp;version<br>
-&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;likely&nbsp;to&nbsp;look&nbsp;like&nbsp;/usr/local/lib/python2.7/dist-packages/<a href="#BitVector">BitVector</a>*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;likely&nbsp;to&nbsp;look&nbsp;like&nbsp;/usr/local/lib/python2.7/dist-packages/BitVector*<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;a&nbsp;non-standard&nbsp;install&nbsp;of&nbsp;<a href="#BitVector">BitVector</a>,&nbsp;look&nbsp;up<br>
+&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;carry&nbsp;out&nbsp;a&nbsp;non-standard&nbsp;install&nbsp;of&nbsp;BitVector,&nbsp;look&nbsp;up<br>
 &nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;on-line&nbsp;information&nbsp;on&nbsp;Disutils&nbsp;by&nbsp;pointing&nbsp;your&nbsp;browser&nbsp;to<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://docs.python.org/dist/dist.html">http://docs.python.org/dist/dist.html</a><br>
@@ -297,7 +305,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 <font size="+2" color="red">INTRODUCTION:<br>
 </font>&nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;is&nbsp;for&nbsp;a&nbsp;memory-efficient&nbsp;packed&nbsp;representation&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;BitVector&nbsp;class&nbsp;is&nbsp;for&nbsp;a&nbsp;memory-efficient&nbsp;packed&nbsp;representation&nbsp;of<br>
 &nbsp;&nbsp;&nbsp;&nbsp;bit&nbsp;arrays&nbsp;and&nbsp;for&nbsp;logical&nbsp;operations&nbsp;on&nbsp;such&nbsp;arrays.&nbsp;The&nbsp;operations<br>
 &nbsp;&nbsp;&nbsp;&nbsp;supported&nbsp;on&nbsp;bit&nbsp;vectors&nbsp;are:<br>
 &nbsp;<br>
@@ -363,16 +371,16 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C0)&nbsp;&nbsp;You&nbsp;construct&nbsp;an&nbsp;EMPTY&nbsp;bit&nbsp;vector&nbsp;using&nbsp;the&nbsp;following&nbsp;syntax:<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(size&nbsp;=&nbsp;0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;BitVector(size&nbsp;=&nbsp;0)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C1)&nbsp;&nbsp;You&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;from&nbsp;either&nbsp;a&nbsp;tuple&nbsp;or&nbsp;a<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;bits,&nbsp;as&nbsp;in<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;&nbsp;<a href="#BitVector">BitVector</a>(bitlist&nbsp;=&nbsp;[1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1])&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;&nbsp;BitVector(bitlist&nbsp;=&nbsp;[1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1])&nbsp;<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C2)&nbsp;&nbsp;You&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;an&nbsp;integer&nbsp;by<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;&nbsp;<a href="#BitVector">BitVector</a>(intVal&nbsp;=&nbsp;56789)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;&nbsp;BitVector(intVal&nbsp;=&nbsp;56789)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;bits&nbsp;stored&nbsp;now&nbsp;will&nbsp;correspond&nbsp;to&nbsp;the&nbsp;binary&nbsp;representation<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;the&nbsp;integer.&nbsp;&nbsp;The&nbsp;resulting&nbsp;bit&nbsp;vector&nbsp;is&nbsp;the&nbsp;shortest<br>
@@ -383,7 +391,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C3)&nbsp;&nbsp;When&nbsp;initializing&nbsp;a&nbsp;bit&nbsp;vector&nbsp;with&nbsp;an&nbsp;intVal&nbsp;as&nbsp;shown&nbsp;above,&nbsp;you<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can&nbsp;also&nbsp;specify&nbsp;a&nbsp;size&nbsp;for&nbsp;the&nbsp;bit&nbsp;vector:<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(intVal&nbsp;=&nbsp;0,&nbsp;size&nbsp;=&nbsp;8)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;BitVector(intVal&nbsp;=&nbsp;0,&nbsp;size&nbsp;=&nbsp;8)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;return&nbsp;the&nbsp;bit&nbsp;vector&nbsp;consisting&nbsp;of&nbsp;the&nbsp;bit&nbsp;pattern<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;00000000.&nbsp;&nbsp;The&nbsp;zero&nbsp;padding&nbsp;needed&nbsp;for&nbsp;meeting&nbsp;the&nbsp;size<br>
@@ -393,7 +401,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C4)&nbsp;&nbsp;You&nbsp;can&nbsp;create&nbsp;a&nbsp;zero-initialized&nbsp;bit&nbsp;vector&nbsp;of&nbsp;a&nbsp;given&nbsp;size&nbsp;by<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(size&nbsp;=&nbsp;62)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;BitVector(size&nbsp;=&nbsp;62)<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;bit&nbsp;vector&nbsp;will&nbsp;hold&nbsp;exactly&nbsp;62&nbsp;bits,&nbsp;all&nbsp;initialized&nbsp;to<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;0&nbsp;bit&nbsp;value.<br>
@@ -401,7 +409,7 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C5)&nbsp;&nbsp;You&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a&nbsp;disk&nbsp;file&nbsp;by&nbsp;a&nbsp;two-step<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;procedure.&nbsp;First&nbsp;you&nbsp;construct&nbsp;an&nbsp;instance&nbsp;of&nbsp;bit&nbsp;vector&nbsp;by<br>
 &nbsp;&nbsp;&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;&nbsp;<a href="#BitVector">BitVector</a>(filename&nbsp;=&nbsp;'somefile')&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;&nbsp;BitVector(filename&nbsp;=&nbsp;'somefile')&nbsp;&nbsp;&nbsp;<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;bit&nbsp;vector&nbsp;itself&nbsp;is&nbsp;incapable&nbsp;of&nbsp;holding&nbsp;the&nbsp;bits.&nbsp;&nbsp;To&nbsp;now<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create&nbsp;bit&nbsp;vectors&nbsp;that&nbsp;actually&nbsp;hold&nbsp;the&nbsp;bits,&nbsp;you&nbsp;need&nbsp;to&nbsp;make<br>
@@ -412,14 +420,14 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv1&nbsp;will&nbsp;be&nbsp;a&nbsp;regular&nbsp;bit&nbsp;vector&nbsp;containing&nbsp;64&nbsp;bits&nbsp;from&nbsp;the&nbsp;disk<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file.&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;re-read&nbsp;a&nbsp;file&nbsp;from&nbsp;the&nbsp;beginning&nbsp;for&nbsp;some<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reason,&nbsp;you&nbsp;must&nbsp;obviously&nbsp;first&nbsp;close&nbsp;the&nbsp;file&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;that&nbsp;was<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acquired&nbsp;with&nbsp;a&nbsp;call&nbsp;to&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;constructor&nbsp;with&nbsp;a&nbsp;filename<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acquired&nbsp;with&nbsp;a&nbsp;call&nbsp;to&nbsp;the&nbsp;BitVector&nbsp;constructor&nbsp;with&nbsp;a&nbsp;filename<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;argument.&nbsp;&nbsp;This&nbsp;can&nbsp;be&nbsp;accomplished&nbsp;by<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv.close_file_object()<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C6)&nbsp;&nbsp;You&nbsp;can&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;from&nbsp;a&nbsp;string&nbsp;of&nbsp;1's&nbsp;and&nbsp;0's&nbsp;by<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;&nbsp;<a href="#BitVector">BitVector</a>(bitstring&nbsp;=&nbsp;'110011110000')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;&nbsp;=&nbsp;&nbsp;BitVector(bitstring&nbsp;=&nbsp;'110011110000')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C7)&nbsp;&nbsp;Yet&nbsp;another&nbsp;way&nbsp;to&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;is&nbsp;to&nbsp;read&nbsp;the&nbsp;bits<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directly&nbsp;from&nbsp;a&nbsp;file-like&nbsp;<a href="__builtin__.html#object">object</a>,&nbsp;as&nbsp;in<br>
@@ -427,13 +435,13 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;import&nbsp;io&nbsp;&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;"111100001111"<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fp_read&nbsp;=&nbsp;io.StringIO(&nbsp;x&nbsp;)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(fp&nbsp;=&nbsp;fp_read)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv&nbsp;=&nbsp;BitVector(fp&nbsp;=&nbsp;fp_read)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(bv)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;111100001111&nbsp;<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C8)&nbsp;&nbsp;You&nbsp;can&nbsp;also&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;from&nbsp;a&nbsp;text&nbsp;string<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;shown&nbsp;by&nbsp;the&nbsp;example:<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv3&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(textstring&nbsp;=&nbsp;"hello")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv3&nbsp;=&nbsp;BitVector(textstring&nbsp;=&nbsp;"hello")<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(bv3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;0110100001100101011011000110110001101111<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mytext&nbsp;=&nbsp;bv3.get_bitvector_in_ascii()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;mytext&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;hello<br>
@@ -444,13 +452,13 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C9)&nbsp;&nbsp;You&nbsp;can&nbsp;also&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;from&nbsp;a&nbsp;string&nbsp;of&nbsp;hex<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digits&nbsp;as&nbsp;shown&nbsp;by&nbsp;the&nbsp;example:<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv4&nbsp;=&nbsp;<a href="#BitVector">BitVector</a>(hexstring&nbsp;=&nbsp;"68656c6c6f")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bv4&nbsp;=&nbsp;BitVector(hexstring&nbsp;=&nbsp;"68656c6c6f")<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(bv4)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;0110100001100101011011000110110001101111<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myhexstring&nbsp;=&nbsp;bv4.get_bitvector_in_hex()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;myhexstring&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;68656c6c6<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;(C10)&nbsp;You&nbsp;can&nbsp;also&nbsp;construct&nbsp;a&nbsp;bit&nbsp;vector&nbsp;directly&nbsp;from&nbsp;a&nbsp;bytes&nbsp;type<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object&nbsp;you&nbsp;previously&nbsp;created&nbsp;in&nbsp;your&nbsp;script.&nbsp;&nbsp;This&nbsp;can&nbsp;be&nbsp;useful<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;you&nbsp;previously&nbsp;created&nbsp;in&nbsp;your&nbsp;script.&nbsp;&nbsp;This&nbsp;can&nbsp;be&nbsp;useful<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when&nbsp;you&nbsp;are&nbsp;trying&nbsp;to&nbsp;recover&nbsp;the&nbsp;integer&nbsp;parameters&nbsp;stored&nbsp;in<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;and&nbsp;private&nbsp;keys.&nbsp;&nbsp;A&nbsp;typical&nbsp;usage&nbsp;scenario:<br>
 &nbsp;<br>
@@ -461,8 +469,10 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file&nbsp;(in&nbsp;this&nbsp;case&nbsp;an&nbsp;SSH&nbsp;RSA&nbsp;public&nbsp;key&nbsp;file).<br>
 &nbsp;<br>
 &nbsp;<br>
+<br>
 <font size="+2" color="red">OPERATIONS&nbsp;SUPPORTED&nbsp;BY&nbsp;THE&nbsp;BITVECTOR&nbsp;CLASS:<br>
 </font>&nbsp;<br>
+<br>
 <font size="+2" color="red">DISPLAYING&nbsp;BIT&nbsp;VECTORS:<br>
 </font>&nbsp;<br>
 <a name="1">&nbsp;&nbsp;&nbsp;&nbsp;(1)&nbsp;Since&nbsp;the&nbsp;<a href="#BitVector">BitVector</a>&nbsp;class&nbsp;implements&nbsp;the&nbsp;__str__&nbsp;method,&nbsp;a&nbsp;bit<br>
@@ -1366,18 +1376,28 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Version&nbsp;3.4.1&nbsp;was&nbsp;triggered&nbsp;by&nbsp;an&nbsp;email&nbsp;from&nbsp;Kurt&nbsp;Schwehr&nbsp;who&nbsp;spotted<br>
 &nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;error&nbsp;in&nbsp;the&nbsp;setup.py&nbsp;of&nbsp;Version&nbsp;3.4.&nbsp;Thanks,&nbsp;Kurt!<br>
 &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Version&nbsp;3.4.4&nbsp;resulted&nbsp;from&nbsp;an&nbsp;email&nbsp;from&nbsp;Adam&nbsp;Foltzer&nbsp;who&nbsp;noticed&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;empty&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance&nbsp;did&nbsp;not&nbsp;behave&nbsp;like&nbsp;a&nbsp;regular&nbsp;instance.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Previously,&nbsp;the&nbsp;module&nbsp;simply&nbsp;aborted&nbsp;if&nbsp;you&nbsp;called&nbsp;count_bits()&nbsp;on&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;empty&nbsp;<a href="#BitVector">BitVector</a>&nbsp;instance&nbsp;and&nbsp;threw&nbsp;an&nbsp;exception&nbsp;if&nbsp;you&nbsp;called&nbsp;runs()&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;such&nbsp;an&nbsp;instance.&nbsp;The&nbsp;new&nbsp;version&nbsp;returns&nbsp;0&nbsp;for&nbsp;the&nbsp;former&nbsp;case&nbsp;and&nbsp;an<br>
+&nbsp;&nbsp;&nbsp;&nbsp;empty&nbsp;list&nbsp;for&nbsp;the&nbsp;latter.&nbsp;&nbsp;I&nbsp;should&nbsp;also&nbsp;mention&nbsp;that&nbsp;the&nbsp;new<br>
+&nbsp;&nbsp;&nbsp;&nbsp;implementation&nbsp;of&nbsp;count_bits()&nbsp;was&nbsp;first&nbsp;suggested&nbsp;by&nbsp;Kurt&nbsp;Schwehr&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;an&nbsp;email&nbsp;a&nbsp;couple&nbsp;of&nbsp;months&nbsp;back.&nbsp;&nbsp;My&nbsp;original&nbsp;implementation&nbsp;called&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;reduce()&nbsp;method&nbsp;of&nbsp;the&nbsp;functools&nbsp;module&nbsp;to&nbsp;do&nbsp;the&nbsp;job.&nbsp;&nbsp;Thanks&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;both&nbsp;Adam&nbsp;and&nbsp;Kurt!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<br>
 &nbsp;<br>
 <font size="+2" color="red">ABOUT&nbsp;THE&nbsp;AUTHOR:<br>
 </font>&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Avi&nbsp;Kak&nbsp;is&nbsp;the&nbsp;author&nbsp;of&nbsp;"Programming&nbsp;with&nbsp;Objects:&nbsp;A&nbsp;Comparative<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Presentation&nbsp;of&nbsp;Object-Oriented&nbsp;Programming&nbsp;with&nbsp;C++&nbsp;and&nbsp;Java",<br>
-&nbsp;&nbsp;&nbsp;&nbsp;published&nbsp;by&nbsp;John-Wiley&nbsp;in&nbsp;2003.&nbsp;This&nbsp;book&nbsp;presents&nbsp;a&nbsp;new&nbsp;approach<br>
-&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;combined&nbsp;learning&nbsp;of&nbsp;two&nbsp;large&nbsp;<a href="__builtin__.html#object">object</a>-oriented&nbsp;languages,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;C++&nbsp;and&nbsp;Java.&nbsp;&nbsp;It&nbsp;is&nbsp;being&nbsp;used&nbsp;as&nbsp;a&nbsp;text&nbsp;in&nbsp;a&nbsp;number&nbsp;of<br>
-&nbsp;&nbsp;&nbsp;&nbsp;educational&nbsp;programs&nbsp;around&nbsp;the&nbsp;world.&nbsp;&nbsp;This&nbsp;book&nbsp;has&nbsp;also&nbsp;been<br>
-&nbsp;&nbsp;&nbsp;&nbsp;translated&nbsp;into&nbsp;Chinese.&nbsp;&nbsp;Avi&nbsp;Kak&nbsp;is&nbsp;also&nbsp;the&nbsp;author&nbsp;of&nbsp;"Scripting<br>
-&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;Objects:&nbsp;A&nbsp;Comparative&nbsp;Presentation&nbsp;of&nbsp;Object-Oriented<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Scripting&nbsp;with&nbsp;Perl&nbsp;and&nbsp;Python,"&nbsp;published&nbsp;in&nbsp;2008&nbsp;by&nbsp;John-Wiley.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;author,&nbsp;Avinash&nbsp;Kak,&nbsp;recently&nbsp;finished&nbsp;his&nbsp;17-year&nbsp;long&nbsp;Objects<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Trilogy&nbsp;project&nbsp;with&nbsp;the&nbsp;publication&nbsp;of&nbsp;the&nbsp;book&nbsp;"Designing&nbsp;with&nbsp;Objects"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;by&nbsp;John-Wiley.&nbsp;If&nbsp;interested,&nbsp;check&nbsp;out&nbsp;his&nbsp;web&nbsp;page&nbsp;at&nbsp;Purdue&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;discover&nbsp;what&nbsp;the&nbsp;Objects&nbsp;Trilogy&nbsp;project&nbsp;was&nbsp;all&nbsp;about.&nbsp;You&nbsp;might&nbsp;like<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;"Designing&nbsp;with&nbsp;Objects"&nbsp;book,&nbsp;especially&nbsp;if&nbsp;you&nbsp;enjoyed&nbsp;reading<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Harry&nbsp;Potter&nbsp;as&nbsp;a&nbsp;kid&nbsp;(or&nbsp;even&nbsp;as&nbsp;an&nbsp;adult,&nbsp;for&nbsp;that&nbsp;matter).<br>
+&nbsp;<br>
 &nbsp;<br>
 &nbsp;<br>
 <font size="+2" color="red">SOME&nbsp;EXAMPLE&nbsp;CODE:<br>
@@ -1458,13 +1478,14 @@ Date:&nbsp;2015-May-18<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;example&nbsp;code&nbsp;in&nbsp;the&nbsp;BitVectorDemo.py&nbsp;file&nbsp;in&nbsp;the<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Examples&nbsp;sub-directory.)<br>
 &nbsp;<br>
+
 </tt>
+
 <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#aa55cc">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Imported Modules</strong></big></font></td></tr>
-
     
 <tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="array.html">array</a><br>
@@ -2084,13 +2105,13 @@ Data descriptors defined here:<br>
 <tr bgcolor="#55aa55">
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
-    
+
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>__author__</strong> = 'Avinash Kak (kak@purdue.edu)'<br>
 <strong>__copyright__</strong> = '(C) 2015 Avinash Kak. Python Software Foundation.'<br>
-<strong>__date__</strong> = '2015-May-18'<br>
-<strong>__url__</strong> = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.html'<br>
-<strong>__version__</strong> = '3.4.3'</td></tr></table>
+<strong>__date__</strong> = '2015-July-19'<br>
+<strong>__url__</strong> = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.4.html'<br>
+<strong>__version__</strong> = '3.4.4'</td></tr></table>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#7799ee">
 <td colspan=3 valign=bottom>&nbsp;<br>

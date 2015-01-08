@@ -79,33 +79,36 @@ print(bv)                                    # nothing
 print("\nInteger value of the previous bit vector:")
 print(bv.intValue())                         # 0
 
+# Construct a bit vector from a text string:
 print("\nConstructing a bit vector from the textstring 'hello':")
 bv3 = BitVector(textstring = "hello")
-print(bv3)
+print(bv3)                # 0110100001100101011011000110110001101111
 mytext = bv3.get_bitvector_in_ascii()
 print("Text recovered from the previous bitvector: ")
 print(mytext)                                         # hello
 print("\nConstructing a bit vector from the textstring 'hello\\njello':")
 bv3 = BitVector(textstring = "hello\njello")
-print(bv3)
+print(bv3)   # 0110100001100101011011000110110001101111000010100110101001100101011011000110110001101111
 mytext = bv3.get_bitvector_in_ascii()
 print("Text recovered from the previous bitvector:")
 print(mytext)                                         # hello
                                                       # jello
+# Construct a bit vector from a hex string:                                                      
 print("\nConstructing a bit vector from the hexstring '68656c6c6f':")
 bv4 = BitVector(hexstring = "68656c6c6f")
-print(bv4)
+print(bv4)                # 0110100001100101011011000110110001101111
 myhexstring = bv4.get_bitvector_in_hex()
 print("Hex string recovered from the previous bitvector: ")
 print(myhexstring)                                    # 68656c6c6f
 
 print("\nConstructing a bit vector from the uppercase hexstring '68656C6C6F':")
 bv4 = BitVector(hexstring = "68656C6C6F")
-print(bv4)
+print(bv4)                # 0110100001100101011011000110110001101111
 myhexstring = bv4.get_bitvector_in_hex()
 print("Hex string recovered from the previous bitvector: ")
 print(myhexstring)                                    # 68656c6c6f
 
+# Construct a bit vector from a string of raw bytes:
 print("\nDemonstrating the raw bytes mode of constructing a bit vector (useful for reading public and private keys):")
 mypubkey = 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5amriY96HQS8Y/nKc8zu3zOylvpOn3vzMmWwrtyDy+aBvns4UC1RXoaD9rDKqNNMCBAQwWDsYwCAFsrBzbxRQONHePX8lRWgM87MseWGlu6WPzWGiJMclTAO9CTknplG9wlNzLQBj3dP1M895iLF6jvJ7GR+V3CRU6UUbMmRvgPcsfv6ec9RRPm/B8ftUuQICL0jt4tKdPG45PBJUylHs71FuE9FJNp01hrj1EMFObNTcsy9zuis0YPyzArTYSOUsGglleExAQYi7iLh17pAa+y6fZrGLsptgqryuftN9Q4NqPuTiFjlqRowCDU7sSxKDgU7bzhshyVx3+pzXO4D2Q== kak@pixie'
 import base64
@@ -124,8 +127,7 @@ print(bv[0], bv[1], bv[2], bv[3], bv[4], bv[5])       # 1 1 0 0 0 1
 print("\nSame as above but using negative array indexing:")
 print(bv[-1], bv[-2], bv[-3], bv[-4], bv[-5], bv[-6]) # 1 0 0 0 1 1
 
-# Test setting bit values with positive and negative
-# accessors:
+# Test setting bit values with positive and negative accessors:
 bv = BitVector( bitstring = '1111' )
 print("\nBitstring for 1111:")
 print(bv)                                    # 1111
@@ -318,7 +320,6 @@ bv = BitVector( intVal = 0, size = 8 )
 print(bv)                             # 00000000
 bv = BitVector( intVal = 1, size = 8 )    
 print(bv)                             # 00000001
-
 print("\nTesting slice assignment:")
 bv1 = BitVector( size = 25 )
 print("bv1= " + str(bv1))             # 0000000000000000000000000
