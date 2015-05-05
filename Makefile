@@ -1,7 +1,8 @@
 # GNU -*- makefile -*-
 # Created by Kurt Schwehr (schwehr@com.unh.edu)
 
-VERSION := ${shell python -c "import BitVector;print BitVector.__version__"}
+#VERSION := ${shell python -c "import BitVector;print BitVector.__version__"}
+VERSION := ${shell python -c "import os; os.chdir('BitVector'); import BitVector; print(BitVector.__version__)"}
 
 default:
 	@echo
@@ -16,7 +17,8 @@ default:
 	@echo "  sdist  -  Build a source distribution tar ball"
 
 docs:
-	pydoc -w BitVector
+#	pydoc -w BitVector
+	pydoc -w BitVector/BitVector.py
 
 # Does not work on all operating systems...
 # Could just make this "pydoc BitVector"

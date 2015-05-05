@@ -1,15 +1,18 @@
 Metadata-Version: 1.1
 Name: BitVector
-Version: 3.4
+Version: 3.4.1
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.4.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.4.tar.gz
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.tar.gz
 Description: 
         This class presents a pure-Python memory-efficient packed 
         representation for bit arrays.
+        
+        **Version 3.4.1** fixes a couple of errors in the packaging
+        of Version 3.4.
         
         **Version 3.4** removes a bug and incorporates significant
         improvements in the documentation.
