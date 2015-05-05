@@ -1,4 +1,4 @@
-BitVector-3.4.1.html
+BitVector-3.4.2.html
 MANIFEST.in
 Makefile
 README
