@@ -7,26 +7,21 @@
 from setuptools import setup, find_packages
 
 setup(name='BitVector',
-      version='3.4.2',
+      version='3.4.3',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.tar.gz',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
-This class presents a pure-Python memory-efficient packed 
-representation for bit arrays.
+This class presents a pure-Python memory-efficient packed representation for bit arrays.
 
-**Version 3.4.2** fixes the previous version's problem of
-  not exporting the module metadata.
+**Version 3.4.3** is a quick release that fixes the problem with relative imports in the previous version.  Python3 does not like relative imports.
 
-**Version 3.4.1** fixes a couple of errors in the packaging
-of Version 3.4.
+**Version 3.4.2** fixes the previous version's problem of not exporting the module metadata.
 
-**Version 3.4** removes a bug and incorporates significant
-improvements in the documentation.
 
 The class is provided with the following operators/methods:
 
@@ -90,6 +85,6 @@ The class is provided with the following operators/methods:
       license='Python Software Foundation License',
       keywords='bit array, bit vector, bit string, logical operations on bit fields',
       platforms='All platforms',
-      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7', 'Programming Language :: Python :: 3.2'],
+      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7', 'Programming Language :: Python :: 3.4'],
       packages=['BitVector']
 )

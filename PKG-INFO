@@ -1,24 +1,19 @@
 Metadata-Version: 1.1
 Name: BitVector
-Version: 3.4.2
+Version: 3.4.3
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.tar.gz
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.tar.gz
 Description: 
-        This class presents a pure-Python memory-efficient packed 
-        representation for bit arrays.
+        This class presents a pure-Python memory-efficient packed representation for bit arrays.
         
-        **Version 3.4.2** fixes the previous version's problem of
-          not exporting the module metadata.
+        **Version 3.4.3** is a quick release that fixes the problem with relative imports in the previous version.  Python3 does not like relative imports.
         
-        **Version 3.4.1** fixes a couple of errors in the packaging
-        of Version 3.4.
+        **Version 3.4.2** fixes the previous version's problem of not exporting the module metadata.
         
-        **Version 3.4** removes a bug and incorporates significant
-        improvements in the documentation.
         
         The class is provided with the following operators/methods:
         
@@ -83,4 +78,4 @@ Keywords: bit array,bit vector,bit string,logical operations on bit fields
 Platform: All platforms
 Classifier: Topic :: Utilities
 Classifier: Programming Language :: Python :: 2.7
-Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.4

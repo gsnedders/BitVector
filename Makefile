@@ -24,7 +24,7 @@ docs:
 # Does not work on all operating systems...
 # Could just make this "pydoc BitVector"
 help:
-	open BitVector.html
+	open BitVector-${VERSION}.html
 
 clean:
 	rm -f *.pyc *~

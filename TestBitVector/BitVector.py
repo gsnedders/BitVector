@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '3.4.2'
+__version__ = '3.4.3'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2015-May-5'
-__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.html'
+__date__    = '2015-May-18'
+__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.3.html'
 __copyright__ = "(C) 2015 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -18,6 +18,11 @@ Date: ''' + __date__ + '''
 
 @title
 CHANGE LOG:
+
+  Version 3.4.3
+
+    This is a quick release that fixes the problem with the relative imports
+    in the previous version. Python3 does not like relative imports.
 
   Version 3.4.2
 
@@ -239,13 +244,20 @@ INSTALLATION:
     directory that contains the setup.py file after you have downloaded and
     uncompressed the tar archive):
  
-        python setup.py install
+        sudo python setup.py install
 
-    You have to have root privileges for this to work.  On Linux
-    distributions, this will install the module file at a location that
-    looks like
+    and/or
+
+        sudo python3 setup.py install
+
+    On Linux distributions, this will install the module file at a location
+    that looks like
 
         /usr/local/lib/python2.7/dist-packages/
+
+    and for the case of Python3 like
+
+        /usr/local/lib/python3.4/dist-packages/      
 
     If you do not have root access, you have the option of working directly
     off the directory in which you downloaded the software by simply
