@@ -1,23 +1,29 @@
 Metadata-Version: 1.0
 Name: BitVector
-Version: 1.4.1
+Version: 1.5
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.1.html
+Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.1.tar.gz?download
+Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.5.tar.gz?download
 Description: This class presents a pure-Python memory efficient packed representation for bit arrays.
         
+        
+        Version 1.5 should prove to be much more efficient for long bit vectors.
+        Efficiency in BitVector construction when only its size is specified was
+        achieved by eliminating calls to _setbit().  The application of logical
+        operators to two BitVectors of equal length was also made efficient by
+        eliminating calls to the padding function.  Another feature of this
+        version is the count_bits() method that returns the total number of bits
+        set in a BitVector instance.  Yet another feature of this version is the
+        setValue() method that alters the bit pattern associated with a
+        previously constructed BitVector.
         
         In version 1.4.1, the reset() method now returns 'self' to allow for
         cascaded inovocation with the slicing operator.  This version also
         removes the discrepancy between the value of the  __copyright__ variable
         in the module and the value of license variable in setup.py.
-        
-        Version 1.4 supports slice assignment and a reset method that allows
-        a previously constructed bit vector to be reinitialized to all 0's
-        or all 1's.  The code was also cleaned up with pychecker for this version.
         
         The class supports the following operators/methods:
         
@@ -79,6 +85,10 @@ Description: This class presents a pure-Python memory efficient packed represent
         slice assignment
         
         reset
+        
+        count_bits
+        
+        setValue
         
         
 Keywords: bit array,bit vector,bit string,logical operations on bit fields
