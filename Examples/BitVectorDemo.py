@@ -51,7 +51,14 @@ print(int(bv))                               # 123456
 # Construct a bit vector directly from a file-like object:
 #import StringIO
 import io
-x = "111100001111"
+import sys                                               #(N3)
+x = ""
+# For Python 3.x:
+if sys.version_info[0] == 3:                             #(N4)
+    x = "111100001111"
+# For Python 2.x:
+else:                                                    #(N9)
+    x = unicode("111100001111")
 fp_read = io.StringIO( x )
 bv = BitVector.BitVector( fp = fp_read )
 print("\nBit vector constructed directed from a file like object:")

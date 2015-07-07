@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '3.1'
+__version__ = '3.1.1'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2012-February-23'
-__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.1.html'
+__date__    = '2012-June-9'
+__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.1.1.html'
 __copyright__ = "(C) 2012 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -18,6 +18,11 @@ __doc__ = '''
 
     @title
     CHANGE LOG:
+
+       Version 3.1.1: This version includes: (1) a fix to the module test
+           code to account for how string input is handled in the
+           io.StringIO class in Python 2.7; (2) some improvements to the
+           documentation.
 
        Version 3.1:
 
@@ -262,7 +267,6 @@ __doc__ = '''
               permute
               rank_of_bit_set_at_index
               read_bits_from_file
-              read_bits_from_fileobject
               reset
               reverse
               runs
@@ -279,73 +283,78 @@ __doc__ = '''
     CONSTRUCTING BIT VECTORS:
 
         You can construct a bit vector in seven different ways.
+
+        @tagC1   
+        (C1) You can construct a bit vector directly from
+             either a tuple or a list of bits, as in
+
+                bv =  BitVector( bitlist = [1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1] ) 
+
+        @tagC2 
+        (C2) You can construct a bit vector from an integer by
+
+                bv =  BitVector( intVal = 56789 )
+
+             The bits stored now will correspond to the binary
+             representation of the integer.  The resulting bit vector is the
+             shortest possible bit vector for the integer value supplied.
+             For example, when intVal is 0, the bit vector constructed will
+             consist of just the bit 0.
+
+        @tagC3
+        (C3) When initializing a bit vector with an intVal as shown above,
+             you can also specify a size for the bit vector:
+
+                bv = BitVector( intVal = 0, size = 8 )
+
+             will return the bit vector consisting of the bit pattern
+             00000000.  The zero padding needed for meeting the size
+             requirement is always on the left.  If the size supplied is
+             smaller than what it takes to create the shortest possible bit
+             vector for intVal, an exception is thrown.
+
+        @tagC4
+        (C4) You can create a zero-initialized bit vector of a given size by
+
+                bv  = BitVector( size = 62 )
+
+             This bit vector will hold exactly 62 bits, all initialized to
+             the 0 bit value.
+
+        @tagC5
+        (C5) You can construct a bit vector from a disk file by a two-step
+             procedure. First you construct an instance of bit vector by
    
-        (1) You can construct a bit vector directly from
-            either a tuple or a list of bits, as in
+                bv  =  BitVector( filename = 'somefile' )   
 
-               bv =  BitVector( bitlist = [1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1] ) 
+             This bit vector itself is incapable of holding the bits.  To
+             now create bit vectors that actually hold the bits, you need to
+             make the following sort of a call on the above variable bv:
  
-        (2) You can construct a bit vector from an integer by
+                bv1 =  bv.read_bits_from_file( 64 )    
 
-               bv =  BitVector( intVal = 56789 )
+             bv1 will be a regular bit vector containing 64 bits from the
+             disk file. If you want to re-read a file from the beginning for
+             some reason, you must obviously first close the file object
+             that was acquired with a call to the BitVector constructor with
+             a filename argument.  This can be accomplished by
 
-            The bits stored now will correspond to the binary
-            representation of the integer.  The resulting bit vector is the
-            shortest possible bit vector for the integer value supplied.
-            For example, when intVal is 0, the bit vector constructed will
-            consist of just the bit 0.
+                bv.close_file_object()
 
-
-        (3) When initializing a bit vector with an intVal as shown above,
-            you can also specify a size for the bit vector:
-
-               bv = BitVector( intVal = 0, size = 8 )
-
-            will return the bit vector consisting of the bit pattern
-            00000000.  The zero padding needed for meeting the size
-            requirement is always on the left.  If the size supplied is
-            smaller than what it takes to create the shortest possible bit
-            vector for intVal, an exception is thrown.
-
-                
-        (4) You can create a zero-initialized bit vector of a given size by
-
-               bv  = BitVector( size = 62 )
-
-            This bit vector will hold exactly 62 bits, all initialized to
-            the 0 bit value.
-
-        (5) You can construct a bit vector from a disk file by a two-step
-            procedure. First you construct an instance of bit vector by
-   
-               bv  =  BitVector( filename = 'somefile' )   
-
-            This bit vector itself is incapable of holding the bits.  To
-            now create bit vectors that actually hold the bits, you need to
-            make the following sort of a call on the above variable bv:
+        @tag6
+        (C6) You can construct a bit vector from a string of 1's and 0's by
  
-               bv1 =  bv.read_bits_from_file( 64 )    
+                bv  =  BitVector( bitstring = '110011110000' )      
 
-            bv1 will be a regular bit vector containing 64 bits from the
-            disk file. If you want to re-read a file from the beginning for
-            some reason, you must obviously first close the file object
-            that was acquired with a call to the BitVector constructor with
-            a filename argument.  This can be accomplished by
+        @tagC7   
+        (C7) Yet another way to construct a bit vector is to read the bits
+             directly from a file-like object, as in
 
-              bv.close_file_object()
-
-        (6) You can construct a bit vector from a string of 1's and 0's by
- 
-               bv  =  BitVector( bitstring = '110011110000' )      
-   
-        (7) Yet another way to construct a bit vector is to read the bits
-            directly from a file-like object, as in
-
-               import io  
-               x = "111100001111"
-               fp_read = io.StringIO( x )
-               bv = BitVector( fp = fp_read )
-               print(bv)                              # 111100001111 
+                import io  
+                x = "111100001111"
+                fp_read = io.StringIO( x )
+                bv = BitVector( fp = fp_read )
+                print(bv)                              # 111100001111 
 
 
     @title   
@@ -354,7 +363,7 @@ __doc__ = '''
     @title
     DISPLAYING BIT VECTORS:
 
-
+        @tag1
         (1) Since the BitVector class implements the __str__ method, a bit
             vector can be displayed on a terminal by
 
@@ -377,7 +386,7 @@ __doc__ = '''
     @title
     ACCESSING AND SETTING INDIVIDUAL BITS AND SLICES:
 
-   
+        @tag2   
         (2) Any single bit of a bit vector bv can be set to 1 or 0 by
  
                   bv[M] = 1_or_0
@@ -394,6 +403,7 @@ __doc__ = '''
             end of a bit pattern.  This is made possible by the
             implementation of the __getitem__ and __setitem__ methods.
 
+        @tag3
         (3) A slice of a bit vector obtained by
 
                   bv[i:j]
@@ -402,6 +412,7 @@ __doc__ = '''
             from i through j-1.  This is made possible by the
             implementation of the __getslice__ method.
 
+        @tag4
         (4) You can also carry out slice assignment:
 
                   bv1 = BitVector( size = 25 )
@@ -416,6 +427,7 @@ __doc__ = '''
             of bv1 according to the three bits in bv3.  This is made
             possible by the slice setting code in the __setitem__ method.
 
+        @tag5
         (5) You can iterate over a bit vector, as illustrated by
 
                   for bit in bitvec:
@@ -424,6 +436,7 @@ __doc__ = '''
             This is made possible by the override definition for the special
             __iter__() method.
 
+        @tag6
         (6) Negative subscripts for array-like indexing are supported.
             Therefore,
 
@@ -437,6 +450,7 @@ __doc__ = '''
             special-casing such access in the implementation of the
             __getitem__ method (actually it is the _getbit method).
 
+        @tag7
         (7) You can reset a previously constructed bit vector to either the
             all-zeros state or the all-ones state by
 
@@ -455,7 +469,7 @@ __doc__ = '''
     @title
     LOGICAL OPERATIONS ON BIT VECTORS:
 
-   
+        @tag8   
         (8) Given two bit vectors bv1 and bv2, you can perform bitwise
             logical operations on them by
 
@@ -471,6 +485,7 @@ __doc__ = '''
     @title
     COMPARING BIT VECTORS:
 
+        @tag9
         (9) Given two bit vectors bv1 and bv2, you can carry out the
             following comparisons that return Boolean values:
 
@@ -491,14 +506,14 @@ __doc__ = '''
     @title
     OTHER SUPPORTED OPERATIONS:
 
-   
+       @tag10   
        (10) You can permute and unpermute bit vectors:
 
                   bv_permuted   =  bv.permute( permutation_list )
 
                   bv_unpermuted =  bv.unpermute( permutation_list )
 
-
+       @tag11
        (11) Left and right circular rotations can be carried out by
  
                   bitvec  << N 
@@ -511,6 +526,7 @@ __doc__ = '''
             respectively.
 
 
+       @tag12
        (12) If you want to shift a bitvector non-circularly:
 
                   bitvec = BitVector( bitstring = '10010000' )
@@ -521,6 +537,7 @@ __doc__ = '''
             shift, you will end up with a bitvector that is all zeros.
 
 
+       @tag13
        (13) A bit vector containing an even number of bits can be divided
             into two equal parts by
 
@@ -530,6 +547,7 @@ __doc__ = '''
             returned bit vectors.
 
 
+       @tag14
        (14) You can find the integer value of a bit array by
 
                   bitvec.intValue()
@@ -538,12 +556,13 @@ __doc__ = '''
 
                   int( bitvec )
 
-
+       @tag15
        (15) You can convert a bit vector into its string representation by
 
                   str( bitvec )
 
 
+       @tag16
        (16) Because __add__ is supplied, you can always join two bit vectors
             by
 
@@ -552,17 +571,19 @@ __doc__ = '''
             bitvec3 is a new bit vector that contains all the bits of
             bitvec1 followed by all the bits of bitvec2.
 
-
+       @tag17
        (17) You can find the length of a bitvector by
 
                   len = bitvec.length()
 
 
+       @tag18
        (18) You can make a deep copy of a bitvector by
 
                  bitvec_copy =  bitvec.deep_copy()
 
-             
+
+       @tag19             
        (19) You can write a bit vector directly to a file, as illustrated
             by the following example that reads one bit vector from a file
             and then writes it to another file
@@ -591,6 +612,7 @@ __doc__ = '''
                          linebreak on Windows machines.
 
 
+       @tag20
        (20) You can also write a bit vector directly to a stream object, as
             illustrated by
 
@@ -599,6 +621,7 @@ __doc__ = '''
                   print( fp_write.getvalue() )   
 
 
+       @tag21
        (21) You can pad a bit vector from the left or from the right with a
             designated number of zeros
 
@@ -612,12 +635,14 @@ __doc__ = '''
             additional n zeros will be on the right.
 
 
+       @tag22
        (22) You can test if a bit vector x is contained in another bit
             vector y by using the syntax 'if x in y'.  This is made
             possible by the override definition for the special
             __contains__ method.
 
 
+       @tag23
        (23) You can change the bit pattern associated with a previously
             constructed BitVector instance:
 
@@ -627,12 +652,14 @@ __doc__ = '''
               print( bv )                              # 101101
 
 
+       @tag24
        (24) You can count the number of bits set in a BitVector instance by
 
               bv = BitVector( bitstring = '100111' )
               print( bv.count_bits() )                 # 4
 
 
+       @tag25
        (25) For folks who use bit vectors with millions of bits in them but
             with only a few bits set, your bit counting will go much, much
             faster if you call count_bits_sparse() instead of count_bits():
@@ -647,6 +674,7 @@ __doc__ = '''
               print( bv.count_bits_sparse() )          # 5
               
 
+       @tag26
        (26) You can calculate the similarity and the distance between two
             bit vectors using the Jaccard similarity coefficient and the
             Jaccard distance.  Also, you can calculate the Hamming distance
@@ -659,6 +687,7 @@ __doc__ = '''
               print( str( bv1.hamming_distance( bv2 ) ) )
 
 
+       @tag27
        (27) Starting from a given bit position, you can find the position
             index of the next set bit:
 
@@ -669,6 +698,7 @@ __doc__ = '''
             whose position index 5 is 13.
 
 
+       @tag28
        (28) You can measure the "rank" of a bit that is set at a given
             position.  Rank is the number of bits that are set up to the
             position of the bit you are interested in.
@@ -676,7 +706,7 @@ __doc__ = '''
               bv = BitVector( bitstring = '01010101011100' )
               print( bv.rank_of_bit_set_at_index( 10 ) )          # 6
 
-
+       @tag29
        (29) You can test whether the integer value of a bit vector is a
             power of two.  The sparse version of this method will work much
             faster for very long bit vectors.  However, the regular version
@@ -687,6 +717,7 @@ __doc__ = '''
               print( bv.isPowerOf2_sparse() )
 
 
+       @tag30
        (30) Given a bit vector, you can construct a bit vector with all the
             bits reversed, in the sense that what was left to right before
             now becomes right to left.
@@ -695,6 +726,7 @@ __doc__ = '''
               print( str( bv.reverse() ) )
 
 
+       @tag31
        (31) You can find the greatest common divisor of two bit vectors:
 
               bv1 = BitVector( bitstring = '01100110' )     # int val: 102
@@ -703,6 +735,7 @@ __doc__ = '''
               print( int(bv) )                              # 2
 
 
+       @tag32
        (32) You can find the multiplicative inverse of a bit vector
             vis-a-vis a given modulus:
 
@@ -718,6 +751,7 @@ __doc__ = '''
             gf_MI() method described below.
 
 
+       @tag33
        (33) To find the multiplicative inverse of a bit vector in 
             GF(2^n) with respect to a modulus polynomial, you can do
             the following:
@@ -729,6 +763,7 @@ __doc__ = '''
                print multi_inverse                        # 01101100
 
 
+       @tag34
        (34) If you just want to multiply two bit patterns in GF(2):
 
                a = BitVector( bitstring='0110001' )
@@ -736,7 +771,7 @@ __doc__ = '''
                c = a.gf_multiply(b)
                print(c)                                   # 00010100110
 
-
+       @tag35
        (35) On the other hand, if you want to carry out modular 
             multiplications in GF(2^n):
 
@@ -747,6 +782,7 @@ __doc__ = '''
                c = a.gf_multiply_modular(b, modulus, n)
                print( c )                                    # 10100110
 
+       @tag36
        (36) To divide by a modulus bitvector in GF(2^n):
 
                mod = BitVector( bitstring='100011011' )          # AES modulus
@@ -756,6 +792,7 @@ __doc__ = '''
                print( quotient )                          # 00000000111010
                print( remainder )                         # 10001111
 
+       @tag37
        (37) You can extract from a bit vector the runs of 1's and 0's
             in the vector
 
@@ -763,6 +800,7 @@ __doc__ = '''
                print( str(bv.runs()) )                    # ['111', '00', '1']
 
 
+       @tag38
        (38) You can generate a bit vector with random bits that span in
             full the specified width.  For example, if you wanted the
             random bit vector to fully span 32 bits, you would say
@@ -772,6 +810,7 @@ __doc__ = '''
                print(bv)                # 11011010001111011010011111000101
 
 
+       @tag39
        (39) You can test whether a randomly generated bit vector is a prime
             number using the probabilistic Miller-Rabin test
 
@@ -999,7 +1038,17 @@ __doc__ = '''
         discovered a bug in slice assignment when one or both of the slice
         limits are left unspecified.  These errors in Version 3.0 have been
         fixed in Version 3.1.
-      
+
+        Version 3.1.1 was triggered by two emails, one from John-Mark
+        Gurney and the other from Nessim Kisserli, both related to the
+        issue of compilation of the module.  John-Mark mentioned that since
+        this module did not work with Python 2.4.3, the statement that the
+        module was appropriate for all Python 2.x was not correct, and
+        Nessim reported that he had run into a problem with the compilation
+        of the test portion of the code with Python 2.7 where a string of
+        1's and 0's is supplied to io.StringIO() for the construction of a
+        memory file.  Both these issues have been resolved in 3.1.1.
+
 
     @title
     ABOUT THE AUTHOR:
@@ -1094,6 +1143,7 @@ __doc__ = '''
          example code in the BitVectorDemo.py file in the
          Examples sub-directory.)
 
+@endofdocs
 '''
 
 
@@ -2272,9 +2322,14 @@ if __name__ == '__main__':
     print(int(bv))                               # 123456
 
     # Construct a bit vector directly from a file-like object:
-    #import StringIO
     import io
     x = "111100001111"
+    import sys                      
+    x = ""
+    if sys.version_info[0] == 3:    
+        x = "111100001111"
+    else:                           
+        x = unicode("111100001111")
     fp_read = io.StringIO( x )
     bv = BitVector( fp = fp_read )
     print("\nBit vector constructed directed from a file like object:")
