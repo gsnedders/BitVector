@@ -1,6 +1,7 @@
 import BitVector
 import unittest
 import io
+import sys
 
 constructorTests = [
     (('size','0'), ''),
@@ -28,7 +29,11 @@ class ConstructorTestCases(unittest.TestCase):
                 elif (mode == 'bitstring'):
                     bitvec = BitVector.BitVector( bitstring = args[1] )
                 elif (mode == 'streamobject'):
-                    fp_read = io.StringIO( args[1] )
+                    fp_read = None 
+                    if sys.version_info[0] == 3:
+                        fp_read = io.StringIO(args[1])
+                    else:
+                        fp_read = io.StringIO( unicode(args[1]) )
                     bitvec = BitVector.BitVector( fp = fp_read )
                 elif (mode == 'filename'):
                     bvec   = BitVector.BitVector( filename = args[1] )
