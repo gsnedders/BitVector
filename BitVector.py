@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-__version__ = '1.4'
+__version__ = '1.4.1'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2008-April-18'
-__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.html'
-__copyright__ = "(C) 2008 Avinash Kak. GNU GPL 2."
+__date__    = '2008-May-14'
+__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.1.html'
+__copyright__ = "(C) 2008 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
 
@@ -18,6 +18,14 @@ __doc__ = '''
 
 
     CHANGE LOG:
+
+       Version 1.4.1:
+
+           The reset() method now returns 'self' to allow for
+           cascaded inovocation with the slicing operator.
+           Also removed the discrepancy between the value of the
+           __copyright__ variable in the module and the value of
+          license variable in setup.py.
 
        Version 1.4:
 
@@ -35,8 +43,8 @@ __doc__ = '''
            you must open the file in the binary mode.  If you don't,
            the bit patterns that correspond to line breaks will be
            misinterpreted.  On a Windows machine in the text mode,
-           the bit pattern 000001010 ('\n') will be written out
-           to the disk as 0000110100001010 ('\r\n').
+           the bit pattern 000001010 ('\\n') will be written out
+           to the disk as 0000110100001010 ('\\r\\n').
 
        Version 1.3.1:
 
@@ -440,8 +448,8 @@ __doc__ = '''
                          generated bit vector out to a disk file, it
                          is important to open the file in the binary
                          mode as shown.  Otherwise, the bit pattern
-                         00001010 ('\n') in your bitstring will be written 
-                         out as 0000110100001010 ('\r\n'), which is the
+                         00001010 ('\\n') in your bitstring will be written 
+                         out as 0000110100001010 ('\\r\\n'), which is the
                          linebreak on Windows machine.
 
 
@@ -610,8 +618,8 @@ __doc__ = '''
         documentation than with the BitVector class itself.  On a 
         Windows machine, it is particularly important that a file
         you are writing a bitstring into be opened in binary mode
-        since otherwise the bit pattern 00001010 ('\n') will be written 
-        out as 0000110100001010 ('\r\n').  This documentation fix 
+        since otherwise the bit pattern 00001010 ('\\n') will be written 
+        out as 0000110100001010 ('\\r\\n').  This documentation fix 
         resulted in Version 1.3.2.
 
         With regard to Version 1.4, the suggestions/bug reports
@@ -620,10 +628,18 @@ __doc__ = '''
         to equip the class with a reset() method so that a previously
         constructed class could be reset to either all 0's or all
         1's. Bob spotted loose local variables in the implementation
-        --- presumably left over from the debugging phase of the code.
+        --- presumably left over from a debugging phase of the code.
         Bob recommended that I clean up the code with pychecker. That
         has been done.  Steve noticed that slice assignment was not
         working.  It should work now.
+
+        Version 1.4.1 was prompted by John Kominek suggesting that
+        if reset() returned self, then the slice operation could
+        be combined with the reset operation.  Thanks John!  Another
+        reason for 1.4.1 was to remove the discrepancy between the 
+        value of the __copyright__ variable in the module and the 
+        value of license variable in setup.py.  This discrepancy 
+        was brought to my attention by David Eyk.  Thanks David!
 
 
 
@@ -1371,11 +1387,16 @@ class BitVector( object ):                                           #(A1)
         '''
         Resets a previously created BitVector to either all
         zeros or all ones depending on the argument val.
+        Returns self to allow for syntax like
+               bv = bv1[3:6].reset(1)
+        or
+               bv = bv1[:].reset(1)
         '''
         if val not in (0,1):                                         #(j2)
             raise ValueError( "Incorrect reset argument" )           #(j3)
         bitlist = [val for i in range( self.size )]                  #(j4)
         map( self._setbit, enumerate(bitlist), bitlist )             #(j5)
+        return self                                                  #(j6)
         
 
 #-----------------------  BitVectorIterator Class -----------------------
@@ -1679,12 +1700,14 @@ if __name__ == '__main__':
 
     print "\nTesting slice assignment:"
     bv1 = BitVector( size = 25 )
-    print "bv1= ", bv1
+    print "bv1= ", bv1                    # 0000000000000000000000000
     bv2 = BitVector( bitstring = '1010001' )
-    print "bv2= ", bv2
+    print "bv2= ", bv2                    # 1010001
     bv1[6:9]  = bv2[0:3]
-    print "bv1= ", bv1
+    print "bv1= ", bv1                    # 0000001010000000000000000
 
     print "\nTesting reset function:"
-    bv1.reset( 1 )
-    print "bv1= ", bv1
+    bv1.reset( 1 )             
+    print "bv1= ", bv1                    # 1111111111111111111111111
+    print bv1[3:9].reset(0)               # 000000
+    print bv1[:].reset(0)                 # 0000000000000000000000000
