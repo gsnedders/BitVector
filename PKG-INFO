@@ -1,15 +1,22 @@
 Metadata-Version: 1.1
 Name: BitVector
-Version: 3.3
+Version: 3.3.1
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.3.html
+Home-page: https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.3.tar.gz?download
+Download-URL: https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.tar.gz
 Description: 
         This class presents a pure-Python memory-efficient packed 
         representation for bit arrays.
+        
+        **Version 3.3.1** is a minor upgrade to make the syntax of
+        the API method declarations more uniform.  Previously, while
+        most of the method names used underscores to connect
+        multiple words, some used camelcasing.  Now all use
+        underscores.  For backward compatibility, the old calls will
+        continue to work.
         
         **Version 3.3** includes one more constructor mode: You can
         now construct a bit vector from the bytes data type.  This
@@ -17,12 +24,6 @@ Description:
         
         **Version 3.2** includes support for constructing bit
         vectors directly from text strings and hex strings.
-        
-        **Version 3.1.1** removes the incompatibility of the module
-        test code with how Python 2.7 expects its string input for
-        creating memory files. **This version of the module should
-        work with all recent versions of Python 2.x and with Python
-        3.x.**
         
         The class is provided with the following operators/methods:
         
@@ -49,16 +50,16 @@ Description:
         -      divide_into_two
         -      gcd
         -      gen_rand_bits_for_prime
-        -      getHexStringFromBitVector
-        -      getTextFromBitVector
+        -      get_hex_string_from_bitvector
+        -      get_text_from_bitvector
         -      gf_divide              (for divisions in GF(2^n))
         -      gf_MI                  (for multiplicative inverse in GF(2^n))
         -      gf_multiply            (for multiplications in GF(2))
         -      gf_multiply_modular    (for multiplications in GF(2^n))
         -      hamming_distance
-        -      intValue               (for returning the integer value) 
-        -      isPowerOf2
-        -      isPowerOf2_sparse      (faster for sparse bit vectors)
+        -      int_val                (for returning the integer value) 
+        -      is_power_of_2
+        -      is_power_of_2_sparse   (faster for sparse bit vectors)
         -      jaccard_distance
         -      jaccard_similarity
         -      length                 
@@ -72,10 +73,10 @@ Description:
         -      reset
         -      reverse
         -      runs
-        -      shift_left             for non-circular left shift
-        -      shift_right            for non-circular right shift
+        -      shift_left             (for non-circular left shift)
+        -      shift_right            (for non-circular right shift)
         -      slice assignment
-        -      setValue
+        -      set_value
         -      test_for_primality
         -      unpermute
         -      write_to_file
@@ -85,4 +86,5 @@ Description:
 Keywords: bit array,bit vector,bit string,logical operations on bit fields
 Platform: All platforms
 Classifier: Topic :: Utilities
-Classifier: Programming Language :: Python :: 2.7Programming Language :: Python :: 3.x
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.2
