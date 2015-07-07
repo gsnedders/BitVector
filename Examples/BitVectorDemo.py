@@ -279,6 +279,14 @@ bv2 = BitVector.BitVector( bitstring = '1010001' )
 print("bv2= " + str(bv2))             # 1010001
 bv1[6:9]  = bv2[0:3]
 print("bv1= " + str(bv1))             # 0000001010000000000000000
+bv1[:5] = bv1[5:10]
+print("bv1= " + str(bv1))             # 0101001010000000000000000
+bv1[20:] = bv1[5:10]
+print("bv1= " + str(bv1))             # 0101001010000000000001010
+bv1[:] = bv1[:]
+print("bv1= " + str(bv1))             # 0101001010000000000001010
+bv3 = bv1[:]
+print("bv3= " + str(bv3))             # 0101001010000000000001010
 
 print("\nTesting reset function:")
 bv1.reset( 1 )             
@@ -411,20 +419,20 @@ print("bit_array * multi_inv: " + str(products))
 # DISPLAYING ALL OF THE MULTIPLICATIVE 
 # INVERSES IN GF(2^8) WITH THE AES MODULUS:
 
-#    print("\nMultiplicative inverses in GF(2^8) with "  + \
-#                      "modulus polynomial x^8 + x^4 + x^3 + x + 1:")
-#    print("\n(This may take a few seconds)\n")
-#    mod = BitVector.BitVector( bitstring = '100011011' )
-#    n = 8
-#    bitarrays = [BitVector.BitVector(intVal=x, size=n) for x in range(1,2**8)]
-#    mi_list = [x.gf_MI(mod,n) for x in bitarrays]
-#    mi_str_list = [str(x.gf_MI(mod,n)) for x in bitarrays]
-#    print("\nMultiplicative Inverses:\n\n" + str(mi_str_list))
-#    products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
-#                        for i in range(len(bitarrays)) ]
-#    print("\nShown below is the product of each binary code word " +\
-#                     "in GF(2^3) and its multiplicative inverse:\n\n")
-#    print(products)
+#print("\nMultiplicative inverses in GF(2^8) with "  + \
+#                 "modulus polynomial x^8 + x^4 + x^3 + x + 1:")
+#print("\n(This may take a few seconds)\n")
+#mod = BitVector.BitVector( bitstring = '100011011' )
+#n = 8
+#bitarrays = [BitVector.BitVector(intVal=x, size=n) for x in range(1,2**8)]
+#mi_list = [x.gf_MI(mod,n) for x in bitarrays]
+#mi_str_list = [str(x.gf_MI(mod,n)) for x in bitarrays]
+#print("\nMultiplicative Inverses:\n\n" + str(mi_str_list))
+#products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
+#                    for i in range(len(bitarrays)) ]
+#print("\nShown below is the product of each binary code word " +\
+#                 "in GF(2^3) and its multiplicative inverse:\n\n")
+#print(products)
 
 print("\nExperimenting with runs():")
 bv = BitVector.BitVector( bitlist = (1, 0, 0, 1) )
@@ -456,4 +464,37 @@ bv << 1
 print(bv)
 bv << 1 << 1
 print(bv)
+
+print("\nExperiments with chained invocations of NON-circular shifts:")
+bv = BitVector.BitVector( bitlist = (1,1, 1, 0, 0, 1) )
+print(bv)
+bv.shift_right(1)
+print(bv)
+bv.shift_right(1).shift_right(1)
+print(bv)
+bv = BitVector.BitVector( bitlist = (1,1, 1, 0, 0, 1) )
+print(bv)
+bv.shift_left(1)
+print(bv)
+bv.shift_left(1).shift_left(1)
+print(bv)
+
+# UNCOMMENT THE FOLLOWING LINES TO TEST THE
+# PRIMALITY TESTING METHOD. IT SHOULD SHOW
+# THAT ALL OF THE FOLLOWING NUMBERS ARE PRIME:
+#primes = [179, 233, 283, 353, 419, 467, 547, 607, 661, 739, 811, 877, \
+#          947, 1019, 1087, 1153, 1229, 1297, 1381, 1453, 1523, 1597, \
+#          1663, 1741, 1823, 1901, 7001, 7109, 7211, 7307, 7417, 7507, \
+#          7573, 7649, 7727, 7841]
+#for p in primes:
+#    bv = BitVector.BitVector( intVal = p )
+#    check = bv.test_for_primality()
+#    print("The primality test for " + str(p) + ": " + str(check))
+
+print("\nGenerate 32-bit wide candidate for primality testing:")
+bv = BitVector.BitVector( intVal = 0 )
+bv = bv.gen_rand_bits_for_prime(32)
+print(bv)
+check = bv.test_for_primality()
+print("The primality test for " + str(int(bv)) + ": " + str(check))    
 

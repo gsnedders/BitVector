@@ -5,21 +5,25 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='3.0',
+      version='3.1',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.html',
-      download_url='http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-3.0.tar.gz?download',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.1.tar.gz?download',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
 
+**Version 3.1** includes a documentation error fix, a bug
+fix in the slice assignment code, and two new methods useful
+for security work.
+
 **Version 3.0** is a Python 3.x compliant version of the
 latest incarnation of the BitVector class.  **This version
-should run with both Python 2.x and Python 3.x.**
+should work with both Python 2.x and Python 3.x.**
 
 The class is provided with the following operators/methods:
 
@@ -41,10 +45,11 @@ The class is provided with the following operators/methods:
 -      __rshift__
 -      __add__
 -      count_bits 
--      count_bit_sparse       (faster for sparse bit vectors)     
+-      count_bits_sparse      (faster for sparse bit vectors)     
 -      deep_copy
 -      divide_into_two
 -      gcd
+-      gen_rand_bits_for_prime
 -      gf_divide              (for divisions in GF(2^n))
 -      gf_MI                  (for multiplicative inverse in GF(2^n))
 -      gf_multiply            (for multiplications in GF(2))
@@ -71,6 +76,7 @@ The class is provided with the following operators/methods:
 -      shift_right            for non-circular right shift
 -      slice assignment
 -      setValue
+-      test_for_primality
 -      unpermute
 -      write_to_file
 -      write_bits_to_fileobject
