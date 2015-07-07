@@ -1,4 +1,4 @@
-BitVector-3.4.2.html
+BitVector-3.4.3.html
 MANIFEST.in
 Makefile
 README
@@ -9,7 +9,6 @@ BitVector.egg-info/PKG-INFO
 BitVector.egg-info/SOURCES.txt
 BitVector.egg-info/dependency_links.txt
 BitVector.egg-info/top_level.txt
-Examples/BitVector.py
 Examples/BitVectorDemo.py
 Examples/README
 Examples/testinput1.txt
