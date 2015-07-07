@@ -13,17 +13,17 @@ bv2 = BitVector( size = 2 )
 print(bv2)                                   # 00
 
 # Joining two bit vectors:
-print("\nOutput concatenation of two previous bit vectors:")
+print("\nConcatenating two previously constructed bit vectors:")
 result = bv1 + bv2
 print(result)                                # 00
 
 # Construct a bit vector with a tuple of bits:
-print("\nThis is a bit vector from a tuple of bits:")
+print("\nConstructing a bit vector from a tuple of bits:")
 bv = BitVector(bitlist=(1, 0, 0, 1))
 print(bv)                                    # 1001
 
 # Construct a bit vector with a list of bits:    
-print("\nThis is a bit vector from a list of bits:")
+print("\nConstructing a bit vector from a list of bits:")
 bv = BitVector(bitlist=[1, 1, 0, 1])
 print(bv)                                    # 1101
 
@@ -82,20 +82,27 @@ print(bv.intValue())                         # 0
 print("\nConstructing a bit vector from the textstring 'hello':")
 bv3 = BitVector(textstring = "hello")
 print(bv3)
-mytext = bv3.getTextFromBitVector()
+mytext = bv3.get_bitvector_in_ascii()
 print("Text recovered from the previous bitvector: ")
 print(mytext)                                         # hello
 print("\nConstructing a bit vector from the textstring 'hello\\njello':")
 bv3 = BitVector(textstring = "hello\njello")
 print(bv3)
-mytext = bv3.get_text_from_bitvector()
+mytext = bv3.get_bitvector_in_ascii()
 print("Text recovered from the previous bitvector:")
 print(mytext)                                         # hello
                                                       # jello
 print("\nConstructing a bit vector from the hexstring '68656c6c6f':")
 bv4 = BitVector(hexstring = "68656c6c6f")
 print(bv4)
-myhexstring = bv4.getHexStringFromBitVector()
+myhexstring = bv4.get_bitvector_in_hex()
+print("Hex string recovered from the previous bitvector: ")
+print(myhexstring)                                    # 68656c6c6f
+
+print("\nConstructing a bit vector from the uppercase hexstring '68656C6C6F':")
+bv4 = BitVector(hexstring = "68656C6C6F")
+print(bv4)
+myhexstring = bv4.get_bitvector_in_hex()
 print("Hex string recovered from the previous bitvector: ")
 print(myhexstring)                                    # 68656c6c6f
 
@@ -139,7 +146,7 @@ print(bv1 < bv2)                            # False
 print(bv1 <= bv2)                           # True
 bv3 = BitVector( intVal = 5678 )
 print(bv3.intValue())                       # 5678
-print(bv3)                                  # 10110000101110
+print(bv3)                                  # 1011000101110
 print(bv1 == bv3)                           # False
 print(bv3 > bv1)                            # True
 print(bv3 >= bv1)                           # True
@@ -196,7 +203,7 @@ bv2 = bv.read_bits_from_file(64)
 print(bv2)
      # 0010000001100010011100100110111101110111011011100010000001100110
 print("\nTake xor of the previous two bit vectors:")
-bv3 = bv1 ^ (bv2)
+bv3 = bv1 ^ bv2
 print(bv3)
      # 0110000101000010000110100001101000011001000010010101001000011111
 
@@ -378,6 +385,8 @@ bv = BitVector( bitstring = '0000000000000001' )
 print(bv.next_set_bit(5))                                    # 15
 bv = BitVector( bitstring = '00000000000000001' )
 print(bv.next_set_bit(5))                                    # 16
+bv = BitVector( bitstring = '00000000000000000' )
+print(bv.next_set_bit(5))                                    # -1
 
 print("\nTesting rank_of_bit_set_at_index():")
 bv = BitVector( bitstring = '01010101011100' )
@@ -415,11 +424,17 @@ else: print("No multiplicative inverse in this case")
                                                   # 17
 
 print("\nTest multiplication in GF(2):")
-a = BitVector( bitstring='0110001' )
-b = BitVector( bitstring='0110' )
+#a = BitVector( bitstring='0110001' )
+a = BitVector( bitstring='00000010' )
+
+#b = BitVector( bitstring='0110' )
+b = BitVector( bitstring='000001111' )
+
 c = a.gf_multiply(b)
 print("Product of a=" + str(a) + " b=" + str(b) + " is " + str(c))
                                                   # 10100110
+
+#sys.exit(0)
 
 print("\nTest division in GF(2^n):")
 mod = BitVector( bitstring='100011011' )          # AES modulus
@@ -528,18 +543,18 @@ print(bv)
 # UNCOMMENT THE FOLLOWING LINES TO TEST THE
 # PRIMALITY TESTING METHOD. IT SHOULD SHOW
 # THAT ALL OF THE FOLLOWING NUMBERS ARE PRIME:
-#    primes = [179, 233, 283, 353, 419, 467, 547, 607, 661, 739, 811, 877, \
-#              947, 1019, 1087, 1153, 1229, 1297, 1381, 1453, 1523, 1597, \
-#              1663, 1741, 1823, 1901, 7001, 7109, 7211, 7307, 7417, 7507, \
-#              7573, 7649, 7727, 7841]
-#    for p in primes:
-#        bv = BitVector( intVal = p )
-#        check = bv.test_for_primality()
-#        print("The primality test for " + str(p) + ": " + str(check))
+primes = [179, 233, 283, 353, 419, 467, 547, 607, 661, 739, 811, 877, \
+          947, 1019, 1087, 1153, 1229, 1297, 1381, 1453, 1523, 1597, \
+          1663, 1741, 1823, 1901, 7001, 7109, 7211, 7307, 7417, 7507, \
+          7573, 7649, 7727, 7841]
+for p in primes:
+    bv = BitVector( intVal = p )
+    check = bv.test_for_primality()
+    print("The primality test for " + str(p) + ": " + str(check))
 
 print("\nGenerate 32-bit wide candidate for primality testing:")
 bv = BitVector( intVal = 0 )
-bv = bv.gen_rand_bits_for_prime(32)
+bv = bv.gen_random_bits(32)
 print(bv)
 check = bv.test_for_primality()
 print("The primality test for " + str(int(bv)) + ": " + str(check))    
