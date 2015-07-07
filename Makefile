@@ -1,5 +1,6 @@
 # GNU -*- makefile -*-
 # Created by Kurt Schwehr (schwehr@com.unh.edu)
+# Modified by Avi Kak
 
 #VERSION := ${shell python -c "import BitVector;print BitVector.__version__"}
 VERSION := ${shell python -c "import os; os.chdir('BitVector'); import BitVector; print(BitVector.__version__)"}

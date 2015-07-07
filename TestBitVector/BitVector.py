@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '3.4.1'
+__version__ = '3.4.2'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2015-May-4'
-__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.html'
+__date__    = '2015-May-5'
+__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.html'
 __copyright__ = "(C) 2015 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -18,6 +18,11 @@ Date: ''' + __date__ + '''
 
 @title
 CHANGE LOG:
+
+  Version 3.4.2
+
+    Unfortunately, the packaging of the previous version was not exporting
+    the module metadata. That problem has been fixed in this version.
 
   Version 3.4.1
 

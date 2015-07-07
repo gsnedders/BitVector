@@ -7,27 +7,26 @@
 from setuptools import setup, find_packages
 
 setup(name='BitVector',
-      version='3.4.1',
+      version='3.4.2',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.tar.gz',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.2.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
+
+**Version 3.4.2** fixes the previous version's problem of
+  not exporting the module metadata.
 
 **Version 3.4.1** fixes a couple of errors in the packaging
 of Version 3.4.
 
 **Version 3.4** removes a bug and incorporates significant
 improvements in the documentation.
-
-**Version 3.3.2** has a bug fix for the case when you
-construct a bit vector from a text string that includes
-character escapes.
 
 The class is provided with the following operators/methods:
 
