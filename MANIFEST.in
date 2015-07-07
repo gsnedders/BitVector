@@ -2,7 +2,7 @@ include MANIFEST.in
 include BitVector.py
 include setup.py
 include Makefile
-include TestBitVector/Makefile
+include BitVector-2.1.html
 include TestBitVector/BitVector.py
 include TestBitVector/BitVector.pyc
 include TestBitVector/Test.py
