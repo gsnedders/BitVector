@@ -2,6 +2,19 @@
 
 import BitVector
 
+
+#bv1 = BitVector.BitVector( intVal = 1, size = 0 )
+#print bv1
+
+#bv = BitVector.BitVector( bitstring = '1010001' )
+#print "the bit vector: ", bv
+#bv << 5
+#print bv
+#bv << -5
+#print bv
+#print bv.runs()
+
+
 # Construct a bit vector of size 0
 print "\nConstructing a bit vector of size 0:"
 bv1 = BitVector.BitVector( size = 0 )
@@ -426,6 +439,7 @@ products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
                     for i in range(len(bitarrays)) ]
 print "bit_array * multi_inv: ", products
 
+
 print   
 print "\nMultiplicative inverses in GF(2^8) with "  + \
                       "modulus polynomial x^8 + x^4 + x^3 + x + 1:"
@@ -442,4 +456,36 @@ products = [ str(bitarrays[i].gf_multiply_modular(mi_list[i], mod, n)) \
 print "\nShown below is the product of each binary code word " +\
                      "in GF(2^3) and its multiplicative inverse:\n\n"
 print products
+
+
+print "\nExperimenting with runs():"
+bv = BitVector.BitVector( bitlist = (1,1, 1, 0, 0, 1) )
+print "For bit vector: ", bv
+print "       the runs are: ", bv.runs()
+bv = BitVector.BitVector( bitlist = (1, 0) )
+print "For bit vector: ", bv
+print "       the runs are: ", bv.runs()
+bv = BitVector.BitVector( bitlist = (0, 1) )
+print "For bit vector: ", bv
+print "       the runs are: ", bv.runs()
+bv = BitVector.BitVector( bitlist = (0, 0, 0, 1) )
+print "For bit vector: ", bv
+print "       the runs are: ", bv.runs()
+bv = BitVector.BitVector( bitlist = (0, 1, 1, 0) )
+print "For bit vector: ", bv
+print "       the runs are: ", bv.runs()
+
+print "\nExperiments with chained invocations of circular shifts:"
+bv = BitVector.BitVector( bitlist = (1,1, 1, 0, 0, 1) )
+print bv
+bv >> 1
+print bv
+bv >> 1 >> 1
+print bv
+bv = BitVector.BitVector( bitlist = (1,1, 1, 0, 0, 1) )
+print bv
+bv << 1
+print bv
+bv << 1 << 1
+print bv
 
