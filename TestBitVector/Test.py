@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
+import os.path
+import sys
 import unittest
+
+base_path = os.path.split(__file__)[0]
+lib_dir = os.path.join(base_path, os.path.pardir, 'BitVector')
+sys.path.insert(0, lib_dir)
+
 import TestBooleanLogic
 import TestConstructors
 import TestComparisonOps
