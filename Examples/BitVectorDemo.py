@@ -85,7 +85,13 @@ print(bv3)
 mytext = bv3.getTextFromBitVector()
 print("Text recovered from the previous bitvector: ")
 print(mytext)                                         # hello
-
+print("\nConstructing a bit vector from the textstring 'hello\\njello':")
+bv3 = BitVector(textstring = "hello\njello")
+print(bv3)
+mytext = bv3.get_text_from_bitvector()
+print("Text recovered from the previous bitvector:")
+print(mytext)                                         # hello
+                                                      # jello
 print("\nConstructing a bit vector from the hexstring '68656c6c6f':")
 bv4 = BitVector(hexstring = "68656c6c6f")
 print(bv4)

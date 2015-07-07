@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '3.3.1'
+__version__ = '3.3.2'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2014-February-4'
-__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.html'
+__date__    = '2014-March-12'
+__url__     = 'https://engineering.purdue.edu/kak/dist/BitVector-3.3.2.html'
 __copyright__ = "(C) 2014 Avinash Kak. Python Software Foundation."
 
 __doc__ = '''
@@ -18,6 +18,12 @@ __doc__ = '''
 
     @title
     CHANGE LOG:
+
+       Version 3.3.2:
+
+            This version fixes a bug in the constructor code for creating a
+            bit vector from a text string.  The bug was triggered by
+            character escapes in such strings.
 
        Version 3.3.1:
 
@@ -622,7 +628,7 @@ __doc__ = '''
        @tag15
        (15) You can convert a bit vector into its string representation by
 
-                  str( bitvec )
+                  str(bitvec)
 
        @tag16
        (16) Because __add__ is supplied, you can always join two bit vectors
@@ -652,7 +658,7 @@ __doc__ = '''
                   bv1 = bv.read_bits_from_file(64)        
                   print(bv1)
                   FILEOUT = open('output.bits', 'wb')
-                  bv1.write_to_file( FILEOUT )
+                  bv1.write_to_file(FILEOUT)
                   FILEOUT.close()
                   bv = BitVector(filename = 'output.bits')
                   bv2 = bv.read_bits_from_file(64)
@@ -676,16 +682,16 @@ __doc__ = '''
             illustrated by
 
                   fp_write = io.StringIO()
-                  bitvec.write_bits_to_fileobject( fp_write )
-                  print( fp_write.getvalue() )   
+                  bitvec.write_bits_to_fileobject(fp_write)
+                  print(fp_write.getvalue())   
 
        @tag21
        (21) You can pad a bit vector from the left or from the right with a
             designated number of zeros
 
-                  bitvec.pad_from_left( n )
+                  bitvec.pad_from_left(n)
 
-                  bitvec.pad_from_right( n )
+                  bitvec.pad_from_right(n)
 
             In the first case, the new bit vector will be the same as the
             old bit vector except for the additional n zeros on the left.
@@ -710,8 +716,8 @@ __doc__ = '''
        @tag24
        (24) You can count the number of bits set in a BitVector instance by
 
-              bv = BitVector( bitstring = '100111' )
-              print( bv.count_bits() )                 # 4
+              bv = BitVector(bitstring = '100111')
+              print(bv.count_bits())                 # 4
 
        @tag25
        (25) For folks who use bit vectors with millions of bits in them but
@@ -764,8 +770,8 @@ __doc__ = '''
             may work faster for small bit vectors.
 
               bv = BitVector(bitstring = '10000000001110')
-              print( bv.is_power_of_2() )
-              print( bv.is_power_of_2_sparse() )
+              print(bv.is_power_of_2())
+              print(bv.is_power_of_2_sparse())
 
        @tag30
        (30) Given a bit vector, you can construct a bit vector with all the
@@ -799,9 +805,9 @@ __doc__ = '''
             gf_MI() method described below.
 
        @tag33
-       (33) To find the multiplicative inverse of a bit vector in 
-            GF(2^n) with respect to a modulus polynomial, you can do
-            the following:
+       (33) To find the multiplicative inverse of a bit vector in the 
+            Galois Field GF(2^n) with respect to a modulus polynomial, you 
+            can do the following:
 
                modulus = BitVector(bitstring = '100011011')
                n = 8
@@ -819,31 +825,31 @@ __doc__ = '''
 
        @tag35
        (35) On the other hand, if you want to carry out modular 
-            multiplications in GF(2^n):
+            multiplications in the Galois Field GF(2^n):
 
-               modulus = BitVector( bitstring='100011011' )     # AES modulus
+               modulus = BitVector(bitstring='100011011') # AES modulus
                n = 8
                a = BitVector(bitstring='0110001')
                b = BitVector(bitstring='0110')
                c = a.gf_multiply_modular(b, modulus, n)
-               print( c )                                    # 10100110
+               print(c)                                   # 10100110
 
        @tag36
-       (36) To divide by a modulus bitvector in GF(2^n):
+       (36) To divide by a modulus bitvector in the Galois Field GF(2^n):
 
-               mod = BitVector(bitstring='100011011')          # AES modulus
+               mod = BitVector(bitstring='100011011')     # AES modulus
                n = 8
                bitvec = BitVector(bitstring='11100010110001')
                quotient, remainder = bitvec.gf_divide(mod, n)
-               print(quotient)                          # 00000000111010
-               print(remainder)                         # 10001111
+               print(quotient)                            # 00000000111010
+               print(remainder)                           # 10001111
 
        @tag37
        (37) You can extract from a bit vector the runs of 1's and 0's
             in the vector
 
                bv = BitVector(bitlist = (1,1, 1, 0, 0, 1))
-               print( str(bv.runs()) )                    # ['111', '00', '1']
+               print(str(bv.runs()))                      # ['111', '00', '1']
 
        @tag38
        (38) You can generate a bit vector with random bits that span in
@@ -1151,6 +1157,15 @@ __doc__ = '''
         Version 3.3 includes a correction by John Gleeson for a bug in the
         next_set_bit() method.  Thanks, John!
 
+        Version 3.3.1 resulted from Thor Smith observing that my naming
+        convention for the API methods was not uniform.  Whereas most used
+        the underscore for joining multiple words, some were based on
+        camelcasing. Thanks, Thor!
+
+        Version 3.3.2 was in response to a bug discovery by Juan Corredor.
+        The bug related to constructing bit vectors from text strings that
+        include character escapes.  Thanks, Juan!
+
 
     @title
     ABOUT THE AUTHOR:
@@ -1258,17 +1273,15 @@ _hexdict = { '0' : '0000', '1' : '0001', '2' : '0010', '3' : '0011',
              '8' : '1000', '9' : '1001', 'a' : '1010', 'b' : '1011',
              'c' : '1100', 'd' : '1101', 'e' : '1110', 'f' : '1111' }
 
-def _readblock( blocksize, bitvector ):                              
+def _readblock(blocksize, bitvector):                              
     ''' 
-    If this function can read all blocksize bits, it peeks ahead to see
-    if there is anything more to be read in the file. It uses
-    tell-read-seek mechanism for this in lines (R18) through (R21).  If
-    there is nothing further to be read, it sets the more_to_read attribute
-    of the bitvector object to False.  Obviously, this can only be done for
-    seekable streams such as those connected with disk files.  According to
-    Blair Houghton, a similar feature could presumably be implemented for
-    socket streams by using recv() or recvfrom() if you set the flags
-    argument to MSG_PEEK.
+    If this function succeeds in reading all blocksize bits, it uses the
+    tell-read-seek mechanism to peek ahead to see if there is anything more to be
+    read in the file. If there is nothing further to be read, it sets the more_to_read
+    attribute of the BitVector instance to False.  Obviously, this can only be done for
+    seekable streams such as those connected with disk files.  According to Blair
+    Houghton, a similar feature could presumably be implemented for socket streams by
+    using recv() or recvfrom() if you set the flags argument to MSG_PEEK.
     '''
     global _hexdict                                                  
     bitstring = ''                                                   
@@ -1301,7 +1314,7 @@ def _readblock( blocksize, bitvector ):
     return bitstring                                                
 
 
-#--------------------  BitVector Class Definition   ----------------------
+#------------------------------  BitVector Class Definition   --------------------------------
 
 class BitVector( object ):                                           
 
@@ -1419,7 +1432,8 @@ class BitVector( object ):
             if filename or fp or size or intVal or bitlist or bitstring or hexstring or rawbytes:
                 raise ValueError('''When bits are specified through textstring, you 
                                     cannot give values to any other constructor args''')
-            hexlist = ''.join(map(lambda x: x[2:], map(hex, map(ord, list(textstring))) ))
+            hexlist = ''.join(map(lambda x: x[2:], map(lambda x: hex(x) if len(hex(x)[2:])==2 \
+                                 else hex(x)[:2] + '0' + hex(x)[2:], map(ord, list(textstring)))))
             bitlist = list(map(int,list(''.join(map(lambda x: _hexdict[x], list(hexlist))))))
             self.size = len(bitlist)                        
         elif hexstring or hexstring == '':
@@ -1484,10 +1498,10 @@ class BitVector( object ):
 
     def __xor__(self, other):                                      
         '''
-        Take a bitwise 'XOR' of the bit vector on which the method is
-        invoked with the argument bit vector.  Return the result as a new
-        bit vector.  If the two bit vectors are not of the same size, pad
-        the shorter one with zeros from the left.
+        Take a bitwise 'XOR' of the bit vector on which the method is invoked with
+        the argument bit vector.  Return the result as a new bit vector.  If the two
+        bit vectors are not of the same size, pad the shorter one with zeros from the
+        left.
         '''
         if self.size < other.size:                                  
             bv1 = self._resize_pad_from_left(other.size - self.size)
@@ -1505,10 +1519,10 @@ class BitVector( object ):
 
     def __and__(self, other):                                       
         '''
-        Take a bitwise 'AND' of the bit vector on which the method is
-        invoked with the argument bit vector.  Return the result as a new
-        bit vector.  If the two bit vectors are not of the same size, pad
-        the shorter one with zeros from the left.
+        Take a bitwise 'AND' of the bit vector on which the method is invoked with
+        the argument bit vector.  Return the result as a new bit vector.  If the two
+        bit vectors are not of the same size, pad the shorter one with zeros from the
+        left.
         '''      
         if self.size < other.size:                                  
             bv1 = self._resize_pad_from_left(other.size - self.size)
@@ -1526,10 +1540,10 @@ class BitVector( object ):
 
     def __or__(self, other):                                        
         '''
-        Take a bitwise 'OR' of the bit vector on which the method is
-        invoked with the argument bit vector.  Return the result as a new
-        bit vector.  If the two bit vectors are not of the same size, pad
-        the shorter one with zero's from the left.
+        Take a bitwise 'OR' of the bit vector on which the method is invoked with the
+        argument bit vector.  Return the result as a new bit vector.  If the two bit
+        vectors are not of the same size, pad the shorter one with zero's from the
+        left.
         '''
         if self.size < other.size:                                  
             bv1 = self._resize_pad_from_left(other.size - self.size)
@@ -1559,9 +1573,8 @@ class BitVector( object ):
 
     def __add__(self, other):                                       
         '''
-        Concatenate the argument bit vector with the bit vector on which
-        the method is invoked.  Return the concatenated bit vector as a new
-        BitVector object.
+        Concatenate the argument bit vector with the bit vector on which the method
+        is invoked.  Return the concatenated bit vector as a new BitVector object.
         '''
         i = 0                                                       
         outlist = []                                                
@@ -1580,11 +1593,10 @@ class BitVector( object ):
 
     def read_bits_from_file(self, blocksize):                       
         '''
-        Read blocksize bits from a disk file and return a BitVector object
-        containing the bits.  If the file contains fewer bits than
-        blocksize, construct the BitVector object from however many bits
-        there are in the file.  If the file contains zero bits, return a
-        BitVector object of size attribute set to 0.
+        Read blocksize bits from a disk file and return a BitVector object containing
+        the bits.  If the file contains fewer bits than blocksize, construct the
+        BitVector object from however many bits there are in the file.  If the file
+        contains zero bits, return a BitVector object of size attribute set to 0.
         '''
         error_str = '''You need to first construct a BitVector
         object with a filename as  argument'''                      
@@ -1611,13 +1623,12 @@ class BitVector( object ):
 
     def write_bits_to_fileobject( self, fp ):                       
         '''
-        This function is meant to write a bit vector directly to a file
-        like object.  Note that whereas 'write_to_file' method creates a
-        memory footprint that corresponds exactly to the bit vector, the
-        'write_bits_to_fileobject' actually writes out the 1's and 0's as
-        individual items to the file object.  That makes this method
-        convenient for creating a string representation of a bit vector,
-        especially if you use the StringIO class, as shown in the test
+        This function is meant to write a bit vector directly to a file like object.
+        Note that whereas 'write_to_file' method creates a memory footprint that
+        corresponds exactly to the bit vector, the 'write_bits_to_fileobject'
+        actually writes out the 1's and 0's as individual items to the file object.
+        That makes this method convenient for creating a string representation of a
+        bit vector, especially if you use the StringIO class, as shown in the test
         code.
         '''
         for bit_index in range(self.size):                          
@@ -1636,8 +1647,8 @@ class BitVector( object ):
 
     def divide_into_two(self):                                      
         '''
-        Divides an even-sized bit vector into two and returns the two
-        halves as a list of two bit vectors.
+        Divides an even-sized bit vector into two and returns the two halves as a
+        list of two bit vectors.
         '''
         if self.size % 2 != 0:                                     
             raise ValueError( "must have even num bits" )          
@@ -1655,8 +1666,8 @@ class BitVector( object ):
 
     def permute(self, permute_list):                               
         '''
-        Permute a bit vector according to the indices shown in the second
-        argument list.  Return the permuted bit vector as a new bit vector.
+        Permute a bit vector according to the indices shown in the second argument
+        list.  Return the permuted bit vector as a new bit vector.
         '''
         if max(permute_list) > self.size -1:                       
             raise ValueError( "Bad permutation index" )            
@@ -1669,10 +1680,10 @@ class BitVector( object ):
 
     def unpermute(self, permute_list):                              
         '''
-        Unpermute the bit vector according to the permutation list supplied
-        as the second argument.  If you first permute a bit vector by using
-        permute() and then unpermute() it using the same permutation list,
-        you will get back the original bit vector.
+        Unpermute the bit vector according to the permutation list supplied as the
+        second argument.  If you first permute a bit vector by using permute() and
+        then unpermute() it using the same permutation list, you will get back the
+        original bit vector.
         '''
         if max(permute_list) > self.size -1:                        
             raise ValueError( "Bad permutation index" )             
@@ -1687,10 +1698,9 @@ class BitVector( object ):
 
     def write_to_file(self, file_out):                              
         '''
-        Write the bitvector to the file object file_out.  (A file object is
-        returned by a call to open()). Since all file I/O is byte oriented,
-        the bitvector must be multiple of 8 bits. Each byte treated as MSB
-        first (0th index).
+        Write the bitvector to the file object file_out.  (A file object is returned
+        by a call to open()). Since all file I/O is byte oriented, the bitvector must
+        be multiple of 8 bits. Each byte treated as MSB first (0th index).
         '''
         err_str = '''Only a bit vector whose length is a multiple of 8 can
             be written to a file.  Use the padding functions to satisfy
@@ -1710,8 +1720,8 @@ class BitVector( object ):
 
     def close_file_object(self):                                    
         '''
-        For closing a file object that was used for reading the bits into
-        one or more BitVector objects.
+        For closing a file object that was used for reading the bits into one or more
+        BitVector objects.
         '''
         if not self.FILEIN:                                         
             raise SyntaxError( "No associated open file" )          
@@ -1728,11 +1738,10 @@ class BitVector( object ):
 
     def get_text_from_bitvector(self):
         '''
-        Return the text string formed by dividing the bitvector into bytes
-        from the left and replacing each byte by its ASCII character (this
-        is a useful thing to do only if the length of the vector is an
-        integral multiple of 8 and every byte in your bitvector has a print
-        representation)
+        Return the text string formed by dividing the bitvector into bytes from the
+        left and replacing each byte by its ASCII character (this is a useful thing
+        to do only if the length of the vector is an integral multiple of 8 and every
+        byte in your bitvector has a print representation)
         '''
         if self.size % 8:                                           
             raise ValueError('''\nThe bitvector for get_text_from_bitvector() 
@@ -1743,10 +1752,10 @@ class BitVector( object ):
 
     def get_hex_string_from_bitvector(self):
         '''
-        Return a string of hex digits by scanning the bits from the left
-        and replacing each sequence of 4 bits by its corresponding hex
-        digit (this is a useful thing to do only if the length of the
-        vector is an integral multiple of 4)
+        Return a string of hex digits by scanning the bits from the left and
+        replacing each sequence of 4 bits by its corresponding hex digit (this is a
+        useful thing to do only if the length of the vector is an integral multiple
+        of 4)
         '''
         if self.size % 4:                                           
             raise ValueError('''\nThe bitvector for get_hex_string_from_bitvector() 
@@ -1808,9 +1817,9 @@ class BitVector( object ):
     def circular_rot_left(self):                                   
         '''
         This is merely another implementation of the method
-        circular_rotate_left_by_one() shown above.  This one does NOT use
-        map functions.  This method carries out a one-bit left circular
-        shift of a bit vector.
+        circular_rotate_left_by_one() shown above.  This one does NOT use map
+        functions.  This method carries out a one-bit left circular shift of a bit
+        vector.
         '''
         max_index = (self.size -1)  // 16                       
         left_most_bit = self.vector[0] & 1                      
@@ -1824,9 +1833,8 @@ class BitVector( object ):
     def circular_rot_right(self):                               
         '''
         This is merely another implementation of the method
-        circular_rotate_right_by_one() shown above.  This one does NOT use
-        map functions.  This method does a one-bit right circular shift of
-        a bit vector.
+        circular_rotate_right_by_one() shown above.  This one does NOT use map
+        functions.  This method does a one-bit right circular shift of a bit vector.
         '''
         max_index = (self.size -1)  // 16                       
         right_most_bit = self[self.size - 1]                    
@@ -1841,10 +1849,10 @@ class BitVector( object ):
 
     def shift_left_by_one(self):                                
         '''
-        For a one-bit in-place left non-circular shift.  Note that
-        bitvector size does not change.  The leftmost bit that moves
-        past the first element of the bitvector is discarded and 
-        rightmost bit of the returned vector is set to zero.
+        For a one-bit in-place left non-circular shift.  Note that bitvector size
+        does not change.  The leftmost bit that moves past the first element of the
+        bitvector is discarded and rightmost bit of the returned vector is set to
+        zero.
         '''
         size = len(self.vector)                                 
         left_most_bits = list(map(operator.__and__, self.vector, [1]*size))  
@@ -1857,10 +1865,10 @@ class BitVector( object ):
 
     def shift_right_by_one(self):                                    
         '''
-        For a one-bit in-place right non-circular shift.  Note that
-        bitvector size does not change.  The rightmost bit that moves
-        past the last element of the bitvector is discarded and 
-        leftmost bit of the returned vector is set to zero.
+        For a one-bit in-place right non-circular shift.  Note that bitvector size
+        does not change.  The rightmost bit that moves past the last element of the
+        bitvector is discarded and leftmost bit of the returned vector is set to
+        zero.
         '''
         size = len(self.vector)                                      
         right_most_bits = list(map( operator.__and__, self.vector, [0x8000]*size ))         
@@ -1888,11 +1896,10 @@ class BitVector( object ):
 
     def __setitem__(self, pos, item):                                
         '''
-        This is needed for both slice assignments and for index
-        assignments.  It checks the types of pos and item to see if the
-        call is for slice assignment.  For slice assignment, pos must be of
-        type 'slice' and item of type BitVector.  For index assignment, the
-        argument types are checked in the _setbit() method.
+        This is needed for both slice assignments and for index assignments.  It
+        checks the types of pos and item to see if the call is for slice assignment.
+        For slice assignment, pos must be of type 'slice' and item of type BitVector.
+        For index assignment, the argument types are checked in the _setbit() method.
         '''      
         # The following section is for slice assignment:
         if isinstance(pos, slice):                                 
@@ -1937,7 +1944,7 @@ class BitVector( object ):
     # Allow len() to work:
     __len__ = _getsize                                               
     # Allow int() to work:
-    __int__ = intValue                                               
+    __int__ = int_val
 
     def __iter__(self):                                            
         '''
@@ -1981,16 +1988,16 @@ class BitVector( object ):
 
     def _resize_pad_from_left( self, n ):                            
         '''
-        Resize a bit vector by padding with n 0's from the left. Return the
-        result as a new bit vector.
+        Resize a bit vector by padding with n 0's from the left. Return the result as
+        a new bit vector.
         '''
         new_str = '0'*n + str( self )                                
         return BitVector( bitstring = new_str )                      
 
     def _resize_pad_from_right( self, n ):                           
         '''
-        Resize a bit vector by padding with n 0's from the right. Return
-        the result as a new bit vector.
+        Resize a bit vector by padding with n 0's from the right. Return the result
+        as a new bit vector.
         '''
         new_str = str( self ) + '0'*n                                
         return BitVector( bitstring = new_str )                      
@@ -2015,8 +2022,7 @@ class BitVector( object ):
 
     def __contains__( self, otherBitVec ):                           
         '''
-        This supports 'if x in y' and 'if x not in y' syntax for bit
-        vectors.
+        This supports 'if x in y' and 'if x not in y' syntax for bit vectors.
         '''
         if self.size == 0:                                           
               raise ValueError("First arg bitvec has no bits")       
@@ -2030,9 +2036,8 @@ class BitVector( object ):
 
     def reset( self, val ):                                         
         '''
-        Resets a previously created BitVector to either all zeros or all
-        ones depending on the argument val.  Returns self to allow for
-        syntax like
+        Resets a previously created BitVector to either all zeros or all ones
+        depending on the argument val.  Returns self to allow for syntax like
                bv = bv1[3:6].reset(1)
         or
                bv = bv1[:].reset(1)
@@ -2052,9 +2057,9 @@ class BitVector( object ):
 
     def set_value(self, *args, **kwargs):                            
         '''
-        Changes the bit pattern associated with a previously constructed
-        BitVector instance.  The allowable modes for changing the internally
-        stored bit pattern are the same as for the constructor.
+        Changes the bit pattern associated with a previously constructed BitVector
+        instance.  The allowable modes for changing the internally stored bit pattern
+        are the same as for the constructor.
         '''
         self.__init__( *args, **kwargs )                             
 
@@ -2062,13 +2067,12 @@ class BitVector( object ):
 
     def count_bits_sparse(self):                                   
         '''
-        For sparse bit vectors, this method, contributed by Rhiannon, will
-        be much faster.  She estimates that if a bit vector with over 2
-        millions bits has only five bits set, this will return the answer
-        in 1/18 of the time taken by the count_bits() method.  Note
-        however, that count_bits() may work much faster for dense-packed
-        bit vectors.  Rhianon's implementation is based on an algorithm
-        generally known as the Brian Kernighan's way, although its
+        For sparse bit vectors, this method, contributed by Rhiannon, will be much
+        faster.  She estimates that if a bit vector with over 2 millions bits has
+        only five bits set, this will return the answer in 1/18 of the time taken by
+        the count_bits() method.  Note however, that count_bits() may work much
+        faster for dense-packed bit vectors.  Rhianon's implementation is based on an
+        algorithm generally known as the Brian Kernighan's way, although its
         antecedents predate its mention by Kernighan and Ritchie.
         '''
         num = 0                                                      
@@ -2085,7 +2089,8 @@ class BitVector( object ):
         ''' 
         Computes the Jaccard similarity coefficient between two bit vectors
         '''
-        assert self.intValue() > 0 or other.intValue() > 0, 'Jaccard called on two zero vectors --- NOT ALLOWED'   
+        assert self.intValue() > 0 or other.intValue() > 0, \
+                                 'Jaccard called on two zero vectors --- NOT ALLOWED'   
         assert self.size == other.size, 'vectors of unequal length'  
         intersect = self & other                                     
         union = self | other                                         
@@ -2106,10 +2111,9 @@ class BitVector( object ):
 
     def next_set_bit(self, from_index=0):                           
         '''
-        This method, contributed originally by Jason Allum and updated
-        subsequently by John Gleeson, calculates the position of the next
-        set bit at or after the current position index. It returns -1 if
-        there is no next set bit.
+        This method, contributed originally by Jason Allum and updated subsequently
+        by John Gleeson, calculates the position of the next set bit at or after the
+        current position index. It returns -1 if there is no next set bit.
         '''
         assert from_index >= 0, 'from_index must be nonnegative'
         i = from_index
@@ -2135,10 +2139,9 @@ class BitVector( object ):
 
     def rank_of_bit_set_at_index(self, position):                 
         '''
-        For a bit that is set at the argument 'position', this method
-        returns how many bits are set to the left of that bit.  For
-        example, in the bit pattern 000101100100, a call to this method
-        with position set to 9 will return 4.
+        For a bit that is set at the argument 'position', this method returns how
+        many bits are set to the left of that bit.  For example, in the bit pattern
+        000101100100, a call to this method with position set to 9 will return 4.
         '''
         assert self[position] == 1, 'the arg bit not set'
         bv = self[0:position+1]                                     
@@ -2167,8 +2170,8 @@ class BitVector( object ):
 
     def reverse(self):                                            
         '''
-        Returns a new bit vector by reversing the bits in the bit vector on
-        which the method is invoked.
+        Returns a new bit vector by reversing the bits in the bit vector on which the
+        method is invoked.
         '''
         reverseList = []                                            
         i = 1                                                       
@@ -2179,9 +2182,9 @@ class BitVector( object ):
 
     def gcd(self, other):                                         
         ''' 
-        Using Euclid's Algorithm, returns the greatest common divisor of
-        the integer value of the bit vector on which the method is invoked
-        and the integer value of the argument bit vector.
+        Using Euclid's Algorithm, returns the greatest common divisor of the integer
+        value of the bit vector on which the method is invoked and the integer value
+        of the argument bit vector.
         '''
         a = self.intValue(); b = other.intValue()                   
         if a < b: a,b = b,a                                         
@@ -2191,9 +2194,9 @@ class BitVector( object ):
 
     def multiplicative_inverse(self, modulus):                    
         '''
-        Calculates the multiplicative inverse of a bit vector modulo the
-        bit vector that is supplied as the argument. Code based on the
-        Extended Euclid's Algorithm.
+        Calculates the multiplicative inverse of a bit vector modulo the bit vector
+        that is supplied as the argument. Code based on the Extended Euclid's
+        Algorithm.
         '''
         MOD = mod = modulus.intValue(); num = self.intValue()       
         x, x_old = 0, 1                                             
@@ -2214,9 +2217,9 @@ class BitVector( object ):
 
     def gf_multiply(self, b):                                       
         '''
-        In the set of polynomials defined over GF(2), multiplies
-        the bitvector on which the method is invoked with the 
-        bitvector b.  Returns the product bitvector.
+        In the set of polynomials defined over GF(2), multiplies the bitvector on
+        which the method is invoked with the bitvector b.  Returns the product
+        bitvector.
         '''
         a = self.deep_copy()                                        
         b_copy = b.deep_copy()                                      
@@ -2236,9 +2239,8 @@ class BitVector( object ):
 
     def gf_divide(self, mod, n):                                    
         '''
-        Carries out modular division of a bitvector by the 
-        modulus bitvector mod in GF(2^n) finite field.
-        Returns both the quotient and the remainder.
+        Carries out modular division of a bitvector by the modulus bitvector mod in
+        GF(2^n) finite field.  Returns both the quotient and the remainder.
         '''
         num = self                                                  
         if mod.length() > n+1:                                      
@@ -2269,8 +2271,8 @@ class BitVector( object ):
 
     def gf_multiply_modular(self, b, mod, n):                      
         '''
-        Multiplies a bitvector with the bitvector b in GF(2^n)
-        finite field with the modulus bit pattern set to mod
+        Multiplies a bitvector with the bitvector b in GF(2^n) finite field with the
+        modulus bit pattern set to mod
         '''
         a = self                                                   
         a_copy = a.deep_copy()                                     
@@ -2281,8 +2283,8 @@ class BitVector( object ):
 
     def gf_MI(self, mod, n):                                       
         '''
-        Returns the multiplicative inverse of a vector in the GF(2^n)
-        finite field with the modulus polynomial set to mod
+        Returns the multiplicative inverse of a vector in the GF(2^n) finite field
+        with the modulus polynomial set to mod
         '''
         num = self                                                 
         NUM = num.deep_copy(); MOD = mod.deep_copy()               
@@ -2305,9 +2307,8 @@ class BitVector( object ):
 
     def runs(self):                                                
         '''
-        Returns a list of the consecutive runs of 1's and 0's in
-        the bit vector.  Each run is either a string of all 1's or
-        a string of all 0's.
+        Returns a list of the consecutive runs of 1's and 0's in the bit vector.
+        Each run is either a string of all 1's or a string of all 0's.
         '''
         if self.size == 0:                                         
             raise ValueError('''An empty vector has no runs''')    
@@ -2337,8 +2338,8 @@ class BitVector( object ):
         ''' 
         Check if the integer value of the bitvector is a prime through the
         Miller-Rabin probabilistic test of primality.  If not found to be a
-        composite, estimate the probability of the bitvector being a prime
-        using this test.
+        composite, estimate the probability of the bitvector being a prime using this
+        test.
         '''
         p = int(self)                                              
         probes = [2,3,5,7,11,13,17]                                
@@ -2365,15 +2366,13 @@ class BitVector( object ):
 
     def gen_rand_bits_for_prime(self, width):                      
         '''
-        The bulk of the work here is done by calling random.getrandbits(
-        width) which returns an integer whose binary code representation
-        will not be larger than the argument 'width'.  However, when random
-        numbers are generated as candidates for primes, you often want to
-        make sure that the random number thus created spans the full width
-        specified by 'width' and that the number is odd.  This we do by
-        setting the two most significant bits and the least significant
-        bit.  If you only want to set the most significant bit, comment out
-        the statement in line (pr29).
+        The bulk of the work here is done by calling random.getrandbits( width) which
+        returns an integer whose binary code representation will not be larger than
+        the argument 'width'.  However, when random numbers are generated as
+        candidates for primes, you often want to make sure that the random number
+        thus created spans the full width specified by 'width' and that the number is
+        odd.  This we do by setting the two most significant bits and the least
+        significant bit.
         '''
         import random                                              
         candidate = random.getrandbits( width )                    
@@ -2490,6 +2489,13 @@ if __name__ == '__main__':
     mytext = bv3.get_text_from_bitvector()
     print("Text recovered from the previous bitvector: ")
     print(mytext)                                         # hello
+    print("\nConstructing a bit vector from the textstring 'hello\\njello':")
+    bv3 = BitVector(textstring = "hello\njello")
+    print(bv3)
+    mytext = bv3.get_text_from_bitvector()
+    print("Text recovered from the previous bitvector:")
+    print(mytext)                                         # hello
+                                                          # jello
 
     print("\nConstructing a bit vector from the hexstring '68656c6c6f':")
     bv4 = BitVector(hexstring = "68656c6c6f")

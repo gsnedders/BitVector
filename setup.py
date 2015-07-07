@@ -5,17 +5,21 @@
 from distutils.core import setup
 
 setup(name='BitVector',
-      version='3.3.1',
+      version='3.3.2',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.1.tar.gz',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.2.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.3.2.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
+
+**Version 3.3.2** has a bug fix for the case when you
+construct a bit vector from a text string that includes
+character escapes.
 
 **Version 3.3.1** is a minor upgrade to make the syntax of
 the API method declarations more uniform.  Previously, while
@@ -27,9 +31,6 @@ continue to work.
 **Version 3.3** includes one more constructor mode: You can
 now construct a bit vector from the bytes data type.  This
 version also includes a couple of bug fixes.
-
-**Version 3.2** includes support for constructing bit
-vectors directly from text strings and hex strings.
 
 The class is provided with the following operators/methods:
 
