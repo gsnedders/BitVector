@@ -23,7 +23,7 @@ logicTests = [
 
 class BooleanLogicTestCase(unittest.TestCase):
     def checkLogicOp(self):
-        print "\nTesting Boolean operators" 
+        print("\nTesting Boolean operators") 
         for args, expected in logicTests:
             try:
                 op = args[2]
@@ -34,10 +34,10 @@ class BooleanLogicTestCase(unittest.TestCase):
                 elif (op == '~'):
                     actual =  ~args[0]
                 assert actual == BitVector.BitVector( bitstring = expected )
-            except Exception, e:
+            except Exception as e:
                 if ( args[0].size == args[1].size ):
-                    print e
-                    print "        BOOLEAN LOGIC TEST FAILED"
+                    print(e)
+                    print("        BOOLEAN LOGIC TEST FAILED")
 
 def getTestSuites(type):
     return unittest.TestSuite([

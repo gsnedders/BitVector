@@ -1,6 +1,6 @@
 import BitVector
 import unittest
-import StringIO
+import io
 
 constructorTests = [
     (('size','0'), ''),
@@ -15,7 +15,7 @@ constructorTests = [
 
 class ConstructorTestCases(unittest.TestCase):
     def checkConstructors(self):
-        print "\nTesting constructors"
+        print("\nTesting constructors")
         for args, expected in constructorTests:
             try:
                 mode = args[0]
@@ -28,16 +28,16 @@ class ConstructorTestCases(unittest.TestCase):
                 elif (mode == 'bitstring'):
                     bitvec = BitVector.BitVector( bitstring = args[1] )
                 elif (mode == 'streamobject'):
-                    fp_read = StringIO.StringIO( args[1] )
+                    fp_read = io.StringIO( args[1] )
                     bitvec = BitVector.BitVector( fp = fp_read )
                 elif (mode == 'filename'):
                     bvec   = BitVector.BitVector( filename = args[1] )
                     bitvec = bvec.read_bits_from_file(64)    
                 actual = str(bitvec)
                 assert expected == actual
-            except Exception, e:
-                print e
-                print "        CONSTRUCTOR TEST FAILED"
+            except Exception as e:
+                print(e)
+                print("        CONSTRUCTOR TEST FAILED")
 
 def getTestSuites(type):
     return unittest.TestSuite([

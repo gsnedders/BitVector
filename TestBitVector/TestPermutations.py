@@ -11,19 +11,19 @@ permutationTests = [
 
 class PermutationTestCase(unittest.TestCase):
     def checkPermutations(self):
-        print "\nTesting permutations" 
+        print("\nTesting permutations")
         for args, expected in permutationTests:
             try:
                 if (args[1] == 'permute'):
-                    actual = args[0].permute( map( lambda x: int(x),
-                                                   list( args[2] ) ) )
+                    actual = args[0].permute( list(map( lambda x: int(x),
+                                                   list( args[2] ) ) ) ) 
                 elif (args[1] == 'unpermute'):
-                    actual = args[0].unpermute( map( lambda x: int(x),
-                                                     list( args[2] ) ) )
+                    actual = args[0].unpermute( list(map( lambda x: int(x),
+                                                     list( args[2] ) ) ) )
                 assert actual == BitVector.BitVector( bitstring = expected )
-            except Exception, e:
-                print e
-                print "Permutation test failed"
+            except Exception as e:
+                print(e)
+                print("Permutation test failed")
 
 def getTestSuites(type):
     return unittest.TestSuite([
