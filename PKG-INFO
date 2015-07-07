@@ -1,13 +1,19 @@
 Metadata-Version: 1.0
 Name: BitVector
-Version: 2.0
+Version: 2.0.1
 Summary: A pure-Python memory-efficient packed representation for bit arrays
-Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.0.html
+Home-page: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.0.1.html
 Author: Avinash Kak
 Author-email: kak@purdue.edu
 License: Python Software Foundation License
-Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.0.tar.gz?download
-Description: This class presents a pure-Python memory efficient packed representation for bit arrays.
+Download-URL: http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-2.0.1.tar.gz?download
+Description: 
+        This class presents a pure-Python memory efficient packed 
+        representation for bit arrays.
+        
+        Version 2.0.1 removes many typos and other errors in the 
+        documentation page.  The implementation code remains 
+        the same as in Version 2.0
         
         Version 2.0 provides much additional functionality that was
         requested by folks in the data mining community.  The class
@@ -22,93 +28,93 @@ Description: This class presents a pure-Python memory efficient packed represent
         given modulus.
         
         The class supports the following operators/methods:
+              
+                  __getitem__
         
-        __getitem__
+                  __setitem__
         
-        __setitem__
+                  __len__
         
-        __len__
+                  __getslice__
         
-        __getslice__
+                  __str__
         
-        __str__
+                  __iter__
         
-        __iter__
+                  __contains__
         
-        __contains__
+                  __int__
         
-        __int__
+                  __add__
         
-        __add__
+                  __eq__, __ne__, __lt__, __le__, __gt__, __ge__
+                  
         
-        __eq__, __ne__, __lt__, __le__, __gt__, __ge__
+                  '|'  for bitwise or
         
+                  '&'  for bitwise and
         
-        '|'  for bitwise or
+                  '^'  for bitwise xor
         
-        '&'  for bitwise and
+                  '~'  for bitwise inversion
         
-        '^'  for bitwise xor
+                  '<<' for circular shift to the left
         
-        '~'  for bitwise inversion
+                  '>>' for circular shift to the right
         
-        '<<' for circular shift to the left
+                  '+'  for concatenation
         
-        '>>' for circular shift to the right
+                  intValue(), __int__  for returning the integer value 
         
-        '+'  for concatenation
+                  divide_into_two
         
-        intValue(), __int__  for returning the integer value
+                  permute
         
-        divide_into_two
+                  unpermute
         
-        permute
+                  pad_from_left
         
-        unpermute
+                  pad_from_right
         
-        pad_from_left
+                  read_bits_from_file
         
-        pad_from_right
+                  write_to_file
         
-        read_bits_from_file
+                  read_bits_from_fileobject
         
-        write_to_file
+                  write_bits_to_fileobject
         
-        read_bits_from_fileobject
+                  slice assignment
         
-        write_bits_to_fileobject
+                  reset
         
-        slice assignment
+                  setValue
         
-        reset
+                  count_bits
         
-        setValue
+                  count_bit_sparse          
+         
+                  jaccard_similarity
         
-        count_bits
+                  jaccard_distance
         
-        count_bit_sparse
+                  hamming_distance
         
-        jaccard_similarity
+                  next_set_bit
         
-        jaccard_distance
+                  rank_of_bit_set_at_index
         
-        hamming_distance
+                  isPowerOf2
         
-        next_set_bit
+                  isPowerOf2_sparse
         
-        rank_of_bit_set_at_index
+                  reverse
         
-        isPowerOf2
+                  gcd
         
-        isPowerOf2_sparse
+                  multiplicative_inverse
         
-        reverse
-        
-        gcd
-        
-        multiplicative_inverse
-        
-        
+                  
 Keywords: bit array,bit vector,bit string,logical operations on bit fields
 Platform: All platforms
 Classifier: Topic :: Utilities
