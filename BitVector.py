@@ -4,20 +4,32 @@
 '''
    BitVector.py        
 
-   Version: 1.1
+   Version: 1.1.1
    
    Author: Avinash Kak (kak@purdue.edu)
 
 
-   INTRODUCTION:
+   CHANGE LOG:
 
+       Version 1.1.1: The function that does block reads from a disk
+       file now peeks ahead at the end of each block to see if there is
+       anything remaining to be read in the file.  If nothing remains,
+       the more_to_read attribute of the BitVector object is set to
+       False.  This simplifies reading loops. This version also allows
+       BitVectors of size 0 to be constructed
+
+
+       Version 1.1: I have changed the API significantly to provide
+       more ways for constructing a bit vector.  As a result, it is
+       now necessary to supply a keyword argument to the constructor.
+       
+
+   INTRODUCTION:
    
    The BitVector class for a memory-efficient packed representation of
-   bit arrays and for logical operations on such arrays.
-
-   The core idea used in this Python script for bin packing is based on
-   an internet posting by Josiah Carlson who was responding to a query
-   by Nitin Madnani on a mailing list devoted to Pyrex.
+   bit arrays and for logical operations on such arrays.  The core idea
+   used in this Python script for bin packing is based on an internet
+   posting by Josiah Carlson to the Pyrex mailing list.
 
    Operations Supported on bit vectors:
 
@@ -235,8 +247,11 @@
    ACKNOWLEDGEMENTS
 
    The author is grateful to Oleg Broytmann for suggesting many
-   improvements that have now been incorporated in this version of
-   the BitVector class.
+   improvements that have now been incorporated in this version of the
+   BitVector class.  The author would also like to thank all (Scott
+   Daniels, Blair Houghton, and Steven D'Aprano) for their responses to
+   my comp.lang.python query concerning how to make a Python input
+   stream peekable.
    
 '''
 
@@ -251,14 +266,26 @@ _hexdict = { '0' : '0000', '1' : '0001', '2' : '0010', '3' : '0011',
              '8' : '1000', '9' : '1001', 'a' : '1010', 'b' : '1011',
              'c' : '1100', 'd' : '1101', 'e' : '1110', 'f' : '1111' }
 
-def _readblock( blocksize, FILEIN ):                                 #(R1)
+# If this function can read all blocksize bits, it peeks ahead
+# to see if there is anything more to be read in the file. It
+# uses tell-read-seek mechanism for this in lines (R17) through
+# (R19).  If there is nothing further to be read, it sets the
+# more_to_read attribute of the bitvector object to False.
+# Obviously, this can only be done for seekable streams such
+# as those connected with disk files.  According to Blair Houghton,
+# a similar feature could presumably be implemented for socket
+# streams by using recv() or recvfrom() if you set the flags
+# argument to MSG_PEEK. 
+def _readblock( blocksize, bitvector ):                              #(R1)
     global hexdict                                                   #(R2)
     bitstring = ''                                                   #(R3)
     i = 0                                                            #(R4)
     while ( i < blocksize / 8 ):                                     #(R5)
         i += 1                                                       #(R6)
-        byte = FILEIN.read(1)                                        #(R7)
+        byte = bitvector.FILEIN.read(1)                              #(R7)
         if byte == '':                                               #(R8)
+            if len(bitstring) < blocksize:
+                bitvector.more_to_read = False
             return bitstring                                         #(R9)
         hexvalue = hex( ord( byte ) )                               #(R10)
         hexvalue = hexvalue[2:]                                     #(R11)
@@ -266,7 +293,16 @@ def _readblock( blocksize, FILEIN ):                                 #(R1)
             hexvalue = '0' + hexvalue                               #(R13)
         bitstring += _hexdict[ hexvalue[0] ]                        #(R14)
         bitstring += _hexdict[ hexvalue[1] ]                        #(R15)
-    return bitstring                                                #(R16)
+    file_pos = bitvector.FILEIN.tell()                              #(R16)
+    # peek at the next byte; moves file position only if a
+    # byte is read
+    next_byte = bitvector.FILEIN.read(1)                            #(R17)
+    if next_byte:                                                   #(R18)
+        # pretend we never read the byte                   
+        bitvector.FILEIN.seek( file_pos )                           #(R19)
+    else:                                                           #(R20)
+        bitvector.more_to_read = False                              #(R21)
+    return bitstring                                                #(R22)
 
 
 class BitVector( object ):                                           #(A1)
@@ -304,7 +340,7 @@ class BitVector( object ):                                           #(A1)
             bits = self.read_bits_from_fileobject( fp )             #(A21)
             bits =  map( lambda x: int(x), bits )                   #(A22)
             self.size = len( bits )                                 #(A23)
-        elif size:                                                  #(A24)
+        elif size >= 0:                                             #(A24)
             if filename or fp or intVal or bits:                    #(A25)
                 raise ValueError(                                   #(A26)
                   '''When size is specified, you cannot
@@ -413,26 +449,25 @@ class BitVector( object ):                                           #(A1)
     def _getsize(self):                                              #(K1)
         return self.size                                             #(K2)
 
-    # When reading in a loop from a file that contains an
-    # exact  multiple of blocksize/8 bytes, the flag
-    # self.more_to_read will be set to false only in the
-    # next iteration of the loop after the last blocksize
-    # bits have been.  Therefore, the user of this function
-    # must check that this function has actually returned
-    # a non-zero number of bytes.  This can be done by
-    # making sure that len(bitvec) is greater than zero
-    # for each bit vector constructed from the bitstring
-    # returned by this function.
+    # Read blocksize bits from a disk file and return a
+    # BitVector object containing the bits.  If the file
+    # contains fewer bits than blocksize, construct the
+    # BitVector object from however many bits there are
+    # in the file.  If the file contains zero bits, return
+    # a BitVector object of size attribute set to 0.
     def read_bits_from_file(self, blocksize):                        #(L1)
         error_str = '''You need to first construct a BitVector
         object with a filename as  argument'''                       #(L2)
         if self.filename == None:                                    #(L3)
             raise SyntaxError( error_str )                           #(L4)
-        bitstring = _readblock( blocksize, self.FILEIN )             #(L5)
-        if len(bitstring) < blocksize:                               #(L6)
-            self.more_to_read = False                                #(L7)
-        bitlist = map( lambda x: int(x), list( bitstring ) )         #(L8)
-        return BitVector( bits = tuple(bitlist) )                    #(L9)
+        if blocksize % 8 != 0:                                       #(L5)
+            raise ValueError( "block size must be a multiple of 8" ) #(L6)
+        bitstring = _readblock( blocksize, self )                    #(L7)
+        if len( bitstring ) == 0:                                    #(L8)
+            return BitVector( size = 0 )                             #(L9)
+        else:                                                       #(L10)
+            bitlist = map( lambda x: int(x), list( bitstring ) )    #(L11)
+            return BitVector( bits = bitlist )                      #(L12)
 
     # This function is meant to read a bit string from a
     # file like object.
@@ -729,11 +764,10 @@ if __name__ == '__main__':
     print
 
     # Read a file from the beginning to end:
-    bv = BitVector( filename = 'junk3.txt' )
+    bv = BitVector( filename = 'junk4.txt' )
     while (bv.more_to_read):
         bv_read = bv.read_bits_from_file( 64 )
-        if len( bv_read ) > 0:
-            print bv_read
+        print bv_read
     print
 
     # Experiment with closing a file object and start
@@ -786,3 +820,4 @@ if __name__ == '__main__':
     # Test the iterator:
     for item in bv4:
         print item,                       # 0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 1 0
+
