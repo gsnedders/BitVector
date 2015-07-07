@@ -7,17 +7,20 @@
 from setuptools import setup, find_packages
 
 setup(name='BitVector',
-      version='3.4',
+      version='3.4.1',
       author='Avinash Kak',
       author_email='kak@purdue.edu',
       maintainer='Avinash Kak',
       maintainer_email='kak@purdue.edu',
-      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.html',
-      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.tar.gz',
+      url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.html',
+      download_url='https://engineering.purdue.edu/kak/dist/BitVector-3.4.1.tar.gz',
       description='A pure-Python memory-efficient packed representation for bit arrays',
       long_description='''
 This class presents a pure-Python memory-efficient packed 
 representation for bit arrays.
+
+**Version 3.4.1** fixes a couple of errors in the packaging
+of Version 3.4.
 
 **Version 3.4** removes a bug and incorporates significant
 improvements in the documentation.
@@ -89,5 +92,5 @@ The class is provided with the following operators/methods:
       keywords='bit array, bit vector, bit string, logical operations on bit fields',
       platforms='All platforms',
       classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7', 'Programming Language :: Python :: 3.2'],
-      packages=[]
+      packages=['BitVector']
 )

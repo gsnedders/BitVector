@@ -1,8 +1,10 @@
-BitVector.py
+BitVector-3.4.1.html
 MANIFEST.in
 Makefile
 README
 setup.py
+BitVector/BitVector.py
+BitVector/__init__.py
 BitVector.egg-info/PKG-INFO
 BitVector.egg-info/SOURCES.txt
 BitVector.egg-info/dependency_links.txt
