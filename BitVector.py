@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-__version__ = '1.3.2'
+__version__ = '1.4'
 __author__  = "Avinash Kak (kak@purdue.edu)"
-__date__    = '2008-February-11'
-__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.3.2.html'
+__date__    = '2008-April-18'
+__url__     = 'http://RVL4.ecn.purdue.edu/~kak/dist/BitVector-1.4.html'
 __copyright__ = "(C) 2008 Avinash Kak. GNU GPL 2."
 
 __doc__ = '''
@@ -18,6 +18,14 @@ __doc__ = '''
 
 
     CHANGE LOG:
+
+       Version 1.4:
+
+           This version includes the following two upgrades: 
+           1) code for slice assignment; and 2) A reset function 
+           to reinitialize a previously constructed BitVector.  
+           Additionally, the code was cleaned up with the help of 
+           pychecker.
 
        Version 1.3.2:
 
@@ -83,6 +91,45 @@ __doc__ = '''
        
 
 
+    INSTALLATION:
+
+       The BitVector class has been packaged using Distutils.  
+       For installation, execute the following command-line in the 
+       source directory (this is the directory that contains the 
+       setup.py file after you have downloaded and uncompressed the 
+       package):
+ 
+           python setup.py install
+
+       You have to have root privileges for this to work.  On Linux 
+       distributions, this will install the module file at a location 
+       that looks like
+
+            /usr/lib/python2.5/site-packages/
+
+       If you do not have root access, you have the option of 
+       working directly off the directory in which you downloaded 
+       the software by simply placing the following statements at 
+       the top of your scripts that use the BitVector class
+
+           import sys
+           sys.path.append( "pathname_to_BitVector_directory" )
+
+       To uninstall the module, simply delete the source directory,
+       locate where BitVector was installed with "locate BitVector"
+       and delete those files.  As mentioned above, the full 
+       pathname to the installed version is likely to look like
+       /usr/lib/python2.5/site-packages/BitVector*
+
+       If you want to carry out a non-standard install of BitVector,
+       look up the on-line information on Disutils by pointing your
+       browser to 
+
+              http://docs.python.org/dist/dist.html
+
+
+
+
     INTRODUCTION:
    
        The BitVector class for a memory-efficient packed representation
@@ -119,6 +166,8 @@ __doc__ = '''
               write_to_file
               read_bits_from_fileobject
               write_bits_to_fileobject
+              reset
+              slice assignment
 
 
 
@@ -238,7 +287,21 @@ __doc__ = '''
             is a bit vector constructed from the bits at index positions
             from i through j-1.
 
-        4)  You can iterate over a bit vector, as illustrated by
+        4)  You can also carry out slice assignment:
+
+                  bv1 = BitVector( size = 25 )
+                  bv2 = BitVector( bitstring = '1010001' )
+                  bv1[6:9]  = bv2[0:3]
+                  bv3 = BitVector( bitstring = '101' )                 
+                  bv1[0:3]  = bv3
+
+            The first slice assignment will set the 6th, 7th, and 
+            the 8th bits of the bit vector bv1 according to the first
+            three bits of bv2.  The second slice assignment will set
+            the first three bits of bv1 according to the three bits
+            in bv3.
+
+        5)  You can iterate over a bit vector, as illustrated by
 
                   for bit in bitvec:
                       print bit,   
@@ -246,19 +309,33 @@ __doc__ = '''
             This is made possible by the override definition for the
             special __iter__() method.
 
-        5)  Negative subscripts for array-like indexing are supported.
+        6)  Negative subscripts for array-like indexing are supported.
             Therefore,
 
                   bitvec[ -i ]
 
             is legal assuming that the index range is not violated.
 
+        7)  You can reset a previously constructed bit vector to
+            either the all zeros state or the all ones state by
+
+                  bv1 = BitVector( size = 25 )
+                  ...
+                  ...
+                  bv1.reset( 1 )
+                  ...
+                  ...
+                  bv1.reset( 0 )
+
+            The first call to reset() will set all the bits of
+            bv1 to 1's and the second call all bit to 0's.
+
 
 
     LOGICAL OPERATIONS ON BIT VECTORS:
 
    
-        6) Given two bit vectors bv1 and bv2, you can perform bitwise
+        8) Given two bit vectors bv1 and bv2, you can perform bitwise
            logical operations on them by
 
                   result_bv  =  bv1 ^ bv2
@@ -270,7 +347,7 @@ __doc__ = '''
 
     COMPARING BIT VECTORS:
 
-        7) Given two bit vectors bv1 and bv2, you can carry out the
+        9) Given two bit vectors bv1 and bv2, you can carry out the
            following comparisons that return Boolean values:
 
                   bv1 ==  bv2
@@ -289,14 +366,14 @@ __doc__ = '''
     OTHER SUPPORTED OPERATIONS:
 
    
-        8)  You can permute and un-permute bit vectors:
+       10)  You can permute and un-permute bit vectors:
 
                   bv_permuted   =  bv.permute( permutation_list )
 
                   bv_unpermuted =  bv.unpermute( permutation_list )
 
 
-        9)  Left and right circular rotations can be carried out by
+       11)  Left and right circular rotations can be carried out by
  
                   bitvec  << N 
 
@@ -306,7 +383,7 @@ __doc__ = '''
             positions.
 
 
-       10)  A bit vector containing an even number of bits can be
+       12)  A bit vector containing an even number of bits can be
             divided into two equal parts by
 
                   [left_half, right_half] = bitvec.divide_into_two()
@@ -315,7 +392,7 @@ __doc__ = '''
              returned bit vectors.
 
 
-       11)  You can find the integer value of a bit array by
+       13)  You can find the integer value of a bit array by
 
                   bitvec.invValue()
 
@@ -324,13 +401,13 @@ __doc__ = '''
                   int( bitvec )
 
 
-       12)  You can convert a bit vector into its string representation
+       14)  You can convert a bit vector into its string representation
             by
 
                   str( bitvec )
 
 
-       13)  Because __add__ is supplied, you can always join two
+       15)  Because __add__ is supplied, you can always join two
             bit vectors by
 
                   bitvec3  =  bitvec1  +  bitvec2
@@ -339,7 +416,7 @@ __doc__ = '''
             bits of bitvec1 followed by all the bits of bitvec2.
 
              
-       14)  You can write a bit vector directly to a file, as
+       16)  You can write a bit vector directly to a file, as
             illustrated by the following example that reads one bit
             vector from a file and then writes it to another
             file
@@ -368,7 +445,7 @@ __doc__ = '''
                          linebreak on Windows machine.
 
 
-       15)  You can also write a bit vector directly to a stream
+       17)  You can also write a bit vector directly to a stream
             object, as illustrated by
 
                   fp_write = StringIO.StringIO()
@@ -376,7 +453,7 @@ __doc__ = '''
                   print fp_write.getvalue()         # 111100001111 
              
 
-       16)  You can pad a bit vector from the left or from the
+       18)  You can pad a bit vector from the left or from the
             right with a designated number of zeros
 
                   bitvec.pad_from_left( n )
@@ -389,7 +466,7 @@ __doc__ = '''
             case except that now the additional n zeros will be on
             the right.
 
-       17)  You can test if a bit vector x is contained in another bit
+       19)  You can test if a bit vector x is contained in another bit
             vector y by using the syntax 'if x in y'.  This is made
             possible by the override definition for the special
             __contains__() method.
@@ -537,6 +614,16 @@ __doc__ = '''
         out as 0000110100001010 ('\r\n').  This documentation fix 
         resulted in Version 1.3.2.
 
+        With regard to Version 1.4, the suggestions/bug reports
+        made by John Kominek, Bob Morse, and Steve Ward contributed
+        to this version.  I wish to thank all three. John wanted me 
+        to equip the class with a reset() method so that a previously
+        constructed class could be reset to either all 0's or all
+        1's. Bob spotted loose local variables in the implementation
+        --- presumably left over from the debugging phase of the code.
+        Bob recommended that I clean up the code with pychecker. That
+        has been done.  Steve noticed that slice assignment was not
+        working.  It should work now.
 
 
 
@@ -634,9 +721,7 @@ __doc__ = '''
 '''
 
 
-import sys
 import array
-import exceptions
 import operator
 
 _hexdict = { '0' : '0000', '1' : '0001', '2' : '0010', '3' : '0011',
@@ -1014,9 +1099,9 @@ class BitVector( object ):                                           #(A1)
         list, you will get back the original bit vector.
         '''
         if max(permute_list) > self.size -1:                         #(S2)
-            raise exceptions.ValueError, "Bad permutation index"     #(S3)
+            raise ValueError( "Bad permutation index" )              #(S3)
         if self.size != len( permute_list ):                         #(S4)
-            raise exceptions.ValueError,"Bad size for permute list"  #(S5)
+            raise ValueError( "Bad size for permute list" )          #(S5)
         out_bv = BitVector( size = self.size )                       #(S6)
         i = 0                                                        #(S7)
         while ( i < len(permute_list) ):                             #(S8)
@@ -1039,7 +1124,7 @@ class BitVector( object ):                                           #(A1)
         if not self.FILEOUT: 
             self.FILEOUT = file_out
         if self.size % 8:                                            #(T3)
-            raise exceptions.ValueError, err_str                     #(T4)
+            raise ValueError( err_str )                              #(T4)
         for byte in range(self.size/8 ):                             #(T5)
             value = 0                                                #(T6)
             for bit in range(8):                                     #(T7)
@@ -1052,8 +1137,8 @@ class BitVector( object ):                                           #(A1)
         For closing a file object that was used for reading
         the bits into one or more BitVector objects.
         '''
-        if not self.FILEIN:                                        #(U2)
-            raise exceptions.SyntaxError, "No associated open file"  #(U3)
+        if not self.FILEIN:                                          #(U2)
+            raise SyntaxError( "No associated open file" )           #(U3)
         self.FILEIN.close()                                          #(U4)
 
 
@@ -1143,7 +1228,29 @@ class BitVector( object ):                                           #(A1)
 
     # Allow array like subscripting for getting and setting:
     __getitem__ = _getbit                                            #(b1)
-    __setitem__ = _setbit                                            #(b2)
+
+    def __setitem__(self, pos, item):                                #(b2)
+        '''
+        This is needed for both slice assignments and for 
+        index assignments.  It checks the types of pos and item
+        to see if the call is for slice assignment.  For slice
+        assignment, pos must be of type 'slice' and item of 
+        type BitVector.  For index assignment, the argument types
+        are checked in the _setbit() method.
+        '''      
+        # The following section is for slice assignment:
+        if isinstance( pos, slice ):                                 #(b3)
+            if (not isinstance( item, BitVector )):                  #(b4)
+                raise TypeError('For slice assignment, \
+                        the right hand side must be a BitVector')    #(b5)
+            if ( (pos.stop - pos.start) != len(item) ):              #(b6)
+                raise ValueError('incompatible lengths for \
+                                               slice assignment')    #(b7)
+            for i in range( pos.start, pos.stop ):                   #(b8)
+                self[i] = item[ i - pos.start ]                      #(b9)
+            return                                                  #(b10)
+        # For index assignment use _setbit()
+        self._setbit( pos, item )                                   #(b11)
 
 
     def __getslice__(self, i, j):                                    #(c1)
@@ -1181,21 +1288,20 @@ class BitVector( object ):                                           #(A1)
         if self.size != other.size:                                  #(f2)
             return False                                             #(f3)
         i = 0                                                        #(f4)
-        outlist = []                                                 #(f5)
-        while ( i < self.size ):                                     #(f6)
-            if (self[i] != other[i]): return False                   #(f7)
-            i += 1                                                   #(f8)
-        return True                                                  #(f9)
-    def __ne__(self, other):                                        #(f10)
-        return not self == other                                    #(f11)
-    def __lt__(self, other):                                        #(f12)
-        return self.intValue() < other.intValue()                   #(f13)
-    def __le__(self, other):                                        #(f14)
-        return self.intValue() <= other.intValue()                  #(f15)
-    def __gt__(self, other):                                        #(f16)
-        return self.intValue() > other.intValue()                   #(f17)
-    def __ge__(self, other):                                        #(f18)
-        return self.intValue() >= other.intValue()                  #(f19)
+        while ( i < self.size ):                                     #(f5)
+            if (self[i] != other[i]): return False                   #(f6)
+            i += 1                                                   #(f7)
+        return True                                                  #(f8)
+    def __ne__(self, other):                                         #(f9)
+        return not self == other                                    #(f10)
+    def __lt__(self, other):                                        #(f11)
+        return self.intValue() < other.intValue()                   #(f12)
+    def __le__(self, other):                                        #(f13)
+        return self.intValue() <= other.intValue()                  #(f14)
+    def __gt__(self, other):                                        #(f15)
+        return self.intValue() > other.intValue()                   #(f16)
+    def __ge__(self, other):                                        #(f17)
+        return self.intValue() >= other.intValue()                  #(f18)
 
     # Some additional utility functions:
 
@@ -1256,11 +1362,21 @@ class BitVector( object ):                                           #(A1)
               raise ValueError, "First arg bitvec too short"         #(h5)
         max_index = self.size - otherBitVec.size + 1                 #(h6)
         for i in range(max_index):                                   #(h7)
-              testbv = self[i:i+otherBitVec.size]                    #(h8)
-              if self[i:i+otherBitVec.size] == otherBitVec:          #(h9)
-                    return True                                     #(h10)
-        return False                                                #(h11)
+              if self[i:i+otherBitVec.size] == otherBitVec:          #(h8)
+                    return True                                      #(h9)
+        return False                                                #(h10)
 
+
+    def reset( self, val ):                                          #(j1)
+        '''
+        Resets a previously created BitVector to either all
+        zeros or all ones depending on the argument val.
+        '''
+        if val not in (0,1):                                         #(j2)
+            raise ValueError( "Incorrect reset argument" )           #(j3)
+        bitlist = [val for i in range( self.size )]                  #(j4)
+        map( self._setbit, enumerate(bitlist), bitlist )             #(j5)
+        
 
 #-----------------------  BitVectorIterator Class -----------------------
 
@@ -1561,3 +1677,14 @@ if __name__ == '__main__':
     bv = BitVector( intVal = 1, size = 8 )    
     print bv                              # 00000001
 
+    print "\nTesting slice assignment:"
+    bv1 = BitVector( size = 25 )
+    print "bv1= ", bv1
+    bv2 = BitVector( bitstring = '1010001' )
+    print "bv2= ", bv2
+    bv1[6:9]  = bv2[0:3]
+    print "bv1= ", bv1
+
+    print "\nTesting reset function:"
+    bv1.reset( 1 )
+    print "bv1= ", bv1

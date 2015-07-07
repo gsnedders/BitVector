@@ -276,5 +276,14 @@ print bv                              # 00000000
 bv = BitVector.BitVector( intVal = 1, size = 8 )    
 print bv                              # 00000001
 
+print "\nTesting slice assignment:"
+bv1 = BitVector.BitVector( size = 25 )
+print "bv1= ", bv1
+bv2 = BitVector.BitVector( bitstring = '1010001' )
+print "bv2= ", bv2
+bv1[6:9]  = bv2[0:3]
+print "bv1= ", bv1
 
-
+print "\nTesting reset function:"
+bv1.reset( 1 )
+print "bv1= ", bv1
