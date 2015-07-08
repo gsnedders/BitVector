@@ -16,7 +16,3 @@ else:
     from BitVector import __url__
     from BitVector import __copyright__
     from BitVector import BitVector
-
-
-
-

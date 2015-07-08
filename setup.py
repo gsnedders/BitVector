@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-### setup.py
+# setup.py
 
 #from distutils.core import setup
 
@@ -43,12 +43,12 @@ The class is provided with the following operators/methods:
 -      __rshift__
 -      __add__
 -      close_file_object
--      count_bits 
--      count_bits_sparse      (faster for sparse bit vectors)     
+-      count_bits
+-      count_bits_sparse      (faster for sparse bit vectors)
 -      deep_copy
 -      divide_into_two
 -      gcd                    (for greatest common divisor)
--      gen_random_bits 
+-      gen_random_bits
 -      get_bitvector_in_ascii
 -      get_bitvector_in_hex
 -      gf_divide_by_modulus   (for modular divisions in GF(2^n))
@@ -56,12 +56,12 @@ The class is provided with the following operators/methods:
 -      gf_multiply            (for multiplications in GF(2))
 -      gf_multiply_modular    (for multiplications in GF(2^n))
 -      hamming_distance
--      int_val                (for returning the integer value) 
+-      int_val                (for returning the integer value)
 -      is_power_of_2
 -      is_power_of_2_sparse   (faster for sparse bit vectors)
 -      jaccard_distance
 -      jaccard_similarity
--      length                 
+-      length
 -      multiplicative_inverse
 -      next_set_bit
 -      pad_from_left
@@ -85,6 +85,7 @@ The class is provided with the following operators/methods:
       license='Python Software Foundation License',
       keywords='bit array, bit vector, bit string, logical operations on bit fields',
       platforms='All platforms',
-      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7', 'Programming Language :: Python :: 3.4'],
+      classifiers=['Topic :: Utilities', 'Programming Language :: Python :: 2.7',
+                   'Programming Language :: Python :: 3.4'],
       packages=['BitVector']
-)
+      )

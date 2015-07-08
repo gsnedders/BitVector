@@ -1,21 +1,23 @@
 import BitVector
 import unittest
 
-bv1 = BitVector.BitVector( bitstring = '00110011' )
-bv2 = BitVector.BitVector( bitlist = [0,0,1,1,0,0,1,1] )
-bv3 = BitVector.BitVector( intVal = 5678 )
+bv1 = BitVector.BitVector(bitstring='00110011')
+bv2 = BitVector.BitVector(bitlist=[0, 0, 1, 1, 0, 0, 1, 1])
+bv3 = BitVector.BitVector(intVal=5678)
 
 comparisonTests = [
-    ((bv1,bv2, '=='), True),
-    ((bv1,bv2, '!='), False),
-    ((bv1,bv2, '<'), False),
-    ((bv1,bv2, '<='), True),
-    ((bv1,bv3, '=='), False),
-    ((bv3,bv1, '>'), True),
-    ((bv3,bv1, '>='), True),
-    ]
+    ((bv1, bv2, '=='), True),
+    ((bv1, bv2, '!='), False),
+    ((bv1, bv2, '<'), False),
+    ((bv1, bv2, '<='), True),
+    ((bv1, bv3, '=='), False),
+    ((bv3, bv1, '>'), True),
+    ((bv3, bv1, '>='), True),
+]
+
 
 class ComparisonTestCases(unittest.TestCase):
+
     def checkComparisons(self):
         print("\nTesting comparison operators")
         for args, expected in comparisonTests:
@@ -40,7 +42,8 @@ class ComparisonTestCases(unittest.TestCase):
                 print(e)
                 print("        COMPARISON TEST FAILED")
 
+
 def getTestSuites(type):
     return unittest.TestSuite([
-            unittest.makeSuite(ComparisonTestCases, type)
-                             ])                    
+        unittest.makeSuite(ComparisonTestCases, type)
+    ])
