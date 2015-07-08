@@ -1530,7 +1530,6 @@ def _readblock(blocksize, bitvector):
     Houghton, a similar feature could presumably be implemented for socket streams by
     using recv() or recvfrom() if you set the flags argument to MSG_PEEK.
     '''
-    global _hexdict
     bitstring = ''
     i = 0
     while (i < blocksize / 8):
