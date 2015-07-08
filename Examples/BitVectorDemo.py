@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 
+import os.path
+import sys
+import tempfile
+
+base_path = os.path.split(__file__)[0]
+lib_dir = os.path.join(base_path, os.path.pardir, 'BitVector')
+sys.path.insert(0, lib_dir)
+
 from BitVector import *
+
+testinput1 = os.path.join(base_path, 'testinput1.txt')
+testinput4 = os.path.join(base_path, 'testinput4.txt')
+testinput5 = os.path.join(base_path, 'testinput5.txt')
 
 # Construct an EMPTY bit vector (a bit vector of size 0):
 print("\nConstructing an EMPTY bit vector (a bit vector of size 0):")
@@ -199,7 +211,7 @@ bv8 = (bv5 & bv6) ^ bv7
 print(bv8)                                   # 1111111011111111111
 
 print("\nConstruct a bit vector from what is in the file testinput1.txt:")
-bv = BitVector(filename='testinput1.txt')
+bv = BitVector(filename=testinput1)
 # print bv                                    # nothing to show
 bv1 = bv.read_bits_from_file(64)
 print("\nPrint out the first 64 bits read from the file:")
@@ -231,18 +243,20 @@ print(bv2)                                    # 1010
 print(
     "\nExperiment with writing an internally generated bit vector out to a disk file:")
 bv1 = BitVector(bitstring='00001010')
-FILEOUT = open('test.txt', 'wb')
+osfile, fpath = tempfile.mkstemp()
+FILEOUT = os.fdopen(osfile, "wb")
 bv1.write_to_file(FILEOUT)
 FILEOUT.close()
-bv2 = BitVector(filename='test.txt')
+bv2 = BitVector(filename=fpath)
 bv3 = bv2.read_bits_from_file(32)
 print(
     "\nDisplay bit vectors written out to file and read back from the file and their respective lengths:")
 print(str(bv1) + " " + str(bv3))
 print(str(len(bv1)) + " " + str(len(bv3)))
+os.remove(fpath)
 
 print("\nExperiments with reading a file from the beginning to end:")
-bv = BitVector(filename='testinput4.txt')
+bv = BitVector(filename=testinput4)
 print("\nHere are all the bits read from the file:")
 while (bv.more_to_read):
     bv_read = bv.read_bits_from_file(64)
@@ -252,12 +266,12 @@ print("\n")
 print(
     "\nExperiment with closing a file object and start extracting bit vectors from the file from the beginning again:")
 bv.close_file_object()
-bv = BitVector(filename='testinput4.txt')
+bv = BitVector(filename=testinput4)
 bv1 = bv.read_bits_from_file(64)
 print(
     "\nHere are all the first 64 bits read from the file again after the file object was closed and opened again:")
 print(bv1)
-FILEOUT = open('testinput5.txt', 'wb')
+FILEOUT = open(testinput5, 'wb')
 bv1.write_to_file(FILEOUT)
 FILEOUT.close()
 
