@@ -23,7 +23,7 @@ bv = BitVector(bitlist=(1, 0, 0, 1))
 print(bv)                                    # 1001
 
 # Construct a bit vector with a list of bits:
-print("\nConstructing a bit vector from a list of bits:")
+print("\nConstruct a bit vector from a list of bits:")
 bv = BitVector(bitlist=[1, 1, 0, 1])
 print(bv)                                    # 1101
 
@@ -43,8 +43,8 @@ print(bv)                                    # 11
 print("\nBit vector constructed from integer 123456:")
 bv = BitVector(intVal=123456)
 print(bv)                                    # 11110001001000000
-print("\nInt value of the previous bit vector as computed by intVal():")
-print(bv.intValue())                         # 123456
+print("\nInt value of the previous bit vector as computed by int_val():")
+print(bv.int_val())                         # 123456
 print("\nInt value of the previous bit vector as computed by int():")
 print(int(bv))                               # 123456
 
@@ -77,7 +77,7 @@ bv = BitVector(bitstring='')
 print("\nBit Vector constructed directly from an empty bit string:")
 print(bv)                                    # nothing
 print("\nInteger value of the previous bit vector:")
-print(bv.intValue())                         # 0
+print(bv.int_val())                         # 0
 
 print("\nConstructing a bit vector from the textstring 'hello':")
 bv3 = BitVector(textstring="hello")
@@ -92,6 +92,7 @@ mytext = bv3.get_bitvector_in_ascii()
 print("Text recovered from the previous bitvector:")
 print(mytext)                                         # hello
 # jello
+
 print("\nConstructing a bit vector from the hexstring '68656c6c6f':")
 bv4 = BitVector(hexstring="68656c6c6f")
 print(bv4)
@@ -151,7 +152,7 @@ print(bv1 != bv2)                           # False
 print(bv1 < bv2)                            # False
 print(bv1 <= bv2)                           # True
 bv3 = BitVector(intVal=5678)
-print(bv3.intValue())                       # 5678
+print(bv3.int_val())                        # 5678
 print(bv3)                                  # 1011000101110
 print(bv1 == bv3)                           # False
 print(bv3 > bv1)                            # True
@@ -284,14 +285,17 @@ print(bv3)
 
 print(
     "\nTry circular shifts to the left and to the right for the following bit vector:")
-print(bv3)   # 0100000100100000011010000111010101101110011001110111001001111001
+# 0100000100100000011010000111010101101110011001110111001001111001
+print(bv3)
 print("\nCircular shift to the left by 7 positions:")
 bv3 << 7
-print(bv3)   # 1001000000110100001110101011011100110011101110010011110010100000
+# 1001000000110100001110101011011100110011101110010011110010100000
+print(bv3)
 
 print("\nCircular shift to the right by 7 positions:")
 bv3 >> 7
-print(bv3)   # 0100000100100000011010000111010101101110011001110111001001111001
+# 0100000100100000011010000111010101101110011001110111001001111001
+print(bv3)
 
 print("Test len() on the above bit vector:")
 print(len(bv3))                      # 64
@@ -368,10 +372,10 @@ print(bv.count_bits())                # 1
 bv = BitVector(bitstring='00000000000000')
 print(bv.count_bits())                # 0
 
-print("\nTest setValue idea:")
+print("\nTest set_value idea:")
 bv = BitVector(intVal=7, size=16)
 print(bv)                             # 0000000000000111
-bv.setValue(intVal=45)
+bv.set_value(intVal=45)
 print(bv)                             # 101101
 
 print("\nTesting count_bits_sparse():")
@@ -399,19 +403,17 @@ bv = BitVector(bitstring='0000000000000001')
 print(bv.next_set_bit(5))                                    # 15
 bv = BitVector(bitstring='00000000000000001')
 print(bv.next_set_bit(5))                                    # 16
-bv = BitVector(bitstring='00000000000000000')
-print(bv.next_set_bit(5))                                    # -1
 
 print("\nTesting rank_of_bit_set_at_index():")
 bv = BitVector(bitstring='01010101011100')
 print(bv.rank_of_bit_set_at_index(10))                     # 6
 
-print("\nTesting isPowerOf2():")
+print("\nTesting is_power_of_2():")
 bv = BitVector(bitstring='10000000001110')
 print("int value: " + str(int(bv)))                          # 826
-print(bv.isPowerOf2())                                       # False
-print("\nTesting isPowerOf2_sparse():")
-print(bv.isPowerOf2_sparse())                                # False
+print(bv.is_power_of_2())                                    # False
+print("\nTesting is_power_of_2_sparse():")
+print(bv.is_power_of_2_sparse())                             # False
 
 print("\nTesting reverse():")
 bv = BitVector(bitstring='0001100000000000001')
@@ -420,9 +422,11 @@ print("reversed bv: " + str(bv.reverse()))   # 1000000000000011000
 
 print("\nTesting Greatest Common Divisor (gcd):")
 bv1 = BitVector(bitstring='01100110')
-print("first arg bv: " + str(bv1) + " of int value: " + str(int(bv1)))  # 102
+print("first arg bv: " + str(bv1) +
+      " of int value: " + str(int(bv1)))  # 102
 bv2 = BitVector(bitstring='011010')
-print("second arg bv: " + str(bv2) + " of int value: " + str(int(bv2)))  # 26
+print("second arg bv: " + str(bv2) +
+      " of int value: " + str(int(bv2)))  # 26
 bv = bv1.gcd(bv2)
 print("gcd bitvec is: " + str(bv) + " of int value: " + str(int(bv)))  # 2
 
@@ -439,41 +443,36 @@ if result is not None:
 else:
     print("No multiplicative inverse in this case")
     # 17
-
 print("\nTest multiplication in GF(2):")
-#a = BitVector( bitstring='0110001' )
-a = BitVector(bitstring='00000010')
-
-#b = BitVector( bitstring='0110' )
-b = BitVector(bitstring='000001111')
-
+a = BitVector(bitstring='0110001')
+b = BitVector(bitstring='0110')
 c = a.gf_multiply(b)
 print("Product of a=" + str(a) + " b=" + str(b) + " is " + str(c))
-# 10100110
-
-# sys.exit(0)
+# 00010100110
 
 print("\nTest division in GF(2^n):")
-mod = BitVector(bitstring='100011011')          # AES modulus
+mod = BitVector(bitstring='100011011')            # AES modulus
 n = 8
 a = BitVector(bitstring='11100010110001')
-quotient, remainder = a.gf_divide(mod, n)
-print("Dividing a=" + str(a) + " by mod=" + str(mod) +
-      " in GF(2^8) returns the quotient " + str(quotient) + " and the remainder " + str(remainder))
+quotient, remainder = a.gf_divide_by_modulus(mod, n)
+print("Dividing a=" + str(a) + " by mod=" + str(mod) + " in GF(2^8) returns the quotient "
+      + str(quotient) + " and the remainder " + str(remainder))
+# 10001111
 
 print("\nTest modular multiplication in GF(2^n):")
-modulus = BitVector(bitstring='100011011')     # AES modulus
+modulus = BitVector(bitstring='100011011')       # AES modulus
 n = 8
 a = BitVector(bitstring='0110001')
 b = BitVector(bitstring='0110')
 c = a.gf_multiply_modular(b, modulus, n)
 print("Modular product of a=" + str(a) + " b=" +
       str(b) + " in GF(2^8) is " + str(c))
+# 10100110
 
 print("\nTest multiplicative inverses in GF(2^3) with " +
       "modulus polynomial = x^3 + x + 1:")
 print("Find multiplicative inverse of a single bit array")
-modulus = BitVector(bitstring='100011011')     # AES modulus
+modulus = BitVector(bitstring='100011011')       # AES modulus
 n = 8
 a = BitVector(bitstring='00110011')
 mi = a.gf_MI(modulus, n)
@@ -502,7 +501,7 @@ print("bit_array * multi_inv: " + str(products))
 #    print("\nMultiplicative inverses in GF(2^8) with "  + \
 #                      "modulus polynomial x^8 + x^4 + x^3 + x + 1:")
 #    print("\n(This may take a few seconds)\n")
-#    mod = BitVector( bitstring = '100011011' )
+#    mod = BitVector(bitstring = '100011011')
 #    n = 8
 #    bitarrays = [BitVector(intVal=x, size=n) for x in range(1,2**8)]
 #    mi_list = [x.gf_MI(mod,n) for x in bitarrays]
@@ -562,6 +561,8 @@ print(bv)
 # UNCOMMENT THE FOLLOWING LINES TO TEST THE
 # PRIMALITY TESTING METHOD. IT SHOULD SHOW
 # THAT ALL OF THE FOLLOWING NUMBERS ARE PRIME:
+print("\nExperiments with primality testing. If a number is not prime, its primality " +
+      "test output must be zero.  Otherwise, it should a number very close to 1.0.")
 primes = [179, 233, 283, 353, 419, 467, 547, 607, 661, 739, 811, 877,
           947, 1019, 1087, 1153, 1229, 1297, 1381, 1453, 1523, 1597,
           1663, 1741, 1823, 1901, 7001, 7109, 7211, 7307, 7417, 7507,
